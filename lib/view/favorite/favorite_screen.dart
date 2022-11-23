@@ -1,15 +1,16 @@
-import 'package:edu_world/models/course_card_model.dart';
-import 'package:edu_world/view/components/app_bar.dart';
 import 'package:flutter/material.dart';
 
-class CourseScreen extends StatefulWidget {
-  const CourseScreen({super.key});
+import '../../models/course_card_model.dart';
+import '../components/app_bar.dart';
+
+class FavoriteScreen extends StatefulWidget {
+  const FavoriteScreen({super.key});
 
   @override
-  State<CourseScreen> createState() => _CourseScreenState();
+  State<FavoriteScreen> createState() => _FavoriteScreenState();
 }
 
-class _CourseScreenState extends State<CourseScreen> {
+class _FavoriteScreenState extends State<FavoriteScreen> {
   final ScrollController scrollController = ScrollController();
   double topBarOpacity = 0.0;
 
@@ -107,7 +108,7 @@ class _CourseScreenState extends State<CourseScreen> {
                                 dummyList[index].author!,
                                 style: const TextStyle(color: Colors.white),
                               ),
-                            ),
+                            )
                           ],
                         ),
                       ),
@@ -121,7 +122,7 @@ class _CourseScreenState extends State<CourseScreen> {
             },
             scrollDirection: Axis.vertical,
           ),
-          CustomAppBar(topBarOpacity: topBarOpacity, header: 'My Course')
+          CustomAppBar(topBarOpacity: topBarOpacity, header: 'Favorite Course')
         ],
       ),
     );
@@ -142,16 +143,6 @@ class _CourseScreenState extends State<CourseScreen> {
       header: 'Business Analyst untuk Membantu UMKM',
       author: 'Ahok Louis',
       images: 'https://i.ibb.co/JWZs7Fq/Rectangle-5.png',
-    ),
-    CourseCardModel(
-      header: 'Software Developer for Mobile Apps',
-      author: 'Yono Salim',
-      images: 'https://i.ibb.co/QrTPxMG/Rectangle-5-3.png',
-    ),
-    CourseCardModel(
-      header: 'Data Analyst from Zero to Hero',
-      author: 'Yono Salim',
-      images: 'https://i.ibb.co/QrTPxMG/Rectangle-5-3.png',
     ),
   ];
 }

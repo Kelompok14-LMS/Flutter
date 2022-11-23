@@ -1,5 +1,6 @@
 import 'package:edu_world/constant.dart';
 import 'package:edu_world/view/course/course_screen.dart';
+import 'package:edu_world/view/favorite/favorite_screen.dart';
 import 'package:flutter/material.dart';
 
 class MainPage extends StatefulWidget {
@@ -18,9 +19,7 @@ class _MainPageState extends State<MainPage> {
       child: Text('HOME'),
     ),
     const CourseScreen(),
-    const Center(
-      child: Text('FAVORITE'),
-    ),
+    const FavoriteScreen(),
     const Center(
       child: Text('PROFILE'),
     ),
