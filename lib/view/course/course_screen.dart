@@ -1,6 +1,7 @@
-import 'package:edu_world/models/course_card_model.dart';
 import 'package:edu_world/view/components/app_bar.dart';
+import 'package:edu_world/view_models/couse_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CourseScreen extends StatefulWidget {
   const CourseScreen({super.key});
@@ -10,44 +11,22 @@ class CourseScreen extends StatefulWidget {
 }
 
 class _CourseScreenState extends State<CourseScreen> {
-  final ScrollController scrollController = ScrollController();
-  double topBarOpacity = 0.0;
-
   @override
   void initState() {
-    scrollController.addListener(() {
-      if (scrollController.offset >= 24) {
-        if (topBarOpacity != 1.0) {
-          setState(() {
-            topBarOpacity = 1.0;
-          });
-        }
-      } else if (scrollController.offset <= 24 &&
-          scrollController.offset >= 0) {
-        if (topBarOpacity != scrollController.offset / 24) {
-          setState(() {
-            topBarOpacity = scrollController.offset / 24;
-          });
-        }
-      } else if (scrollController.offset <= 0) {
-        if (topBarOpacity != 0.0) {
-          setState(() {
-            topBarOpacity = 0.0;
-          });
-        }
-      }
-    });
+    Provider.of<CourseViewModel>(context, listen: false).scrollController;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    final courseViewModel =
+        Provider.of<CourseViewModel>(context, listen: false);
     return Scaffold(
       body: Stack(
         children: [
           ListView.builder(
-            controller: scrollController,
-            itemCount: dummyList.length,
+            controller: courseViewModel.scrollController,
+            itemCount: courseViewModel.dummyList.length,
             padding: EdgeInsets.only(
               top: AppBar().preferredSize.height +
                   MediaQuery.of(context).padding.top +
@@ -69,7 +48,7 @@ class _CourseScreenState extends State<CourseScreen> {
                           borderRadius: BorderRadius.circular(12),
                           image: DecorationImage(
                               image: NetworkImage(
-                                dummyList[index].images!,
+                                courseViewModel.dummyList[index].images!,
                               ),
                               fit: BoxFit.cover),
                         ),
@@ -86,7 +65,7 @@ class _CourseScreenState extends State<CourseScreen> {
                                   child: Padding(
                                     padding: const EdgeInsets.all(12.0),
                                     child: Text(
-                                      dummyList[index].header!,
+                                      courseViewModel.dummyList[index].header!,
                                       style: const TextStyle(
                                           fontSize: 20, color: Colors.white),
                                       maxLines: 2,
@@ -104,7 +83,7 @@ class _CourseScreenState extends State<CourseScreen> {
                             Padding(
                               padding: const EdgeInsets.all(12.0),
                               child: Text(
-                                dummyList[index].author!,
+                                courseViewModel.dummyList[index].author!,
                                 style: const TextStyle(color: Colors.white),
                               ),
                             ),
@@ -121,37 +100,10 @@ class _CourseScreenState extends State<CourseScreen> {
             },
             scrollDirection: Axis.vertical,
           ),
-          CustomAppBar(topBarOpacity: topBarOpacity, header: 'My Course')
+          CustomAppBar(
+              topBarOpacity: courseViewModel.topBarOpacity, header: 'My Course')
         ],
       ),
     );
   }
-
-  List<CourseCardModel> dummyList = [
-    CourseCardModel(
-      header: 'Mastering UIX Design for Industry',
-      author: 'Yono Salim',
-      images: 'https://i.ibb.co/ZcjM2m5/Rectangle-5-1.png',
-    ),
-    CourseCardModel(
-      header: 'Becoming Full Stack Web Developer',
-      author: 'Zeta Vestia',
-      images: 'https://i.ibb.co/rpYfcvH/Rectangle-5-2.png',
-    ),
-    CourseCardModel(
-      header: 'Business Analyst untuk Membantu UMKM',
-      author: 'Ahok Louis',
-      images: 'https://i.ibb.co/JWZs7Fq/Rectangle-5.png',
-    ),
-    CourseCardModel(
-      header: 'Software Developer for Mobile Apps',
-      author: 'Yono Salim',
-      images: 'https://i.ibb.co/QrTPxMG/Rectangle-5-3.png',
-    ),
-    CourseCardModel(
-      header: 'Data Analyst from Zero to Hero',
-      author: 'Yono Salim',
-      images: 'https://i.ibb.co/QrTPxMG/Rectangle-5-3.png',
-    ),
-  ];
 }
