@@ -1,80 +1,70 @@
-import 'package:edu_world/constant.dart';
-import 'package:edu_world/view/course/course_screen.dart';
-import 'package:edu_world/view/favorite/favorite_screen.dart';
+import 'package:edu_world/utils/constant.dart';
+import 'package:edu_world/view_models/main_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class MainPage extends StatefulWidget {
-  const MainPage({super.key});
+class MainScreen extends StatefulWidget {
+  const MainScreen({super.key});
 
   @override
-  State<MainPage> createState() => _MainPageState();
+  State<MainScreen> createState() => _MainScreenState();
 }
 
-class _MainPageState extends State<MainPage> {
-  int index = 0;
-
-  List<Widget> screens = [
-    // HomeScreen(),
-    const Center(
-      child: Text('HOME'),
-    ),
-    const CourseScreen(),
-    const FavoriteScreen(),
-    const Center(
-      child: Text('PROFILE'),
-    ),
-    // FavoriteScreen(),
-    // ProfileScreen()
-  ];
-
+class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: screens[index],
-      bottomNavigationBar: NavigationBarTheme(
-        data: NavigationBarThemeData(
-          labelTextStyle: MaterialStateProperty.all(
-            TextStyle(
-                fontSize: 14, fontWeight: FontWeight.w500, color: primary),
+    return Consumer<MainViewModel>(
+      builder: (context, mainViewModel, child) {
+        return Scaffold(
+          body: mainViewModel.screens[mainViewModel.index],
+          bottomNavigationBar: NavigationBarTheme(
+            data: NavigationBarThemeData(
+              labelTextStyle: MaterialStateProperty.all(
+                const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    color: MyColor.primary),
+              ),
+            ),
+            child: NavigationBar(
+              height: 60,
+              selectedIndex: mainViewModel.index,
+              onDestinationSelected: mainViewModel.selectedDestination,
+              // labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+              destinations: const <Widget>[
+                NavigationDestination(
+                  icon: Icon(
+                    Icons.home,
+                    color: MyColor.primary,
+                  ),
+                  label: 'Home',
+                ),
+                NavigationDestination(
+                  icon: Icon(
+                    Icons.library_books,
+                    color: MyColor.primary,
+                  ),
+                  label: 'My Course',
+                ),
+                NavigationDestination(
+                  icon: Icon(
+                    Icons.favorite,
+                    color: MyColor.primary,
+                  ),
+                  label: 'Favorite',
+                ),
+                NavigationDestination(
+                  icon: Icon(
+                    Icons.person,
+                    color: MyColor.primary,
+                  ),
+                  label: 'Profile',
+                ),
+              ],
+            ),
           ),
-        ),
-        child: NavigationBar(
-          height: 60,
-          selectedIndex: index,
-          onDestinationSelected: (value) => setState(() => index = value),
-          // labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
-          destinations: [
-            NavigationDestination(
-              icon: Icon(
-                Icons.home,
-                color: primary,
-              ),
-              label: 'Home',
-            ),
-            NavigationDestination(
-              icon: Icon(
-                Icons.library_books,
-                color: primary,
-              ),
-              label: 'My Course',
-            ),
-            NavigationDestination(
-              icon: Icon(
-                Icons.favorite,
-                color: primary,
-              ),
-              label: 'Favorite',
-            ),
-            NavigationDestination(
-              icon: Icon(
-                Icons.person,
-                color: primary,
-              ),
-              label: 'Profile',
-            ),
-          ],
-        ),
-      ),
+        );
+      },
     );
   }
 }
