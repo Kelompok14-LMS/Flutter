@@ -12,15 +12,16 @@ class CourseScreen extends StatefulWidget {
 
 class _CourseScreenState extends State<CourseScreen> {
   @override
-  void initState() {
-    Provider.of<CourseViewModel>(context, listen: false).scrollController;
-    super.initState();
+  void didChangeDependencies() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<CourseViewModel>(context, listen: false).scrollControll();
+    });
+    super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
-    final courseViewModel =
-        Provider.of<CourseViewModel>(context, listen: false);
+    final courseViewModel = Provider.of<CourseViewModel>(context);
     return Scaffold(
       body: Stack(
         children: [
@@ -48,7 +49,7 @@ class _CourseScreenState extends State<CourseScreen> {
                           borderRadius: BorderRadius.circular(12),
                           image: DecorationImage(
                               image: NetworkImage(
-                                courseViewModel.dummyList[index].images!,
+                                courseViewModel.dummyList[index].thumbnail!,
                               ),
                               fit: BoxFit.cover),
                         ),
@@ -65,7 +66,7 @@ class _CourseScreenState extends State<CourseScreen> {
                                   child: Padding(
                                     padding: const EdgeInsets.all(12.0),
                                     child: Text(
-                                      courseViewModel.dummyList[index].header!,
+                                      courseViewModel.dummyList[index].title!,
                                       style: const TextStyle(
                                           fontSize: 20, color: Colors.white),
                                       maxLines: 2,
@@ -83,7 +84,7 @@ class _CourseScreenState extends State<CourseScreen> {
                             Padding(
                               padding: const EdgeInsets.all(12.0),
                               child: Text(
-                                courseViewModel.dummyList[index].author!,
+                                courseViewModel.dummyList[index].mentor!,
                                 style: const TextStyle(color: Colors.white),
                               ),
                             ),

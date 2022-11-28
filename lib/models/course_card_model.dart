@@ -1,20 +1,26 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 class CourseCardModel {
-  String? header;
-  String? author;
-  String? images;
+  String? id;
+  String? title;
+  String? mentor;
+  String? thumbnail;
   CourseCardModel({
-    this.header,
-    this.author,
-    this.images,
+    this.title,
+    this.mentor,
+    this.thumbnail,
   });
 
   CourseCardModel.fromJson(Map<String, dynamic> json)
-      : header = json['header'],
-        author = json['author'],
-        images = json['images'];
+      : id = json['id'],
+        title = json['title'],
+        mentor = json['mentor'],
+        thumbnail = json['thumbnail'];
 
   Map<String, dynamic> toJson() {
-    return {'header': header, 'author': author, 'images': images};
+    return {
+      'id': id,
+      'title': title,
+      'mentor': mentor,
+      'thumbnail': thumbnail,
+    };
   }
 }

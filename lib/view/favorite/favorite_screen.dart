@@ -1,7 +1,7 @@
+import 'package:edu_world/view_models/favorite_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../view_models/couse_view_model.dart';
 import '../components/app_bar.dart';
 
 class FavoriteScreen extends StatefulWidget {
@@ -13,15 +13,16 @@ class FavoriteScreen extends StatefulWidget {
 
 class _FavoriteScreenState extends State<FavoriteScreen> {
   @override
-  void initState() {
-    Provider.of<CourseViewModel>(context, listen: false).scrollController;
-    super.initState();
+  void didChangeDependencies() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<FavoriteViewModel>(context, listen: false).scrollControll();
+    });
+    super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
-    final courseViewModel =
-        Provider.of<CourseViewModel>(context, listen: false);
+    final courseViewModel = Provider.of<FavoriteViewModel>(context);
     return Scaffold(
       body: Stack(
         children: [
@@ -49,7 +50,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                           borderRadius: BorderRadius.circular(12),
                           image: DecorationImage(
                               image: NetworkImage(
-                                courseViewModel.dummyList[index].images!,
+                                courseViewModel.dummyList[index].thumbnail!,
                               ),
                               fit: BoxFit.cover),
                         ),
@@ -66,7 +67,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                   child: Padding(
                                     padding: const EdgeInsets.all(12.0),
                                     child: Text(
-                                      courseViewModel.dummyList[index].header!,
+                                      courseViewModel.dummyList[index].title!,
                                       style: const TextStyle(
                                           fontSize: 20, color: Colors.white),
                                       maxLines: 2,
@@ -84,7 +85,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                             Padding(
                               padding: const EdgeInsets.all(12.0),
                               child: Text(
-                                courseViewModel.dummyList[index].author!,
+                                courseViewModel.dummyList[index].mentor!,
                                 style: const TextStyle(color: Colors.white),
                               ),
                             )
