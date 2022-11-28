@@ -1,4 +1,4 @@
-import 'package:edu_world/view/detail%20course/take_course_screen.dart';
+import 'package:edu_world/view/detail_course/take_course_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:edu_world/models/detail_course_model.dart';
 import 'package:flutter/material.dart';
