@@ -1,5 +1,6 @@
 import 'package:edu_world/models/course_card_model.dart';
 import 'package:edu_world/view/components/app_bar.dart';
+import 'package:edu_world/view/detail%20course/detail_course_screen.dart';
 import 'package:flutter/material.dart';
 
 class CourseScreen extends StatefulWidget {
@@ -64,52 +65,72 @@ class _CourseScreenState extends State<CourseScreen> {
                         side: const BorderSide(color: Colors.white70, width: 1),
                         borderRadius: BorderRadius.circular(12.0),
                       ),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          image: DecorationImage(
-                              image: NetworkImage(
-                                dummyList[index].images!,
-                              ),
-                              fit: BoxFit.cover),
-                        ),
-                        height: 166,
-                        width: 388,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(12.0),
-                                    child: Text(
-                                      dummyList[index].header!,
-                                      style: const TextStyle(
-                                          fontSize: 20, color: Colors.white),
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
+                      child: InkWell(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            image: DecorationImage(
+                                image: NetworkImage(
+                                  dummyList[index].images!,
+                                ),
+                                fit: BoxFit.cover),
+                          ),
+                          height: 166,
+                          width: 388,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(12.0),
+                                      child: Text(
+                                        dummyList[index].header!,
+                                        style: const TextStyle(
+                                            fontSize: 20, color: Colors.white),
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(Icons.more_vert),
-                                  color: Colors.white,
-                                )
-                              ],
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(12.0),
-                              child: Text(
-                                dummyList[index].author!,
-                                style: const TextStyle(color: Colors.white),
+                                  IconButton(
+                                    onPressed: () {},
+                                    icon: const Icon(Icons.more_vert),
+                                    color: Colors.white,
+                                  )
+                                ],
                               ),
-                            ),
-                          ],
+                              Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: Text(
+                                  dummyList[index].author!,
+                                  style: const TextStyle(color: Colors.white),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
+                        onTap: () {
+                          Navigator.of(context).push(PageRouteBuilder(
+                            reverseTransitionDuration: const Duration(milliseconds: 500),
+                            transitionDuration: const Duration(milliseconds: 500),
+                            pageBuilder: (context, animation, secondaryAnimation) {
+                            return const DetailCourseScreen();
+                          },
+                          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                            final tween = Tween(
+                              begin: const Offset(-1, 0),
+                              end: Offset.zero,
+                            );
+                            return SlideTransition(
+                              position: animation.drive(tween),
+                              child: child,
+                            );
+                          }),);
+                        },
                       ),
                     ),
                     const SizedBox(

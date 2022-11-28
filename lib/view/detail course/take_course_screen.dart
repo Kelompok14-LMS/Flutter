@@ -236,7 +236,7 @@ class _TakeCourseScreenState extends State<TakeCourseScreen>{
         padding: const EdgeInsets.all(10),
         child: DropdownButton(
           hint: Text(
-            'Selection 1',
+            'Selection 2',
             style: GoogleFonts.roboto(
               fontSize: 16,
               fontWeight: FontWeight.w500,
@@ -283,7 +283,7 @@ class _TakeCourseScreenState extends State<TakeCourseScreen>{
         padding: const EdgeInsets.all(10),
         child: DropdownButton(
           hint: Text(
-            'Selection 1',
+            'Selection 3',
             style: GoogleFonts.roboto(
               fontSize: 16,
               fontWeight: FontWeight.w500,
@@ -330,7 +330,7 @@ class _TakeCourseScreenState extends State<TakeCourseScreen>{
         padding: const EdgeInsets.all(10),
         child: DropdownButton(
           hint: Text(
-            'Selection 1',
+            'Selection 4',
             style: GoogleFonts.roboto(
               fontSize: 16,
               fontWeight: FontWeight.w500,
