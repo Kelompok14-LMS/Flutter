@@ -4,7 +4,6 @@ import 'package:edu_world/view_models/favorite_view_model.dart';
 import 'package:edu_world/view_models/main_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import 'view_models/couse_view_model.dart';
 import 'view_models/profile_view_model.dart';
 

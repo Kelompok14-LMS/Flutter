@@ -1,3 +1,4 @@
+import 'package:edu_world/view/home/home_view.dart';
 import 'package:flutter/material.dart';
 
 import '../view/course/course_screen.dart';
@@ -14,9 +15,7 @@ class MainViewModel with ChangeNotifier {
 
   List<Widget> screens = [
     //const HomeScreen(),
-    const Center(
-      child: Text('HOME'),
-    ),
+    const HomeScreen(),
     const CourseScreen(),
     const FavoriteScreen(),
     const ProfileScreen()
