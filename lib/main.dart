@@ -1,6 +1,7 @@
 import 'package:edu_world/utils/constant.dart';
 import 'package:edu_world/view/main_view.dart';
 import 'package:edu_world/view_models/favorite_view_model.dart';
+import 'package:edu_world/view_models/list_course_view_model.dart';
 import 'package:edu_world/view_models/main_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -29,6 +30,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => FavoriteViewModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => ListCourseViewModel(),
         ),
       ],
       child: MaterialApp(

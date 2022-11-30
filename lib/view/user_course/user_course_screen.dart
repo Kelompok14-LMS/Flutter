@@ -84,7 +84,7 @@ class _CourseScreenState extends State<CourseScreen> {
                             Padding(
                               padding: const EdgeInsets.all(12.0),
                               child: Text(
-                                courseViewModel.dummyList[index].mentor!,
+                                courseViewModel.dummyList[index].mentorId!,
                                 style: const TextStyle(color: Colors.white),
                               ),
                             ),

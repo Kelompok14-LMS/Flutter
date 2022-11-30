@@ -1,12 +1,14 @@
-import 'package:edu_world/view/list_class/list_course.dart';
-import 'package:edu_world/view/list_class/widget/course/kelas_course1_home.dart';
-import 'package:edu_world/view/list_class/widget/course/kelas_course_home.dart';
-import 'package:edu_world/view/list_class/widget/rekomendasi/design.dart';
+import 'package:edu_world/view/list_course/list_course.dart';
+import 'package:edu_world/view/list_course/widget/course/kelas_course1_home.dart';
+import 'package:edu_world/view/list_course/widget/course/kelas_course_home.dart';
+import 'package:edu_world/view/list_course/widget/rekomendasi/design.dart';
 import 'package:edu_world/view/recommendation/recommendation_view.dart';
+import 'package:edu_world/view_models/list_course_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../utils/constant.dart';
-import '../list_class/widget/course/kelas_course2_home.dart';
+import '../list_course/widget/course/kelas_course2_home.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -18,6 +20,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    final listCourseViewModel = Provider.of<ListCourseViewModel>(context);
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: SingleChildScrollView(
@@ -33,10 +36,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(100),
                     ),
-                    prefixIcon: Icon(Icons.search),
+                    prefixIcon: const Icon(Icons.search),
                     prefixIconColor: MyColor.primary,
                     hintText: 'Cari Course',
-                    hintStyle: TextStyle(
+                    hintStyle: const TextStyle(
                       color: Colors.grey,
                     ),
                   ),
@@ -52,34 +55,34 @@ class _HomeScreenState extends State<HomeScreen> {
                         style: ElevatedButton.styleFrom(
                             backgroundColor: MyColor.primary),
                         onPressed: () {},
-                        child: Text('Semua Topik'),
+                        child: const Text('Semua Topik'),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 12,
                       ),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             backgroundColor: MyColor.primary),
                         onPressed: () {},
-                        child: Text('UI/UX'),
+                        child: const Text('UI/UX'),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 12,
                       ),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             backgroundColor: MyColor.primary),
                         onPressed: () {},
-                        child: Text('Front End'),
+                        child: const Text('Front End'),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 12,
                       ),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             backgroundColor: MyColor.primary),
                         onPressed: () {},
-                        child: Text('Back End'),
+                        child: const Text('Back End'),
                       ),
                     ],
                   ),
@@ -92,15 +95,16 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     Text(
                       'Kelas Course',
-                      style:
-                          MyColor().blackTextsStyle.copyWith(fontWeight: FontWeight.bold),
+                      style: MyColor()
+                          .blackTextsStyle
+                          .copyWith(fontWeight: FontWeight.bold),
                     ),
                     TextButton(
                       onPressed: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => Course(),
+                            builder: (context) => const Course(),
                           ),
                         );
                       },
@@ -108,12 +112,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           style: GoogleFonts.roboto(
                               fontSize: 16,
                               decoration: TextDecoration.underline,
-                              color: Color(0xff0848AF))),
+                              color: const Color(0xff0848AF))),
                     ),
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 5,
               ),
               SingleChildScrollView(
@@ -122,34 +126,34 @@ class _HomeScreenState extends State<HomeScreen> {
                   padding: const EdgeInsets.all(10),
                   child: Row(
                     children: [
-                      Container(
+                      SizedBox(
                         height: 200,
                         width: 166,
                         child: Card(
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12)),
-                            child: KelasCourse()),
+                            child: const KelasCourse()),
                       ),
                       const SizedBox(
                         width: 24,
                       ),
-                      Container(
+                      SizedBox(
                           height: 200,
                           width: 166,
                           child: Card(
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(12)),
-                              child: KelasCourseAndro())),
+                              child: const KelasCourseAndro())),
                       const SizedBox(
                         width: 24,
                       ),
-                      Container(
+                      SizedBox(
                           height: 200,
                           width: 166,
                           child: Card(
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(12)),
-                              child: KelasCourseUMKM()))
+                              child: const KelasCourseUMKM()))
                     ],
                   ),
                 ),
@@ -164,15 +168,16 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     Text(
                       'Rekomendasi',
-                      style:
-                          MyColor().blackTextsStyle.copyWith(fontWeight: FontWeight.bold),
+                      style: MyColor()
+                          .blackTextsStyle
+                          .copyWith(fontWeight: FontWeight.bold),
                     ),
                     TextButton(
                       onPressed: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => Rekomendasi(),
+                            builder: (context) => const Rekomendasi(),
                           ),
                         );
                       },
@@ -181,7 +186,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         style: GoogleFonts.roboto(
                             fontSize: 16,
                             decoration: TextDecoration.underline,
-                            color: Color(0xff0848AF)),
+                            color: const Color(0xff0848AF)),
                       ),
                     ),
                   ],
@@ -190,20 +195,26 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(
                 height: 5,
               ),
-              SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Container(
-                    height: 70,
-                    width: double.infinity,
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+              Column(
+                children: List.generate(
+                    listCourseViewModel.dummyListCourse.length, (index) {
+                  return Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: SizedBox(
+                      height: 70,
+                      width: double.infinity,
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Design(
+                          courseModel:
+                              listCourseViewModel.dummyListCourse[index],
+                        ),
                       ),
-                      child: Design(),
                     ),
-                  ),
-                ),
+                  );
+                }),
               ),
             ],
           ),

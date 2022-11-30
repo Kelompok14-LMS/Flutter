@@ -1,5 +1,5 @@
 import 'package:edu_world/utils/constant.dart';
-import 'package:edu_world/view/list_class/widget/course/kelas_course_home.dart';
+import 'package:edu_world/view/list_course/widget/course/kelas_course_home.dart';
 import 'package:flutter/material.dart';
 
 class Course extends StatefulWidget {
@@ -15,15 +15,17 @@ class _CourseState extends State<Course> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text(
-          'Kelas Course',
-          style: MyColor().appTextsStyle,
-        ),
-        leading: IconButton(
-          onPressed: ()=>Navigator.pop(context), 
-        icon: Icon(Icons.arrow_back_ios, color: MyColor.primary,))
-      ),
+          backgroundColor: Colors.white,
+          title: Text(
+            'Kelas Course',
+            style: MyColor().appTextsStyle,
+          ),
+          leading: IconButton(
+              onPressed: () => Navigator.pop(context),
+              icon: const Icon(
+                Icons.arrow_back_ios,
+                color: MyColor.primary,
+              ))),
       body: SafeArea(
         child: Column(
           children: [
@@ -36,10 +38,10 @@ class _CourseState extends State<Course> {
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(100),
                   ),
-                  prefixIcon: Icon(Icons.search),
+                  prefixIcon: const Icon(Icons.search),
                   prefixIconColor: MyColor.primary,
                   hintText: 'Cari Course',
-                  hintStyle: TextStyle(
+                  hintStyle: const TextStyle(
                     color: Colors.grey,
                   ),
                 ),
@@ -55,54 +57,53 @@ class _CourseState extends State<Course> {
                       style: ElevatedButton.styleFrom(
                           backgroundColor: MyColor.primary),
                       onPressed: () {},
-                      child: Text('Semua Topik'),
+                      child: const Text('Semua Topik'),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 12,
                     ),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           backgroundColor: MyColor.primary),
                       onPressed: () {},
-                      child: Text('UI/UX'),
+                      child: const Text('UI/UX'),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 12,
                     ),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           backgroundColor: MyColor.primary),
                       onPressed: () {},
-                      child: Text('Front End'),
+                      child: const Text('Front End'),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 12,
                     ),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           backgroundColor: MyColor.primary),
                       onPressed: () {},
-                      child: Text('Back End'),
+                      child: const Text('Back End'),
                     ),
                   ],
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 26,
             ),
             Expanded(
               child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10
-              ), 
-              itemCount: 10,
-              itemBuilder: (context, index){
-                return KelasCourse();
-              }),
-            )     
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10),
+                  itemCount: 10,
+                  itemBuilder: (context, index) {
+                    return const KelasCourse();
+                  }),
+            )
           ],
         ),
       ),
