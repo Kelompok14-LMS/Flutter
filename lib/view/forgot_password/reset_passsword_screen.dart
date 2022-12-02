@@ -1,29 +1,32 @@
 import 'package:flutter/material.dart';
 
-import 'components/input_email/button_add.dart';
-import 'components/input_email/form_email.dart';
-import 'components/input_email/header_input_email.dart';
+import 'components/reset/button_reset.dart';
+import 'components/reset/form_reset_password.dart';
+import 'components/reset/header_reset.dart';
 
-class InputEmailScreen extends StatefulWidget {
-  const InputEmailScreen({super.key});
+class ResetPasswordScreen extends StatefulWidget {
+  const ResetPasswordScreen({super.key});
 
   @override
-  State<InputEmailScreen> createState() => _InputEmailScreenState();
+  State<ResetPasswordScreen> createState() => _ResetPasswordScreenState();
 }
 
-class _InputEmailScreenState extends State<InputEmailScreen> {
+class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   final formKey = GlobalKey<FormState>();
-  late final TextEditingController _emailController;
+  late final TextEditingController _passController;
+  late final TextEditingController _confirmController;
 
   @override
   void initState() {
-    _emailController = TextEditingController();
+    _passController = TextEditingController();
+    _confirmController = TextEditingController();
     super.initState();
   }
 
   @override
   void dispose() {
-    _emailController.dispose();
+    _passController.dispose();
+    _confirmController.dispose();
     super.dispose();
   }
 
@@ -48,21 +51,16 @@ class _InputEmailScreenState extends State<InputEmailScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              HeaderInputEmail(size: size),
-              const SizedBox(
-                height: 24,
-              ),
-              FormEmail(
+              HeaderResetPassword(size: size),
+              FormResetPassword(
                 formKey: formKey,
-                emailController: _emailController,
+                passController: _passController,
+                confirmController: _confirmController,
               ),
               const SizedBox(
                 height: 16,
               ),
-              ButtonAdd(
-                  size: size,
-                  formKey: formKey,
-                  emailController: _emailController),
+              ButtonReset(size: size, formKey: formKey),
             ],
           ),
         ),
