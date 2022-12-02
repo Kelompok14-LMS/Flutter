@@ -27,27 +27,27 @@ class ListCourseViewModel with ChangeNotifier {
     CourseModel(
       title: 'Mastering UIX Design for Industry',
       thumbnail: 'https://i.ibb.co/dBTKRf2/Rectangle5.png',
-      mentorId: 'Yono Salim',
+      mentorName: 'Yono Salim',
     ),
     CourseModel(
       title: 'Becoming fullstack Web Developer',
       thumbnail: 'https://i.ibb.co/wYTGr3G/Rectangle6.png',
-      mentorId: 'Zeta Vestia',
+      mentorName: 'Zeta Vestia',
     ),
     CourseModel(
       title: 'Business Analyst untuk membantu UMKM',
       thumbnail: 'https://i.ibb.co/ckwvph2/Rectangle7.png',
-      mentorId: 'Ahok Louis',
+      mentorName: 'Ahok Louis',
     ),
     CourseModel(
       title: 'Software Developer for Mobile Apps',
       thumbnail: 'https://i.ibb.co/rZStPr5/Rectangle-4.png',
-      mentorId: 'Yono Salim',
+      mentorName: 'Yono Salim',
     ),
     CourseModel(
       title: 'Mastering UIX Design for Industry',
       thumbnail: 'https://i.ibb.co/TY4Hn72/photo5.png',
-      mentorId: 'Yono Salim',
+      mentorName: 'Yono Salim',
     ),
   ];
 }

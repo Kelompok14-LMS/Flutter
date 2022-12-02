@@ -1,8 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 class CourseModel {
   String? id;
-  String? mentorId;
-  String? categoryId;
+  String? mentorName;
+  String? category;
   String? title;
   String? descriptions;
   String? thumbnail;
@@ -10,8 +10,8 @@ class CourseModel {
   String? updateAt;
   CourseModel({
     this.id,
-    this.mentorId,
-    this.categoryId,
+    this.mentorName,
+    this.category,
     this.title,
     this.descriptions,
     this.thumbnail,
@@ -21,8 +21,8 @@ class CourseModel {
 
   CourseModel.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        mentorId = json['mentor_id'],
-        categoryId = json['category_id'],
+        mentorName = json['mentor_id'],
+        category = json['category_id'],
         title = json['title'],
         descriptions = json['descriptions'],
         thumbnail = json['thumbnail'],
@@ -32,8 +32,8 @@ class CourseModel {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'mentor_id': mentorId,
-      'category_id': categoryId,
+      'mentor_id': mentorName,
+      'category_id': category,
       'title': title,
       'descriptions': descriptions,
       'thumbnail': thumbnail,

@@ -26,15 +26,22 @@ class _DesignState extends State<Design> {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image(
-              width: 70,
-              height: 70,
-              image: NetworkImage(widget.courseModel.thumbnail!),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(12.0),
+              child: Image(
+                width: 50,
+                height: double.maxFinite,
+                image: NetworkImage(
+                  widget.courseModel.thumbnail!,
+                ),
+                fit: BoxFit.cover,
+              ),
             ),
             const SizedBox(
               width: 10,
             ),
             Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
@@ -47,7 +54,7 @@ class _DesignState extends State<Design> {
                 Row(
                   children: [
                     Text(
-                      widget.courseModel.mentorId!,
+                      widget.courseModel.mentorName!,
                       style: MyColor().subjudulCourse,
                     ),
                     const SizedBox(

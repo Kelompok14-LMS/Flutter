@@ -1,5 +1,4 @@
 import 'package:edu_world/utils/constant.dart';
-import 'package:edu_world/view/list_course/widget/course/kelas_course_home.dart';
 import 'package:flutter/material.dart';
 
 class Course extends StatefulWidget {
@@ -93,17 +92,17 @@ class _CourseState extends State<Course> {
             const SizedBox(
               height: 26,
             ),
-            Expanded(
-              child: GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10),
-                  itemCount: 10,
-                  itemBuilder: (context, index) {
-                    return const KelasCourse();
-                  }),
-            )
+            // Expanded(
+            //   child: GridView.builder(
+            //       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            //           crossAxisCount: 2,
+            //           crossAxisSpacing: 10,
+            //           mainAxisSpacing: 10),
+            //       itemCount: 10,
+            //       itemBuilder: (context, index) {
+            //         return const KelasCourse();
+            //       }),
+            // )
           ],
         ),
       ),

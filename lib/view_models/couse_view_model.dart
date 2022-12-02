@@ -49,27 +49,27 @@ class CourseViewModel with ChangeNotifier {
   final List<CourseModel> dummyList = [
     CourseModel(
       title: 'Mastering UIX Design for Industry',
-      mentorId: 'Yono Salim',
+      mentorName: 'Yono Salim',
       thumbnail: 'https://i.ibb.co/ZcjM2m5/Rectangle-5-1.png',
     ),
     CourseModel(
       title: 'Becoming Full Stack Web Developer',
-      mentorId: 'Zeta Vestia',
+      mentorName: 'Zeta Vestia',
       thumbnail: 'https://i.ibb.co/rpYfcvH/Rectangle-5-2.png',
     ),
     CourseModel(
       title: 'Business Analyst untuk Membantu UMKM',
-      mentorId: 'Ahok Louis',
+      mentorName: 'Ahok Louis',
       thumbnail: 'https://i.ibb.co/JWZs7Fq/Rectangle-5.png',
     ),
     CourseModel(
       title: 'Software Developer for Mobile Apps',
-      mentorId: 'Yono Salim',
+      mentorName: 'Yono Salim',
       thumbnail: 'https://i.ibb.co/QrTPxMG/Rectangle-5-3.png',
     ),
     CourseModel(
       title: 'Data Analyst from Zero to Hero',
-      mentorId: 'Yono Salim',
+      mentorName: 'Yono Salim',
       thumbnail: 'https://i.ibb.co/QrTPxMG/Rectangle-5-3.png',
     ),
   ];
