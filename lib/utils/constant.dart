@@ -17,6 +17,7 @@ class MyColor {
 
   static const Color primary = Color(0xff112D4E);
   static const Color danger = Color(0xff961041);
+  static const Color info = Color(0xff0848AF);
 // Color secondary = const Color.fromARGB(255, 1, 145, 193);
 // Color transparent = Colors.transparent;
 // Color black = Colors.black;
