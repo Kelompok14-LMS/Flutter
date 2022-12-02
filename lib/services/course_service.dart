@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:edu_world/models/course_card_model.dart';
+import 'package:edu_world/models/course_model.dart';
 
 const token = "0eb81d85577b4362bcb0bf151210ff08";
 
@@ -28,14 +28,14 @@ class CourseDioService {
     );
   }
 
-  Future<List<CourseCardModel>> getAllCourse() async {
+  Future<List<CourseModel>> getAllCourse() async {
     try {
       final response = await _dio
           .get('/mentees/:menteesId/courses', queryParameters: {"": ""});
 
       List<dynamic> data = response.data['data'];
-      List<CourseCardModel> result =
-          data.map((e) => CourseCardModel.fromJson(e)).toList();
+      List<CourseModel> result =
+          data.map((e) => CourseModel.fromJson(e)).toList();
       return result;
     } catch (e) {
       rethrow;

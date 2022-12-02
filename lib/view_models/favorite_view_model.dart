@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../models/course_card_model.dart';
+import '../models/course_model.dart';
 
 class FavoriteViewModel with ChangeNotifier {
   final ScrollController scrollController = ScrollController();
@@ -27,20 +27,20 @@ class FavoriteViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  final List<CourseCardModel> dummyList = [
-    CourseCardModel(
+  final List<CourseModel> dummyList = [
+    CourseModel(
       title: 'Mastering UIX Design for Industry',
-      mentor: 'Yono Salim',
+      mentorName: 'Yono Salim',
       thumbnail: 'https://i.ibb.co/ZcjM2m5/Rectangle-5-1.png',
     ),
-    CourseCardModel(
+    CourseModel(
       title: 'Becoming Full Stack Web Developer',
-      mentor: 'Zeta Vestia',
+      mentorName: 'Zeta Vestia',
       thumbnail: 'https://i.ibb.co/rpYfcvH/Rectangle-5-2.png',
     ),
-    CourseCardModel(
+    CourseModel(
       title: 'Business Analyst untuk Membantu UMKM',
-      mentor: 'Ahok Louis',
+      mentorName: 'Ahok Louis',
       thumbnail: 'https://i.ibb.co/JWZs7Fq/Rectangle-5.png',
     ),
   ];

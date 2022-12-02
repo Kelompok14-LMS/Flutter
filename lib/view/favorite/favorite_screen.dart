@@ -85,7 +85,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                             Padding(
                               padding: const EdgeInsets.all(12.0),
                               child: Text(
-                                courseViewModel.dummyList[index].mentor!,
+                                courseViewModel.dummyList[index].mentorName!,
                                 style: const TextStyle(color: Colors.white),
                               ),
                             )

@@ -1,7 +1,7 @@
 import 'package:edu_world/services/course_service.dart';
 import 'package:flutter/material.dart';
 
-import '../models/course_card_model.dart';
+import '../models/course_model.dart';
 
 enum CourseState { none, loading, error }
 
@@ -10,7 +10,7 @@ class CourseViewModel with ChangeNotifier {
   final ScrollController scrollController = ScrollController();
   late double topBarOpacity = 0.0;
   CourseState courseState = CourseState.none;
-  List<CourseCardModel> courseCardModel = [];
+  List<CourseModel> courseCardModel = [];
 
   /// for CourseScreen & FavoriteScreen
   void scrollControll() {
@@ -46,30 +46,30 @@ class CourseViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  final List<CourseCardModel> dummyList = [
-    CourseCardModel(
+  final List<CourseModel> dummyList = [
+    CourseModel(
       title: 'Mastering UIX Design for Industry',
-      mentor: 'Yono Salim',
+      mentorName: 'Yono Salim',
       thumbnail: 'https://i.ibb.co/ZcjM2m5/Rectangle-5-1.png',
     ),
-    CourseCardModel(
+    CourseModel(
       title: 'Becoming Full Stack Web Developer',
-      mentor: 'Zeta Vestia',
+      mentorName: 'Zeta Vestia',
       thumbnail: 'https://i.ibb.co/rpYfcvH/Rectangle-5-2.png',
     ),
-    CourseCardModel(
+    CourseModel(
       title: 'Business Analyst untuk Membantu UMKM',
-      mentor: 'Ahok Louis',
+      mentorName: 'Ahok Louis',
       thumbnail: 'https://i.ibb.co/JWZs7Fq/Rectangle-5.png',
     ),
-    CourseCardModel(
+    CourseModel(
       title: 'Software Developer for Mobile Apps',
-      mentor: 'Yono Salim',
+      mentorName: 'Yono Salim',
       thumbnail: 'https://i.ibb.co/QrTPxMG/Rectangle-5-3.png',
     ),
-    CourseCardModel(
+    CourseModel(
       title: 'Data Analyst from Zero to Hero',
-      mentor: 'Yono Salim',
+      mentorName: 'Yono Salim',
       thumbnail: 'https://i.ibb.co/QrTPxMG/Rectangle-5-3.png',
     ),
   ];

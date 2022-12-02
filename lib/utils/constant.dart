@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MyColor {
   static const MaterialColor primarySwatch =
@@ -27,4 +28,37 @@ class MyColor {
 // Color shadow = Colors.grey.shade400;
 // Color textGrey1 = Colors.grey.shade500;
 // Color star = Colors.yellow.shade600;
+
+static const Color blackBase = Color(0xff222222);
+static const Color whiteColor = Colors.white;
+static const Color blackColor = Colors.black;
+static const Color blackLight = Color(0xff3F3F3F);
+
+// font black
+TextStyle blackTextsStyle = GoogleFonts.roboto(
+  fontSize: 22,
+  color: blackBase,
+);
+//font white
+TextStyle whiteTextStyle = GoogleFonts.roboto(
+  fontSize: 14,
+  color: whiteColor,
+);
+//font judulcourse
+TextStyle judulCourse = GoogleFonts.roboto(
+  fontSize: 12,
+  fontWeight: FontWeight.w500,
+  color: blackBase
+);
+//font subjudul
+TextStyle subjudulCourse = GoogleFonts.roboto(
+  fontSize: 12,
+  fontWeight: FontWeight.w400,
+  color: blackLight
+);
+// font appbar
+TextStyle appTextsStyle = GoogleFonts.roboto(
+  fontSize: 22,
+  color: primary,
+);
 }
