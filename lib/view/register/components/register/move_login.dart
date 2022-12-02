@@ -1,15 +1,13 @@
 import 'package:edu_world/utils/constant.dart';
 import 'package:flutter/material.dart';
 
-import '../../components/roboto_text.dart';
-import '../../register/register_screen.dart';
+import '../../../components/roboto_text.dart';
+import '../../../login/login_screen.dart';
 
-class MoveRegister extends StatelessWidget {
-  const MoveRegister({
+class MoveLogin extends StatelessWidget {
+  const MoveLogin({
     Key? key,
   }) : super(key: key);
-
-  final infoColor = MyColor.info;
 
   @override
   Widget build(BuildContext context) {
@@ -17,27 +15,27 @@ class MoveRegister extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         const RobotoText(
-          text: 'Belum punya akun?',
+          text: 'Sudah Punya Akun?',
           fontSize: 14,
           fontWeight: FontWeight.w500,
         ),
         const SizedBox(
-          width: 4,
+          width: 3,
         ),
         InkWell(
           onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const RegisterScreen(),
-              ),
-            );
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const LoginScreen(),
+                ),
+                (route) => false);
           },
-          child: RobotoText(
-            text: 'Daftar',
+          child: const RobotoText(
+            text: 'Masuk',
             fontSize: 14,
             fontWeight: FontWeight.w500,
-            color: infoColor,
+            color: MyColor.info,
           ),
         ),
       ],
