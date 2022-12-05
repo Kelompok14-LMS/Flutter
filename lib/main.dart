@@ -34,6 +34,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: MyColor.primarySwatch,
           visualDensity: VisualDensity.adaptivePlatformDensity,
+          fontFamily: 'Roboto',
         ),
         home: const MainScreen(),
       ),

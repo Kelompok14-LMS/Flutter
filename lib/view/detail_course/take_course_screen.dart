@@ -1,6 +1,8 @@
-import 'package:google_fonts/google_fonts.dart';
 import 'package:edu_world/models/detail_course_model.dart';
+import 'package:edu_world/view/detail_course/video_materi_screen.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 
 class TakeCourseScreen extends StatefulWidget {
   const TakeCourseScreen({super.key});
@@ -45,7 +47,9 @@ class _TakeCourseScreenState extends State<TakeCourseScreen>{
         elevation: topBarOpacity,
         backgroundColor: Colors.white,
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
           icon: const Icon(Icons.arrow_back_ios_new_sharp, color: Color(0xFF0C223D),),
         ),
         actions: <Widget>[
@@ -168,7 +172,7 @@ class _TakeCourseScreenState extends State<TakeCourseScreen>{
       author: 'Yono Salim'
     )
   ];
-  
+
   Widget selection1() => Container(
     width: 328,
     height: 48,
@@ -187,7 +191,7 @@ class _TakeCourseScreenState extends State<TakeCourseScreen>{
     child: DropdownButtonHideUnderline(
       child: Padding(
         padding: const EdgeInsets.all(10),
-        child: DropdownButton(
+        child: DropdownButton2(
           hint: Text(
             'Selection 1',
             style: GoogleFonts.roboto(
@@ -196,25 +200,125 @@ class _TakeCourseScreenState extends State<TakeCourseScreen>{
               color: const Color(0xff112D4E),
             ),
           ),
-          items: items.map((item) => DropdownMenuItem<String>(
-            value: item,
-            child: Text(
-              item,
-              style: const TextStyle(
-              fontWeight: FontWeight.w500,
-              fontSize: 16,
-              ),
+          items: const <DropdownMenuItem>[
+            DropdownMenuItem(
+              value: 'Video Materi',
+              child: Text('Video Materi')
             ),
-            )
-          ).toList(),
-          onChanged: (value) => setState(() {
-            dropDownValue = dropDownValue;
-            }
-          ),
+            DropdownMenuItem(
+              value: 'Slide Materi',
+              child: Text('Slide Materi')
+            ),
+            DropdownMenuItem(
+              value: 'Tugas',
+              child: Text('Tugas')
+            ),
+          ],
+          onChanged: (value) {
+            selectedValue = value;
+            setState(() {});
+          },
+          // items: items.map((item) => DropdownMenuItem<String>(
+          //   value: item,
+          //   child: Text(
+          //     item,
+          //     style: const TextStyle(
+          //     fontWeight: FontWeight.w500,
+          //     fontSize: 16,
+          //     ),
+          //   ))
+          // ).toList(),
+          // value: selectedValue,
+          // onChanged: (String? newValue) {
+          //   if (newValue != dropDownValue) {
+          //     switch (newValue) {
+          //       case 'Video Materi': 
+          //         Navigator.of(context).push(MaterialPageRoute(builder: (_) => const VideoMateriScreen()));
+          //         break;
+          //       // case 'Slide Materi': 
+          //       //   Navigator.of(context).push(MaterialPageRoute(builder: (_) => const VideoMateriScreen()));
+          //       //   break;
+          //       // case 'Tugas': 
+          //       //   Navigator.of(context).push(MaterialPageRoute(builder: (_) => const VideoMateriScreen()));
+          //       //   break;
+          //     }
+          //   }
+          //   setState(() {
+          //     dropDownValue = newValue!;
+          //   });
+          // },
+          buttonHeight: 40,
+          buttonWidth: 10,
+          itemHighlightColor: const Color(0xff112D4E),
         ),
       ),
     ),
   );
+  
+  // Widget selection1() => Container(
+  //   width: 328,
+  //   height: 48,
+  //   decoration: BoxDecoration(
+  //     boxShadow: const [
+  //       BoxShadow(
+  //         color: Color(0xFFB8C0CA),
+  //         spreadRadius: 3,
+  //         blurRadius: 8,
+  //         offset: Offset(0, 1),
+  //       ),
+  //     ],
+  //     borderRadius: BorderRadius.circular(12),
+  //     color: Colors.white
+  //   ),
+  //   child: DropdownButtonHideUnderline(
+  //     child: Padding(
+  //       padding: const EdgeInsets.all(10),
+  //       child: DropdownButton(
+  //         hint: Text(
+  //           'Selection 1',
+  //           style: GoogleFonts.roboto(
+  //             fontSize: 16,
+  //             fontWeight: FontWeight.w500,
+  //             color: const Color(0xff112D4E),
+  //           ),
+  //         ),
+  //         items: items.map((item) => DropdownMenuItem<String>(
+  //           value: item,
+  //           child: Text(
+  //             item,
+  //             style: const TextStyle(
+  //             fontWeight: FontWeight.w500,
+  //             fontSize: 16,
+  //             ),
+  //           ),
+  //           )
+  //         ).toList(),
+  //         // onChanged: (value) => setState(() {
+  //         //   dropDownValue = dropDownValue;
+  //         //   }
+  //         // ),
+  //         onChanged: (String? newValue) {
+  //           if (newValue != dropDownValue) {
+  //             switch (newValue) {
+  //               case 'Video Materi': 
+  //                 Navigator.of(context).push(MaterialPageRoute(builder: (_) => const VideoMateriScreen()));
+  //                 break;
+  //               // case 'Slide Materi': 
+  //               //   Navigator.of(context).push(MaterialPageRoute(builder: (_) => const VideoMateriScreen()));
+  //               //   break;
+  //               // case 'Tugas': 
+  //               //   Navigator.of(context).push(MaterialPageRoute(builder: (_) => const VideoMateriScreen()));
+  //               //   break;
+  //             }
+  //           }
+  //           setState(() {
+  //             dropDownValue = newValue!;
+  //           });
+  //         },
+  //       ),
+  //     ),
+  //   ),
+  // );
 
   Widget selection2() => Container(
     width: 328,
