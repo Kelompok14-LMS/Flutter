@@ -1,5 +1,4 @@
 import 'package:edu_world/view/components/app_bar.dart';
-import 'package:edu_world/view/detail_course/detail_course_screen.dart';
 import 'package:edu_world/view_models/couse_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -44,57 +43,52 @@ class _CourseScreenState extends State<CourseScreen> {
                         side: const BorderSide(color: Colors.white70, width: 1),
                         borderRadius: BorderRadius.circular(12.0),
                       ),
-                      child: InkWell(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            image: DecorationImage(
-                                image: NetworkImage(
-                                  courseViewModel.dummyList[index].images!,
-                                ),
-                                fit: BoxFit.cover),
-                          ),
-                          height: 166,
-                          width: 388,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Expanded(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(12.0),
-                                      child: Text(
-                                        courseViewModel.dummyList[index].header!,
-                                        style: const TextStyle(
-                                            fontSize: 20, color: Colors.white),
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          image: DecorationImage(
+                              image: NetworkImage(
+                                courseViewModel.dummyList[index].images!,
+                              ),
+                              fit: BoxFit.cover),
+                        ),
+                        height: 166,
+                        width: 388,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(12.0),
+                                    child: Text(
+                                      courseViewModel.dummyList[index].header!,
+                                      style: const TextStyle(
+                                          fontSize: 20, color: Colors.white),
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
                                     ),
                                   ),
-                                  IconButton(
-                                    onPressed: () {},
-                                    icon: const Icon(Icons.more_vert),
-                                    color: Colors.white,
-                                  )
-                                ],
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(12.0),
-                                child: Text(
-                                  courseViewModel.dummyList[index].author!,
-                                  style: const TextStyle(color: Colors.white),
                                 ),
+                                IconButton(
+                                  onPressed: () {},
+                                  icon: const Icon(Icons.more_vert),
+                                  color: Colors.white,
+                                )
+                              ],
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: Text(
+                                courseViewModel.dummyList[index].author!,
+                                style: const TextStyle(color: Colors.white),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => const DetailCourseScreen()));
-                        },
                       ),
                     ),
                     const SizedBox(
