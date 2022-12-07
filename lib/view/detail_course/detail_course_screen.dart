@@ -156,37 +156,6 @@ class _DetailCourseScreenState extends State<DetailCourseScreen>{
                         ),
                         child: Image.network(detailCourse[0].image!),
                       ),
-                      // leading: CircleAvatar(
-                      //   child: Image.network(
-                      //     detailCourse[0].image!,
-                      //     fit: BoxFit.fitWidth,
-                      //   ),
-                      // ),
-                      // leading: SizedBox(
-                      //   height: 10,
-                      //   width: 10,
-                      //   child: Image.network(detailCourse[0].image!),
-                      // ),
-                      // leading: ConstrainedBox(
-                      //   constraints: const BoxConstraints(
-                      //     minWidth: 35,
-                      //     minHeight: 35,
-                      //     maxHeight: 35,
-                      //     maxWidth: 35,
-                      //   ),
-                      //   child: Container(
-                      //     decoration: BoxDecoration(
-                      //       borderRadius: BorderRadius.circular(10)
-                      //     ),
-                      //     child: Image.network(
-                      //       detailCourse[0].image!, 
-                      //       fit: BoxFit.cover,
-                      //     ),
-                      //   ),
-                      // ),
-                      // leading: CircleAvatar(
-                      //   backgroundImage: Image.network(detailCourse[0].image!),
-                      // ),
                       title: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -243,7 +212,7 @@ class _DetailCourseScreenState extends State<DetailCourseScreen>{
                           dense: true,
                           // visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
                           leading: const Icon(
-                            Icons.attach_file_rounded, 
+                            Icons.play_circle_filled_outlined, 
                             size: 25,
                             color: Color(0xff112D4E),
                           ),
@@ -259,7 +228,7 @@ class _DetailCourseScreenState extends State<DetailCourseScreen>{
                         ListTile(
                           dense: true,
                           leading: const Icon(
-                            Icons.add_task, 
+                            Icons.play_circle_filled_outlined, 
                             size: 25,
                             color: Color(0xff112D4E),
                           ),
@@ -356,3 +325,5 @@ class _DetailCourseScreenState extends State<DetailCourseScreen>{
     ),
   ];
 }
+
+// jadi dummy titlenya dibagi per course kayak section berapa video satu video dua video tiga terus

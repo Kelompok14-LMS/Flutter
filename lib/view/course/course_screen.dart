@@ -1,7 +1,5 @@
 import 'package:edu_world/view/components/app_bar.dart';
 import 'package:edu_world/view/detail_course/detail_course_screen.dart';
-import 'package:edu_world/view/detail_course/slide_materi_screen.dart';
-import 'package:edu_world/view/detail_course/video_materi_screen.dart';
 import 'package:edu_world/view_models/couse_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
