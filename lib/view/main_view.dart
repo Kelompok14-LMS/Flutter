@@ -16,53 +16,93 @@ class _MainScreenState extends State<MainScreen> {
     return Consumer<MainViewModel>(
       builder: (context, mainViewModel, child) {
         return Scaffold(
+          // body: tabs[_currentIndex],
           body: mainViewModel.screens[mainViewModel.index],
-          bottomNavigationBar: NavigationBarTheme(
-            data: NavigationBarThemeData(
-              labelTextStyle: MaterialStateProperty.all(
-                const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: MyColor.primary),
+          bottomNavigationBar: BottomNavigationBar(
+            currentIndex: mainViewModel.index,
+            selectedItemColor: MyColor.primary,
+            selectedIconTheme: const IconThemeData(color: MyColor.primaryLogo),
+            type: BottomNavigationBarType.fixed,
+            onTap: (value) {
+              mainViewModel.selectedDestination(value);
+            },
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.home_rounded,
+                  size: 30,
+                ),
+                label: 'Beranda',
               ),
-            ),
-            child: NavigationBar(
-              height: 60,
-              selectedIndex: mainViewModel.index,
-              onDestinationSelected: mainViewModel.selectedDestination,
-              // labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
-              destinations: const <Widget>[
-                NavigationDestination(
-                  icon: Icon(
-                    Icons.home,
-                    color: MyColor.primary,
-                  ),
-                  label: 'Home',
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.library_books,
+                  size: 30,
                 ),
-                NavigationDestination(
-                  icon: Icon(
-                    Icons.library_books,
-                    color: MyColor.primary,
-                  ),
-                  label: 'My Course',
+                label: 'Kursusku',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.favorite,
+                  size: 30,
                 ),
-                NavigationDestination(
-                  icon: Icon(
-                    Icons.favorite,
-                    color: MyColor.primary,
-                  ),
-                  label: 'Favorite',
+                label: 'Favorit',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.person,
+                  size: 30,
                 ),
-                NavigationDestination(
-                  icon: Icon(
-                    Icons.person,
-                    color: MyColor.primary,
-                  ),
-                  label: 'Profile',
-                ),
-              ],
-            ),
+                label: 'Profil',
+              ),
+            ],
           ),
+          // bottomNavigationBar: NavigationBarTheme(
+          //   data: NavigationBarThemeData(
+          //     labelTextStyle: MaterialStateProperty.all(
+          //       const TextStyle(
+          //           fontSize: 14,
+          //           fontWeight: FontWeight.w500,
+          //           color: MyColor.primary),
+          //     ),
+          //   ),
+          //   child: NavigationBar(
+          //     height: 60,
+          //     selectedIndex: mainViewModel.index,
+          //     onDestinationSelected: mainViewModel.selectedDestination,
+          //     // labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+          //     destinations: const <Widget>[
+          //       NavigationDestination(
+          //         icon: Icon(
+          //           Icons.home,
+          //           color: MyColor.primary,
+          //         ),
+          //         label: 'Home',
+          //       ),
+          //       NavigationDestination(
+          //         icon: Icon(
+          //           Icons.library_books,
+          //           color: MyColor.primary,
+          //         ),
+          //         label: 'My Course',
+          //       ),
+          //       NavigationDestination(
+          //         icon: Icon(
+          //           Icons.favorite,
+          //           color: MyColor.primary,
+          //         ),
+          //         label: 'Favorite',
+          //       ),
+          //       NavigationDestination(
+          //         icon: Icon(
+          //           Icons.person,
+          //           color: MyColor.primary,
+          //         ),
+          //         label: 'Profile',
+          //       ),
+          //     ],
+          //   ),
+          // ),
         );
       },
     );

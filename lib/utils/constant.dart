@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MyColor {
   static const MaterialColor primarySwatch =
@@ -17,6 +18,8 @@ class MyColor {
 
   static const Color primary = Color(0xff112D4E);
   static const Color danger = Color(0xff961041);
+  static const Color info = Color(0xff0848AF);
+  static const Color primaryLogo = Color(0xFFE4B548);
 // Color secondary = const Color.fromARGB(255, 1, 145, 193);
 // Color transparent = Colors.transparent;
 // Color black = Colors.black;
@@ -26,4 +29,47 @@ class MyColor {
 // Color shadow = Colors.grey.shade400;
 // Color textGrey1 = Colors.grey.shade500;
 // Color star = Colors.yellow.shade600;
+
+  static const Color blackBase = Color(0xff222222);
+  static const Color whiteColor = Colors.white;
+  static const Color blackColor = Colors.black;
+  static const Color blackLight = Color(0xff3F3F3F);
+
+// font black
+  TextStyle blackTextsStyle = GoogleFonts.roboto(
+    fontSize: 22,
+    color: blackBase,
+  );
+  TextStyle primaryTextStyle = GoogleFonts.roboto(
+    fontSize: 22,
+    color: primary,
+  );
+//font white
+  TextStyle whiteTextStyle = GoogleFonts.roboto(
+    fontSize: 14,
+    color: whiteColor,
+  );
+//font onBoarding
+  TextStyle fontOnBoarding = GoogleFonts.roboto(
+      fontSize: 32, fontWeight: FontWeight.w700, color: primary);
+//font onBoardingDiff
+  TextStyle fontOnBoardingDiff = GoogleFonts.roboto(
+      fontSize: 32, fontWeight: FontWeight.w700, color: primaryLogo);
+//font judulcourse
+  TextStyle judulCourse = GoogleFonts.roboto(
+      fontSize: 14, fontWeight: FontWeight.w500, color: primary);
+//font subjudul
+  TextStyle subjudulCourse = GoogleFonts.roboto(
+      fontSize: 12, fontWeight: FontWeight.w400, color: primary);
+//font loginField
+  TextStyle loginField = GoogleFonts.roboto(
+      fontSize: 20, fontWeight: FontWeight.w700, color: primary);
+// font hintTextField
+  TextStyle hintTextField =
+      GoogleFonts.roboto(fontSize: 16, fontWeight: FontWeight.w400);
+// font appbar
+  TextStyle appTextsStyle = GoogleFonts.roboto(
+    fontSize: 22,
+    color: primary,
+  );
 }

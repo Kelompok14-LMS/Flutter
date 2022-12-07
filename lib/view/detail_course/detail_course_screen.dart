@@ -3,23 +3,31 @@ import 'package:edu_world/view/detail_course/take_course_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:edu_world/models/detail_course_model.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import 'package:edu_world/models/course_model.dart';
+import 'package:edu_world/view/detail_course/take_course_screen.dart';
 
 class DetailCourseScreen extends StatefulWidget {
-  const DetailCourseScreen({super.key});
+  const DetailCourseScreen({
+    Key? key,
+    required this.courseModel,
+  }) : super(key: key);
+  final CourseModel courseModel;
 
   @override
   State<DetailCourseScreen> createState() => _DetailCourseScreenState();
 }
 
-class _DetailCourseScreenState extends State<DetailCourseScreen>{
+class _DetailCourseScreenState extends State<DetailCourseScreen> {
   double topBarOpacity = 0.0;
   bool _isFavorited = false;
   int _favoriteCount = 0;
   
 
-  void _toggleFavorite(){
+  void _toggleFavorite() {
     setState(() {
-      if (_isFavorited){
+      if (_isFavorited) {
         _favoriteCount -= 1;
         _isFavorited = false;
       } else {
@@ -32,14 +40,19 @@ class _DetailCourseScreenState extends State<DetailCourseScreen>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        elevation: topBarOpacity,
         backgroundColor: Colors.white,
-        leading: IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.arrow_back_ios_new_sharp, color: Color(0xFF0C223D),),
-        ),
+        appBar: AppBar(
+          elevation: topBarOpacity,
+          backgroundColor: Colors.white,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios_new_sharp,
+              color: Color(0xFF0C223D),
+            ),
+          ),
         actions: <Widget>[
           IconButton(
             splashColor: Colors.transparent,
@@ -118,10 +131,9 @@ class _DetailCourseScreenState extends State<DetailCourseScreen>{
                   Text(
                     detailCourse[0].author!,
                     style: GoogleFonts.roboto(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        color: const Color(0xff112D4E),
-                        height: 2,
+                      fontSize: 22,
+                      fontWeight: FontWeight.w500,
+                      color: const Color(0xff112D4E),
                     ),
                   ),
                 ],
@@ -325,5 +337,3 @@ class _DetailCourseScreenState extends State<DetailCourseScreen>{
     ),
   ];
 }
-
-// jadi dummy titlenya dibagi per course kayak section berapa video satu video dua video tiga terus
