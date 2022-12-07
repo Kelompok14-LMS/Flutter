@@ -1,56 +1,51 @@
-
 import 'package:edu_world/utils/constant.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../view_models/auth_view_model.dart';
-
 
 class FormRegister extends StatelessWidget {
   const FormRegister({
     Key? key,
     required TextEditingController fullNameController,
     required TextEditingController emailController,
-    required TextEditingController numberPhoneController,
     required TextEditingController passwordController,
   })  : _fullNameController = fullNameController,
         _emailController = emailController,
-        _numberPhoneController = numberPhoneController,
         _passwordController = passwordController,
         super(key: key);
 
   final TextEditingController _fullNameController;
   final TextEditingController _emailController;
-  final TextEditingController _numberPhoneController;
   final TextEditingController _passwordController;
   final primaryColor = MyColor.primary;
 
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 4),
+          child: Text(
+            'Nama Lengkap',
+            style: MyColor().loginField,
+          ),
+        ),
+        const SizedBox(
+          height: 8,
+        ),
         TextFormField(
           controller: _fullNameController,
           decoration: InputDecoration(
-            hintStyle: GoogleFonts.roboto(
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-                color: primaryColor),
-            hintText: 'Masukkan nama kamu',
-            prefixIcon: Padding(
-              padding: const EdgeInsets.only(left: 4.0, right: 4.0),
-              child: Icon(
-                Icons.person,
-                size: 20,
-                color: primaryColor,
-              ),
-            ),
+            hintStyle: MyColor().hintTextField,
+            hintText: 'Masukkan Nama Lengkap',
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(4),
+              borderRadius: BorderRadius.circular(8),
             ),
+            isDense: true,
+            contentPadding: const EdgeInsets.all(15),
           ),
           validator: (value) {
             if (value!.isEmpty) {
@@ -63,27 +58,28 @@ class FormRegister extends StatelessWidget {
           },
         ),
         const SizedBox(
+          height: 20,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 4),
+          child: Text(
+            'Email',
+            style: MyColor().loginField,
+          ),
+        ),
+        const SizedBox(
           height: 8,
         ),
         TextFormField(
           controller: _emailController,
           decoration: InputDecoration(
-            hintText: 'Masukkan email',
-            hintStyle: GoogleFonts.roboto(
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-                color: primaryColor),
-            prefixIcon: Padding(
-              padding: const EdgeInsets.only(left: 4.0, right: 4.0),
-              child: Icon(
-                Icons.alternate_email,
-                size: 20,
-                color: primaryColor,
-              ),
-            ),
+            hintText: 'Masukkan Email',
+            hintStyle: MyColor().hintTextField,
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(4),
+              borderRadius: BorderRadius.circular(8),
             ),
+            isDense: true,
+            contentPadding: const EdgeInsets.all(15),
           ),
           validator: (email) {
             if (email == '') {
@@ -97,38 +93,14 @@ class FormRegister extends StatelessWidget {
           },
         ),
         const SizedBox(
-          height: 8,
+          height: 20,
         ),
-        TextFormField(
-          keyboardType: TextInputType.number,
-          controller: _numberPhoneController,
-          decoration: InputDecoration(
-            hintText: 'Masukkan nomor telepon',
-            hintStyle: GoogleFonts.roboto(
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-                color: primaryColor),
-            prefixIcon: Padding(
-              padding: const EdgeInsets.only(left: 4.0, right: 4.0),
-              child: Icon(
-                Icons.phone,
-                size: 20,
-                color: primaryColor,
-              ),
-            ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(4),
-            ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 4),
+          child: Text(
+            'Password',
+            style: MyColor().loginField,
           ),
-          inputFormatters: [
-            FilteringTextInputFormatter.digitsOnly,
-          ],
-          validator: (value) {
-            if (value!.isEmpty) {
-              return 'Tidak boleh kosong';
-            }
-            return null;
-          },
         ),
         const SizedBox(
           height: 8,
@@ -143,27 +115,16 @@ class FormRegister extends StatelessWidget {
                   value.toggleObs();
                 },
                 icon: value.isTrue
-                    ? Icon(Icons.visibility_off,
-                        color: primaryColor)
-                    : Icon(Icons.visibility,
-                        color: primaryColor),
+                    ? Icon(Icons.visibility_off, color: primaryColor)
+                    : Icon(Icons.visibility, color: primaryColor),
               ),
-              hintText: 'Masukkan kata sandi',
-              hintStyle: GoogleFonts.roboto(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: primaryColor),
-              prefixIcon: Padding(
-                padding: const EdgeInsets.only(left: 4.0, right: 4.0),
-                child: Icon(
-                  Icons.lock_outline,
-                  size: 20,
-                  color: primaryColor,
-                ),
-              ),
+              hintText: 'Masukkan Password',
+              hintStyle: MyColor().hintTextField,
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(4),
+                borderRadius: BorderRadius.circular(8),
               ),
+              isDense: true,
+              contentPadding: const EdgeInsets.all(15),
             ),
             validator: (value) {
               if (value!.isEmpty) {
@@ -174,6 +135,33 @@ class FormRegister extends StatelessWidget {
               }
               return null;
             },
+          ),
+        ),
+        const SizedBox(
+          height: 12,
+        ),
+        Text(
+          'Password harus menggunakan huruf besar dan',
+          style: MyColor().subjudulCourse,
+        ),
+        const SizedBox(
+          height: 8,
+        ),
+        Text(
+          'minimal 6 karakter',
+          style: MyColor().subjudulCourse,
+        ),
+        const SizedBox(
+          height: 8,
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 4),
+          child: Text(
+            'Konfirmasi Password',
+            style: MyColor().loginField,
           ),
         ),
         const SizedBox(
@@ -188,27 +176,16 @@ class FormRegister extends StatelessWidget {
                   value.toggleObs2();
                 },
                 icon: value.isTrue1
-                    ? Icon(Icons.visibility_off,
-                        color: primaryColor)
-                    : Icon(Icons.visibility,
-                        color: primaryColor),
+                    ? Icon(Icons.visibility_off, color: primaryColor)
+                    : Icon(Icons.visibility, color: primaryColor),
               ),
-              hintText: 'Konfirmasi kata sandi',
-              hintStyle: GoogleFonts.roboto(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: primaryColor),
-              prefixIcon: Padding(
-                padding: const EdgeInsets.only(left: 4.0, right: 4.0),
-                child: Icon(
-                  Icons.lock_outline,
-                  size: 20,
-                  color: primaryColor,
-                ),
-              ),
+              hintText: 'Konfirmasi Password',
+              hintStyle: MyColor().hintTextField,
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(4),
+                borderRadius: BorderRadius.circular(8),
               ),
+              isDense: true,
+              contentPadding: const EdgeInsets.all(15),
             ),
             validator: (value) {
               if (value == '') {

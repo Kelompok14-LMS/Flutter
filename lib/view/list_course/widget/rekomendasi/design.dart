@@ -19,66 +19,75 @@ class Design extends StatefulWidget {
 class _DesignState extends State<Design> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.all(10),
-        //1
-        child: Row(
+    Size size = MediaQuery.of(context).size;
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Image(
+          width: 100,
+          height: 80,
+          image: NetworkImage(
+            widget.courseModel.thumbnail!,
+          ),
+          fit: BoxFit.fill,
+        ),
+        const SizedBox(
+          width: 8,
+        ),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(12.0),
-              child: Image(
-                width: 50,
-                height: double.maxFinite,
-                image: NetworkImage(
-                  widget.courseModel.thumbnail!,
-                ),
-                fit: BoxFit.cover,
+            SizedBox(
+              height: 20,
+              width: size.width / 1.8,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      widget.courseModel.title!,
+                      style: MyColor().judulCourse,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 8,
+                  ),
+                ],
               ),
             ),
             const SizedBox(
-              width: 10,
+              height: 7,
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
+            Row(
               children: [
                 Text(
-                  widget.courseModel.title!,
-                  style: MyColor().judulCourse,
+                  widget.courseModel.mentorName!,
+                  style: MyColor().subjudulCourse,
                 ),
                 const SizedBox(
-                  height: 7,
+                  width: 12,
                 ),
-                Row(
-                  children: [
-                    Text(
-                      widget.courseModel.mentorName!,
-                      style: MyColor().subjudulCourse,
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    const Icon(
-                      Icons.favorite,
-                      size: 10,
+                const Icon(
+                  Icons.favorite,
+                  size: 16,
+                  color: MyColor.primaryLogo,
+                ),
+                const SizedBox(
+                  width: 4,
+                ),
+                Text(
+                  '(100)',
+                  style: GoogleFonts.roboto(
+                      fontSize: 12,
                       color: MyColor.primary,
-                    ),
-                    Text(
-                      '(100)',
-                      style: GoogleFonts.roboto(
-                          fontSize: 12,
-                          color: MyColor.primary,
-                          fontWeight: FontWeight.w400),
-                    ),
-                  ],
+                      fontWeight: FontWeight.w400),
                 ),
               ],
             ),
           ],
         ),
-      ),
+      ],
     );
   }
 }

@@ -3,7 +3,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/on_boarding.dart';
 
-
 class OnBoardingViewModel extends ChangeNotifier {
   int? _saveIsViewed;
   int? get saveIsViewed => _saveIsViewed;
@@ -11,20 +10,22 @@ class OnBoardingViewModel extends ChangeNotifier {
   final List<OnBoarding> _pageOnBoarding = [
     OnBoarding(
       image: 'assets/onboarding/pict_1.svg',
-      desc: '''Mulai belajar dimana saja
-      dengan Eduworld ''',
+      desc: '''Hello! 
+Ayo Mulai Belajar Bersama ''',
+      diffDesc: 'EduWorld',
     ),
     OnBoarding(
       image: 'assets/onboarding/pict_2.svg',
-      desc: '''Temukan berbagai macam 
-  course untuk menambah 
-              skill anda''',
+      desc: '''Ribuan Mentor Siap
+Membantumu
+Meraih ''',
+      diffDesc: 'Cita-cita',
     ),
     OnBoarding(
       image: 'assets/onboarding/pict_3.svg',
-      desc: '''Kurikulum dirancang oleh pakar
-      dibidangnya dan dapatkan 
-      askes course secara gratis''',
+      desc: '''Akses Semua Kelas
+secara ''',
+      diffDesc: 'Gratis',
     ),
   ];
 

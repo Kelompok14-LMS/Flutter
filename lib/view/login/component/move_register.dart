@@ -18,8 +18,9 @@ class MoveRegister extends StatelessWidget {
       children: [
         const RobotoText(
           text: 'Belum punya akun?',
-          fontSize: 14,
-          fontWeight: FontWeight.w500,
+          fontSize: 16,
+          fontWeight: FontWeight.w400,
+          color: MyColor.primary,
         ),
         const SizedBox(
           width: 4,
@@ -33,11 +34,11 @@ class MoveRegister extends StatelessWidget {
               ),
             );
           },
-          child: RobotoText(
+          child: const RobotoText(
             text: 'Daftar',
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-            color: infoColor,
+            fontSize: 16,
+            fontWeight: FontWeight.w700,
+            color: MyColor.primaryLogo,
           ),
         ),
       ],

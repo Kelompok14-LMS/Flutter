@@ -44,11 +44,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             itemBuilder: (context, index) {
               final image = viewMdoelOnboarding.pageOnBoarding[index].image;
               final desc = viewMdoelOnboarding.pageOnBoarding[index].desc;
-              return SliderPage(image: image, desc: desc);
+              final diffDesc =
+                  viewMdoelOnboarding.pageOnBoarding[index].diffDesc;
+              return SliderPage(
+                image: image,
+                desc: desc,
+                diffDesc: diffDesc,
+              );
             },
           ),
           Positioned(
-            bottom: 8,
+            bottom: 50,
             left: 0,
             right: 0,
             child: Column(
@@ -59,10 +65,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       viewMdoelOnboarding.pageOnBoarding.length, (index) {
                     return AnimatedContainer(
                       duration: const Duration(milliseconds: 300),
-                      height: (index == _currentPage) ? 30 : 20,
-                      width: (index == _currentPage) ? 30 : 20,
+                      height: (index == _currentPage) ? 10 : 8,
+                      width: (index == _currentPage) ? 10 : 8,
                       margin: const EdgeInsets.symmetric(
-                          horizontal: 6, vertical: 6),
+                          horizontal: 2, vertical: 6),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(25),
                         color: (index == _currentPage)
@@ -73,7 +79,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   }),
                 ),
                 Container(
-                  margin: const EdgeInsets.only(left: 16, right: 16, top: 120),
+                  margin: const EdgeInsets.only(left: 16, right: 16, top: 22),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -91,7 +97,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                 },
                                 child: const RobotoText(
                                   text: 'Kembali',
-                                  fontSize: 18,
+                                  fontSize: 22,
                                   textAlign: TextAlign.center,
                                   fontWeight: FontWeight.w400,
                                 ),
@@ -118,8 +124,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                   }
                                 },
                                 child: const RobotoText(
-                                  text: 'Selanjutnya',
-                                  fontSize: 18,
+                                  text: 'Ayo Mulai!',
+                                  fontSize: 22,
                                   textAlign: TextAlign.center,
                                   fontWeight: FontWeight.w400,
                                 ),
@@ -132,8 +138,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                   );
                                 },
                                 child: const RobotoText(
-                                  text: 'Next',
-                                  fontSize: 18,
+                                  text: 'Selanjutnya',
+                                  fontSize: 22,
                                   textAlign: TextAlign.center,
                                   fontWeight: FontWeight.w400,
                                 ),

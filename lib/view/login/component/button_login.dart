@@ -1,12 +1,10 @@
-
+import 'package:edu_world/utils/constant.dart';
 import 'package:edu_world/view/main_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../models/users.dart';
 import '../../../view_models/auth_view_model.dart';
-import '../../components/roboto_text.dart';
-
 
 class ButtonLogin extends StatefulWidget {
   const ButtonLogin({
@@ -32,10 +30,12 @@ class _ButtonLoginState extends State<ButtonLogin> {
   @override
   Widget build(BuildContext context) {
     return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      clipBehavior: Clip.antiAliasWithSaveLayer,
       elevation: 6,
       child: SizedBox(
-        height: widget.size.height * 0.06,
-        width: widget.size.width * 0.93,
+        height: 40,
+        width: 300,
         child: Consumer<AuthViewModel>(
           builder: (context, value, child) {
             return ElevatedButton(
@@ -71,10 +71,12 @@ class _ButtonLoginState extends State<ButtonLogin> {
                   }
                 }
               },
-              child: const RobotoText(
-                text: 'Masuk',
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: MyColor.primaryLogo,
+              ),
+              child: Text(
+                'Masuk',
+                style: MyColor().loginField,
               ),
             );
           },

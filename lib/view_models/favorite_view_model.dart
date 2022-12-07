@@ -5,6 +5,7 @@ import '../models/course_model.dart';
 class FavoriteViewModel with ChangeNotifier {
   final ScrollController scrollController = ScrollController();
   late double topBarOpacity = 0.0;
+  bool isFavorite = true;
 
   /// for CourseScreen & FavoriteScreen
   void scrollControll() {
@@ -27,7 +28,7 @@ class FavoriteViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  final List<CourseModel> dummyList = [
+  final List<CourseModel> favoriteList = [
     CourseModel(
       title: 'Mastering UIX Design for Industry',
       mentorName: 'Yono Salim',
@@ -44,4 +45,12 @@ class FavoriteViewModel with ChangeNotifier {
       thumbnail: 'https://i.ibb.co/JWZs7Fq/Rectangle-5.png',
     ),
   ];
+
+  void setUnFavorite() {
+    isFavorite = !isFavorite;
+  }
+
+  void removeFavorite(int index) {
+    favoriteList.removeAt(index);
+  }
 }

@@ -28,7 +28,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
         children: [
           ListView.builder(
             controller: courseViewModel.scrollController,
-            itemCount: courseViewModel.dummyList.length,
+            itemCount: courseViewModel.favoriteList.length,
             padding: EdgeInsets.only(
               top: AppBar().preferredSize.height +
                   MediaQuery.of(context).padding.top +
@@ -50,7 +50,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                           borderRadius: BorderRadius.circular(12),
                           image: DecorationImage(
                               image: NetworkImage(
-                                courseViewModel.dummyList[index].thumbnail!,
+                                courseViewModel.favoriteList[index].thumbnail!,
                               ),
                               fit: BoxFit.cover),
                         ),
@@ -67,7 +67,8 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                   child: Padding(
                                     padding: const EdgeInsets.all(12.0),
                                     child: Text(
-                                      courseViewModel.dummyList[index].title!,
+                                      courseViewModel
+                                          .favoriteList[index].title!,
                                       style: const TextStyle(
                                           fontSize: 20, color: Colors.white),
                                       maxLines: 2,
@@ -76,8 +77,19 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                   ),
                                 ),
                                 IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(Icons.more_vert),
+                                  onPressed: () {
+                                    Provider.of<FavoriteViewModel>(context,
+                                            listen: false)
+                                        .setUnFavorite();
+                                    Provider.of<FavoriteViewModel>(context,
+                                            listen: false)
+                                        .removeFavorite(index);
+                                  },
+                                  icon: courseViewModel.isFavorite
+                                      ? const Icon(Icons.favorite,
+                                          color: Color(0xff112D4E))
+                                      : const Icon(Icons.favorite,
+                                          color: Colors.white),
                                   color: Colors.white,
                                 )
                               ],
@@ -85,7 +97,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                             Padding(
                               padding: const EdgeInsets.all(12.0),
                               child: Text(
-                                courseViewModel.dummyList[index].mentorName!,
+                                courseViewModel.favoriteList[index].mentorName!,
                                 style: const TextStyle(color: Colors.white),
                               ),
                             )

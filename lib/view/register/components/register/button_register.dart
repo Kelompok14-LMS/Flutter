@@ -1,3 +1,4 @@
+import 'package:edu_world/utils/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -6,7 +7,6 @@ import '../../../../models/users.dart';
 import '../../../../view_models/auth_view_model.dart';
 import '../../../components/roboto_text.dart';
 import '../../otp_registrasi_screen.dart';
-
 
 class ButtonRegister extends StatefulWidget {
   const ButtonRegister({
@@ -18,11 +18,9 @@ class ButtonRegister extends StatefulWidget {
     required TextEditingController emailController,
     required TextEditingController passwordController,
     required TextEditingController fullNameController,
-    required TextEditingController numberPhoneController,
   })  : _emailController = emailController,
         _passwordController = passwordController,
         _fullNameController = fullNameController,
-        _numberPhoneController = numberPhoneController,
         super(key: key);
 
   final Size size;
@@ -32,7 +30,6 @@ class ButtonRegister extends StatefulWidget {
   final TextEditingController _emailController;
   final TextEditingController _passwordController;
   final TextEditingController _fullNameController;
-  final TextEditingController _numberPhoneController;
 
   @override
   State<ButtonRegister> createState() => _ButtonRegisterState();
@@ -43,10 +40,13 @@ class _ButtonRegisterState extends State<ButtonRegister> {
   Widget build(BuildContext context) {
     return SizedBox(
       width: widget.size.width,
-      height: widget.size.height * 0.07,
+      height: 56,
       child: Consumer<AuthViewModel>(
         builder: (context, value, child) {
           return Card(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            clipBehavior: Clip.antiAliasWithSaveLayer,
             elevation: 6,
             child: ElevatedButton(
               onPressed: () async {
@@ -69,7 +69,6 @@ class _ButtonRegisterState extends State<ButtonRegister> {
                       ),
                       Mentees(
                         fullName: widget._fullNameController.text,
-                        phone: widget._numberPhoneController.text,
                       ));
 
                   if (result == 'Berhasil mendaftar') {
@@ -78,7 +77,6 @@ class _ButtonRegisterState extends State<ButtonRegister> {
                         MaterialPageRoute(
                           builder: (context) => OtpRegistrasiScreen(
                               fullName: widget._fullNameController.text,
-                              phone: widget._numberPhoneController.text,
                               email: widget._emailController.text,
                               password: widget._passwordController.text),
                         ),
@@ -100,10 +98,14 @@ class _ButtonRegisterState extends State<ButtonRegister> {
                   }
                 }
               },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: MyColor.primaryLogo,
+              ),
               child: const RobotoText(
                 text: 'Daftar',
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
+                fontSize: 20,
+                fontWeight: FontWeight.w700,
+                color: MyColor.primary,
               ),
             ),
           );

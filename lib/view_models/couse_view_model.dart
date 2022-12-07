@@ -46,30 +46,40 @@ class CourseViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  final List<CourseModel> dummyList = [
+  final List<CourseModel> myCourseList = [
     CourseModel(
       title: 'Mastering UIX Design for Industry',
       mentorName: 'Yono Salim',
+      descriptions:
+          "Kebutuhan UI/UX Designer terus meningkat hingga 20% dari tahun ke tahun. Sedangkan talenta yang ada belum dapat memenuhinya. UI/UX Designer juga salah satu karir yang akan terus dibutuhkan bahkan hingga 2028, disebut-sebut sebagai salah satu karir paling ‘hot’ di dunia teknologi saat ini.",
       thumbnail: 'https://i.ibb.co/ZcjM2m5/Rectangle-5-1.png',
     ),
     CourseModel(
       title: 'Becoming Full Stack Web Developer',
       mentorName: 'Zeta Vestia',
+      descriptions:
+          "Kebutuhan UI/UX Designer terus meningkat hingga 20% dari tahun ke tahun. Sedangkan talenta yang ada belum dapat memenuhinya. UI/UX Designer juga salah satu karir yang akan terus dibutuhkan bahkan hingga 2028, disebut-sebut sebagai salah satu karir paling ‘hot’ di dunia teknologi saat ini.",
       thumbnail: 'https://i.ibb.co/rpYfcvH/Rectangle-5-2.png',
     ),
     CourseModel(
       title: 'Business Analyst untuk Membantu UMKM',
       mentorName: 'Ahok Louis',
+      descriptions:
+          "Kebutuhan UI/UX Designer terus meningkat hingga 20% dari tahun ke tahun. Sedangkan talenta yang ada belum dapat memenuhinya. UI/UX Designer juga salah satu karir yang akan terus dibutuhkan bahkan hingga 2028, disebut-sebut sebagai salah satu karir paling ‘hot’ di dunia teknologi saat ini.",
       thumbnail: 'https://i.ibb.co/JWZs7Fq/Rectangle-5.png',
     ),
     CourseModel(
       title: 'Software Developer for Mobile Apps',
       mentorName: 'Yono Salim',
+      descriptions:
+          "Kebutuhan UI/UX Designer terus meningkat hingga 20% dari tahun ke tahun. Sedangkan talenta yang ada belum dapat memenuhinya. UI/UX Designer juga salah satu karir yang akan terus dibutuhkan bahkan hingga 2028, disebut-sebut sebagai salah satu karir paling ‘hot’ di dunia teknologi saat ini.",
       thumbnail: 'https://i.ibb.co/QrTPxMG/Rectangle-5-3.png',
     ),
     CourseModel(
       title: 'Data Analyst from Zero to Hero',
       mentorName: 'Yono Salim',
+      descriptions:
+          "Kebutuhan UI/UX Designer terus meningkat hingga 20% dari tahun ke tahun. Sedangkan talenta yang ada belum dapat memenuhinya. UI/UX Designer juga salah satu karir yang akan terus dibutuhkan bahkan hingga 2028, disebut-sebut sebagai salah satu karir paling ‘hot’ di dunia teknologi saat ini.",
       thumbnail: 'https://i.ibb.co/QrTPxMG/Rectangle-5-3.png',
     ),
   ];

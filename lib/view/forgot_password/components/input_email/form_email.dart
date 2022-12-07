@@ -25,40 +25,30 @@ class _FormEmailState extends State<FormEmail> {
     return Form(
       autovalidateMode: AutovalidateMode.onUserInteraction,
       key: widget.formKey,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-        child: TextFormField(
-          controller: widget._emailController,
-          decoration: InputDecoration(
-            prefixIcon: const Padding(
-              padding: EdgeInsets.only(left: 8.0, right: 8.0),
-              child: Icon(
-                Icons.alternate_email,
-                size: 20,
-                color: primaryColor,
-              ),
-            ),
-            hintText: 'Email',
-            hintStyle: GoogleFonts.roboto(
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-              color: primaryColor,
-            ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(4),
-            ),
+      child: TextFormField(
+        controller: widget._emailController,
+        decoration: InputDecoration(
+          hintText: 'Masukkan Email',
+          hintStyle: GoogleFonts.roboto(
+            fontSize: 16,
+            fontWeight: FontWeight.w400,
           ),
-          validator: (email) {
-            if (email == '') {
-              return 'Email tidak boleh kosong';
-            }
-            if (email != null && !EmailValidator.validate(email)) {
-              return 'Masukkan email dengan benar';
-            } else {
-              return null;
-            }
-          },
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+          isDense: true,
+          contentPadding: const EdgeInsets.all(15),
         ),
+        validator: (email) {
+          if (email == '') {
+            return 'Email tidak boleh kosong';
+          }
+          if (email != null && !EmailValidator.validate(email)) {
+            return 'Masukkan email dengan benar';
+          } else {
+            return null;
+          }
+        },
       ),
     );
   }

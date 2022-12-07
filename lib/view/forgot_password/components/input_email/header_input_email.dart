@@ -1,8 +1,7 @@
+import 'package:edu_world/utils/constant.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 import '../../../components/roboto_text.dart';
-
 
 class HeaderInputEmail extends StatelessWidget {
   const HeaderInputEmail({
@@ -15,28 +14,31 @@ class HeaderInputEmail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: [
-        SvgPicture.asset(
-          'assets/forgot/forgot_1.svg',
-          width: size.width * 0.7,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: const [
+        RobotoText(
+          text: 'Lupa Password?',
+          fontSize: 32,
+          fontWeight: FontWeight.w700,
+          color: MyColor.primary,
         ),
-        const SizedBox(
-          height: 10,
+        SizedBox(
+          height: 20,
         ),
-        const RobotoText(
-          text: 'Lupa Kata Sandi',
-          fontSize: 22,
+        RobotoText(
+          text: 'Jangan khawatir',
+          fontSize: 16,
+          fontWeight: FontWeight.w700,
+          color: MyColor.primary,
+          lineHeight: 1.5,
+        ),
+        RobotoText(
+          text: '''Masukkan email yang tertaut untuk 
+mengakses akunmu kembali''',
+          fontSize: 16,
           fontWeight: FontWeight.w400,
-        ),
-        const SizedBox(
-          height: 12,
-        ),
-        const RobotoText(
-          text: '''Jangan khawatir! masukkan email
-yang tertaut untuk mengakses akunmu kembali''',
-          fontSize: 14,
-          fontWeight: FontWeight.w400,
-          textAlign: TextAlign.center,
+          lineHeight: 1.5,
+          color: MyColor.primary,
         ),
       ],
     );

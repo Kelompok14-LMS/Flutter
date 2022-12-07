@@ -29,7 +29,7 @@ class FormOtp extends StatelessWidget {
       autovalidateMode: AutovalidateMode.onUserInteraction,
       key: formKey,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           SizedBox(
             width: size.width * 0.15,

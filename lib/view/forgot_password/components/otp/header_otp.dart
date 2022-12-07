@@ -1,8 +1,7 @@
+import 'package:edu_world/utils/constant.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 import '../../../components/roboto_text.dart';
-
 
 class HeaderOtp extends StatelessWidget {
   const HeaderOtp({
@@ -15,25 +14,31 @@ class HeaderOtp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: [
-        SvgPicture.asset(
-          'assets/forgot/forgot_2.svg',
-          width: size.width * 0.7,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: const [
+        RobotoText(
+          text: 'Verifikasi OTP',
+          fontSize: 32,
+          fontWeight: FontWeight.w700,
+          color: MyColor.primary,
         ),
-        const RobotoText(
-          text: 'Masukkan OTP',
-          fontSize: 22,
+        SizedBox(
+          height: 20,
+        ),
+        RobotoText(
+          text: 'Kode Hanya Berlaku 5 Menit',
+          fontSize: 16,
+          fontWeight: FontWeight.w700,
+          color: MyColor.primary,
+          lineHeight: 1.5,
+        ),
+        RobotoText(
+          text: '''Masukkan 4 digit kode verifikasi OTP
+yang dikirim ke alamt emailmu''',
+          fontSize: 16,
           fontWeight: FontWeight.w400,
-        ),
-        const SizedBox(
-          height: 6,
-        ),
-        const RobotoText(
-          text: '''Masukkan 4 digit kode verifikasi
-yang dikirimkan ke alamat emailmu''',
-          fontSize: 14,
-          fontWeight: FontWeight.w400,
-          textAlign: TextAlign.center,
+          lineHeight: 1.5,
+          color: MyColor.primary,
         ),
       ],
     );

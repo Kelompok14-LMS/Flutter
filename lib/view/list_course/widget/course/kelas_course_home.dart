@@ -24,41 +24,44 @@ class _KelasCourseState extends State<KelasCourse> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Image(
-            width: 166,
-            height: 88,
+            width: 160,
+            height: 90,
             image: NetworkImage(widget.courseModel.thumbnail!),
+            fit: BoxFit.fill,
           ),
           // const SizedBox(
           //   height: 8,
           // ),
           Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(8.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   widget.courseModel.title!,
                   style: MyColor().judulCourse,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                 ),
                 const SizedBox(
-                  height: 14,
+                  height: 8,
                 ),
                 Text(
                   widget.courseModel.mentorName!,
                   style: MyColor().subjudulCourse,
                 ),
                 const SizedBox(
-                  height: 5,
+                  height: 4,
                 ),
                 Row(
                   children: [
                     const Icon(
                       Icons.favorite,
-                      size: 10,
-                      color: MyColor.primary,
+                      size: 16,
+                      color: MyColor.primaryLogo,
                     ),
                     const SizedBox(
-                      width: 5,
+                      width: 4,
                     ),
                     Text(
                       '(85)',
