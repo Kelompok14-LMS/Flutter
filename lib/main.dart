@@ -59,6 +59,6 @@ class MyApp extends StatelessWidget {
           primarySwatch: MyColor.primarySwatch,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: const TugasScreen());
+        home: const SplashScreen());
   }
 }
