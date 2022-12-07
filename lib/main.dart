@@ -1,7 +1,6 @@
 import 'package:edu_world/utils/constant.dart';
-import 'package:edu_world/view/main_view.dart';
-import 'package:edu_world/view_models/course_class_view_model.dart';
 import 'package:edu_world/view/splash/splash_screen.dart';
+import 'package:edu_world/view_models/course_class_view_model.dart';
 import 'package:edu_world/view_models/auth_view_model.dart';
 import 'package:edu_world/view_models/favorite_view_model.dart';
 import 'package:edu_world/view_models/list_course_view_model.dart';
@@ -49,13 +48,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     context.read<OnBoardingViewModel>().getOnBoarding();
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Edu World',
-      theme: ThemeData(
-        primarySwatch: MyColor.primarySwatch,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: const SplashScreen(),
-    );
+        debugShowCheckedModeBanner: false,
+        title: 'Edu World',
+        theme: ThemeData(
+          primarySwatch: MyColor.primarySwatch,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        home: const SplashScreen());
   }
 }

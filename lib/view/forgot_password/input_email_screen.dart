@@ -1,3 +1,5 @@
+import 'package:edu_world/utils/constant.dart';
+import 'package:edu_world/view/components/roboto_text.dart';
 import 'package:flutter/material.dart';
 
 import 'components/input_email/button_add.dart';
@@ -30,40 +32,67 @@ class _InputEmailScreenState extends State<InputEmailScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    double sizeAppBar = MediaQuery.of(context).padding.top;
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        leading: IconButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            icon: const Icon(
-              Icons.arrow_back,
-              color: Colors.black,
-            )),
+        leadingWidth: 200,
+        leading: TextButton.icon(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(Icons.arrow_back_ios),
+          label: const RobotoText(
+            text: 'Kembali',
+            fontSize: 16,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
         elevation: 0,
         backgroundColor: Colors.transparent,
       ),
       body: Center(
         child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              HeaderInputEmail(size: size),
-              const SizedBox(
-                height: 24,
-              ),
-              FormEmail(
-                formKey: formKey,
-                emailController: _emailController,
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              ButtonAdd(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 64),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                HeaderInputEmail(size: size),
+                const SizedBox(
+                  height: 24,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  child: Text(
+                    'Email',
+                    style: MyColor().loginField,
+                  ),
+                ),
+                const SizedBox(
+                  height: 4,
+                ),
+                FormEmail(
+                  formKey: formKey,
+                  emailController: _emailController,
+                ),
+                const SizedBox(
+                  height: 64,
+                ),
+                ButtonAdd(
                   size: size,
                   formKey: formKey,
-                  emailController: _emailController),
-            ],
+                  emailController: _emailController,
+                ),
+                SizedBox(
+                  height: sizeAppBar,
+                ),
+                SizedBox(
+                  height: sizeAppBar,
+                ),
+              ],
+            ),
           ),
         ),
       ),

@@ -1,13 +1,13 @@
 import 'package:edu_world/utils/constant.dart';
+import 'package:edu_world/view/components/roboto_text.dart';
 import 'package:flutter/material.dart';
 
-import '../../../components/roboto_text.dart';
-import '../../../login/login_screen.dart';
-
-class MoveLogin extends StatelessWidget {
-  const MoveLogin({
+class ResendOtpScreen extends StatelessWidget {
+  const ResendOtpScreen({
     Key? key,
   }) : super(key: key);
+
+  final infoColor = MyColor.info;
 
   @override
   Widget build(BuildContext context) {
@@ -15,24 +15,25 @@ class MoveLogin extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         const RobotoText(
-          text: 'Sudah Punya Akun?',
+          text: 'Tidak menerima kode OTP?',
           fontSize: 16,
           fontWeight: FontWeight.w400,
+          color: MyColor.primary,
         ),
         const SizedBox(
-          width: 3,
+          width: 4,
         ),
         InkWell(
           onTap: () {
-            Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const LoginScreen(),
-                ),
-                (route) => false);
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(
+            //     builder: (context) => const RegisterScreen(),
+            //   ),
+            // );
           },
           child: const RobotoText(
-            text: 'Masuk',
+            text: 'Kirim Ulang',
             fontSize: 16,
             fontWeight: FontWeight.w700,
             color: MyColor.primaryLogo,

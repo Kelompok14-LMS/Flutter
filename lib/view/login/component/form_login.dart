@@ -1,11 +1,9 @@
 import 'package:edu_world/utils/constant.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import '../../../view_models/auth_view_model.dart';
-
 
 class FormLogin extends StatelessWidget {
   const FormLogin({
@@ -20,7 +18,7 @@ class FormLogin extends StatelessWidget {
   final GlobalKey<FormState> formKey;
   final TextEditingController _emailController;
   final TextEditingController _passwordController;
-  final  primaryColor = MyColor.primary;
+  final primaryColor = MyColor.primary;
 
   @override
   Widget build(BuildContext context) {
@@ -28,28 +26,27 @@ class FormLogin extends StatelessWidget {
       key: formKey,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 16),
+            padding: const EdgeInsets.symmetric(vertical: 4),
+            child: Text(
+              'Email',
+              style: MyColor().loginField,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0),
             child: TextFormField(
               controller: _emailController,
               decoration: InputDecoration(
                 hintText: 'Masukkan Email',
-                hintStyle: GoogleFonts.roboto(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: primaryColor ),
-                prefixIcon: const Padding(
-                  padding:  EdgeInsets.all(8.0),
-                  child: Icon(
-                    Icons.alternate_email,
-                    size: 20,
-                    color: MyColor.primary,
-                  ),
-                ),
+                hintStyle: MyColor().hintTextField,
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(4),
+                  borderRadius: BorderRadius.circular(8),
                 ),
+                isDense: true,
+                contentPadding: const EdgeInsets.all(15),
               ),
               validator: (email) {
                 if (email == '') {
@@ -62,8 +59,18 @@ class FormLogin extends StatelessWidget {
               },
             ),
           ),
+          const SizedBox(
+            height: 20,
+          ),
           Padding(
-            padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 32.0),
+            padding: const EdgeInsets.symmetric(vertical: 4),
+            child: Text(
+              'Password',
+              style: MyColor().loginField,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0),
             child: Consumer<AuthViewModel>(
               builder: (context, value, child) => TextFormField(
                 obscureText: value.isTrue,
@@ -74,26 +81,15 @@ class FormLogin extends StatelessWidget {
                         value.toggleObs();
                       },
                       icon: value.isTrue
-                          ? Icon(Icons.visibility_off,
-                              color: primaryColor)
-                          : Icon(Icons.visibility,
-                              color: primaryColor)),
-                  hintText: 'Masukkan Kata Sandi',
-                  hintStyle: GoogleFonts.roboto(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: primaryColor),
-                  prefixIcon: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Icon(
-                      Icons.lock_outline,
-                      size: 20,
-                      color: primaryColor,
-                    ),
-                  ),
+                          ? Icon(Icons.visibility_off, color: primaryColor)
+                          : Icon(Icons.visibility, color: primaryColor)),
+                  hintText: 'Masukkan Password',
+                  hintStyle: MyColor().hintTextField,
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
+                    borderRadius: BorderRadius.circular(8),
                   ),
+                  isDense: true,
+                  contentPadding: const EdgeInsets.all(15),
                 ),
                 validator: (value) {
                   if (value == '') {

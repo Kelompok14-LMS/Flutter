@@ -1,3 +1,4 @@
+import 'package:edu_world/utils/constant.dart';
 import 'package:flutter/material.dart';
 
 import '../../otp_screen.dart';
@@ -32,8 +33,8 @@ class ButtonAddOtp extends StatelessWidget {
     return Card(
       elevation: 6,
       child: SizedBox(
-        width: size.width * 0.93,
-        height: size.height * 0.07,
+        width: 300,
+        height: 48,
         child: ElevatedButton(
           onPressed: () {
             if (formKey.currentState!.validate()) {
@@ -52,7 +53,13 @@ class ButtonAddOtp extends StatelessWidget {
               );
             }
           },
-          child: const Text('Masukkan'),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: MyColor.primaryLogo,
+          ),
+          child: Text(
+            'Kirim',
+            style: MyColor().loginField,
+          ),
         ),
       ),
     );
