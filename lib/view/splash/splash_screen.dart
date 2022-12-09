@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'package:edu_world/view/main_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../view_models/onboarding_view_model.dart';
 import '../login/login_screen.dart';
@@ -51,6 +53,23 @@ class _SplashScreenState extends State<SplashScreen> {
               isViewed != 0 ? const OnboardingScreen() : const LoginScreen(),
         ),
       );
+      checkLogin();
     });
+  }
+
+  void checkLogin() async {
+    final helper = await SharedPreferences.getInstance();
+    final token = helper.getString('token');
+    if (token != null) {
+      if (mounted) {
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const MainScreen(),
+            ),
+            (route) => false);
+      }
+    }
+    return null;
   }
 }

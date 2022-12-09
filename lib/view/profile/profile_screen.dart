@@ -1,6 +1,10 @@
 import 'package:edu_world/utils/constant.dart';
 import 'package:edu_world/view/profile/edit_profile_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../view_models/auth_view_model.dart';
+import '../login/login_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -171,7 +175,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                       ],
                     ),
-                    onTap: () {},
+                    onTap: () async {
+                      final viewModel = context.read<AuthViewModel>();
+                      final result = await viewModel.logout();
+                      if (mounted) {
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const LoginScreen(),
+                            ),
+                            (route) => false);
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text(result.toString().toString())));
+                      }
+                    },
                   ),
                   const Padding(
                     padding: EdgeInsets.only(left: 43, top: 5, right: 20),

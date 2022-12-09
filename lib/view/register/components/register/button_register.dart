@@ -62,40 +62,40 @@ class _ButtonRegisterState extends State<ButtonRegister> {
                 if (widget.formKey.currentState!.validate()) {
                   widget.formKey.currentState!.save();
 
-                  final result = await value.registrasi(
-                      Users(
-                        email: widget._emailController.text,
-                        password: widget._passwordController.text,
-                      ),
-                      Mentees(
-                        fullName: widget._fullNameController.text,
-                      ));
+                  // final result = await value.registrasi(
+                  //     Users(
+                  //       email: widget._emailController.text,
+                  //       password: widget._passwordController.text,
+                  //     ),
+                  //     Mentees(
+                  //       fullName: widget._fullNameController.text,
+                  //     ));
 
-                  if (result == 'Berhasil mendaftar') {
-                    if (widget.mounted) {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => OtpRegistrasiScreen(
-                              fullName: widget._fullNameController.text,
-                              email: widget._emailController.text,
-                              password: widget._passwordController.text),
-                        ),
-                      );
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Cek kode OTP melalui Email Kamu'),
-                        ),
-                      );
-                    }
-                  } else if (result == 'Gagal Mendaftar') {
-                    if (widget.mounted) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(result),
-                        ),
-                      );
-                    }
-                  }
+                  // if (result == 'Berhasil mendaftar') {
+                  //   if (widget.mounted) {
+                  //     Navigator.of(context).push(
+                  //       MaterialPageRoute(
+                  //         builder: (context) => OtpRegistrasiScreen(
+                  //             fullName: widget._fullNameController.text,
+                  //             email: widget._emailController.text,
+                  //             password: widget._passwordController.text),
+                  //       ),
+                  //     );
+                  //     ScaffoldMessenger.of(context).showSnackBar(
+                  //       const SnackBar(
+                  //         content: Text('Cek kode OTP melalui Email Kamu'),
+                  //       ),
+                  //     );
+                  //   }
+                  // } else if (result == 'Gagal Mendaftar') {
+                  //   if (widget.mounted) {
+                  //     ScaffoldMessenger.of(context).showSnackBar(
+                  //       SnackBar(
+                  //         content: Text(result),
+                  //       ),
+                  //     );
+                  //   }
+                  // }
                 }
               },
               style: ElevatedButton.styleFrom(
