@@ -90,44 +90,53 @@ class _OtpRegistrasiScreenState extends State<OtpRegistrasiScreen> {
                   height: size.height * 0.07,
                   child: ElevatedButton(
                     onPressed: () async {
-                      // final otp = _oneController.text +
-                      //     _twoController.text +
-                      //     _threeController.text +
-                      //     _fourController.text;
-                      // print(otp);
-                      // print(widget.fullName);
-                      // print(widget.phone);
-                      // print(widget.email);
-                      // print(widget.password);
-                      // if (formKey.currentState!.validate()) {
-                      //   formKey.currentState!.save();
-                      //   final result = await context
-                      //       .read<AuthViewModel>()
-                      //       .registrasi(
-                      //           Users(
-                      //               email: widget.email,
-                      //               password: widget.password),
-                      //           Mentees(
-                      //             fullName: widget.fullName,
-                      //             phone: widget.phone,
-                      //           ));
+                      final otp = _oneController.text +
+                          _twoController.text +
+                          _threeController.text +
+                          _fourController.text;
+                      print(otp);
+                      print(widget.fullName);
+                      print(widget.phone);
+                      print(widget.email);
+                      print(widget.password);
+                      if (formKey.currentState!.validate()) {
+                        formKey.currentState!.save();
+                        final result =
+                            await context.read<AuthViewModel>().registerVerify(
+                                Users(
+                                  email: widget.email,
+                                  password: widget.password,
+                                  otp: otp,
+                                ),
+                                Mentees(
+                                  fullName: widget.fullName,
+                                  phone: widget.phone,
+                                ));
 
-                      //   if (result == 'Berhasil mendaftar') {
-                      //     if (mounted) {
-                      //       Navigator.pushAndRemoveUntil(
-                      //           context,
-                      //           MaterialPageRoute(
-                      //             builder: (context) => const LoginScreen(),
-                      //           ),
-                      //           (context) => false);
-                      //       ScaffoldMessenger.of(context).showSnackBar(
-                      //         SnackBar(
-                      //           content: Text(result),
-                      //         ),
-                      //       );
-                      //     }
-                      //   }
-                      // }
+                        if (result == 'Register success') {
+                          if (mounted) {
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const LoginScreen(),
+                                ),
+                                (context) => false);
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(result!),
+                              ),
+                            );
+                          }
+                        } else if (result != 'Register success') {
+                          if (mounted) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(result!),
+                              ),
+                            );
+                          }
+                        }
+                      }
                     },
                     child: const Text('Masukkan'),
                   ),
