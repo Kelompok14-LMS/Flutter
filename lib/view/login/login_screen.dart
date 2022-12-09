@@ -70,19 +70,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 20,
               ),
               const MoveRegister(),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Text(
-                    'Gunakan email ini untuk Login : eve.holt@reqres.in',
-                    style: TextStyle(fontSize: 12),
-                  ),
-                  Text(
-                    'Gunakan password ini untuk Login : cityslicka',
-                    style: TextStyle(fontSize: 12),
-                  )
-                ],
-              ),
             ],
           ),
         ),

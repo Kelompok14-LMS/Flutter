@@ -1,9 +1,11 @@
 import 'package:edu_world/utils/constant.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../../../view_models/auth_view_model.dart';
 import '../../otp_screen.dart';
 
-class ButtonAdd extends StatelessWidget {
+class ButtonAdd extends StatefulWidget {
   const ButtonAdd({
     Key? key,
     required this.size,
@@ -17,6 +19,11 @@ class ButtonAdd extends StatelessWidget {
   final TextEditingController _emailController;
 
   @override
+  State<ButtonAdd> createState() => _ButtonAddState();
+}
+
+class _ButtonAddState extends State<ButtonAdd> {
+  @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 6,
@@ -24,20 +31,36 @@ class ButtonAdd extends StatelessWidget {
         width: 300,
         height: 48,
         child: ElevatedButton(
-          onPressed: () {
-            if (formKey.currentState!.validate()) {
-              formKey.currentState!.save();
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Cek kode OTP melalui Email Kamu'),
-                ),
-              );
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => OtpScreen(email: _emailController.text),
-                ),
-              );
+          onPressed: ()async {
+          if (widget.formKey.currentState!.validate()) {
+              widget.formKey.currentState!.save();
+              final result = await context
+                  .read<AuthViewModel>()
+                  .sendOtp(widget._emailController.text);
+              if (result == 'Success send OTP to email') {
+                if (mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(result!),
+                    ),
+                  );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          OtpScreen(email: widget._emailController.text),
+                    ),
+                  );
+                }
+              } else if (result != 'Success send OTP to email') {
+                if (mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(result!),
+                    ),
+                  );
+                }
+              }
             }
           },
           style: ElevatedButton.styleFrom(

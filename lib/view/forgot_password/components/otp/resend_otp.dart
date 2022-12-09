@@ -1,12 +1,24 @@
 import 'package:edu_world/utils/constant.dart';
 import 'package:edu_world/view/components/roboto_text.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class ResendOtpScreen extends StatelessWidget {
+import '../../../../view_models/auth_view_model.dart';
+import '../../otp_screen.dart';
+
+class ResendOtpScreen extends StatefulWidget {
   const ResendOtpScreen({
     Key? key,
+    required this.widget,
   }) : super(key: key);
 
+  final OtpScreen widget;
+
+  @override
+  State<ResendOtpScreen> createState() => _ResendOtpScreenState();
+}
+
+class _ResendOtpScreenState extends State<ResendOtpScreen> {
   final infoColor = MyColor.info;
 
   @override
@@ -24,13 +36,18 @@ class ResendOtpScreen extends StatelessWidget {
           width: 4,
         ),
         InkWell(
-          onTap: () {
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(
-            //     builder: (context) => const RegisterScreen(),
-            //   ),
-            // );
+          onTap: () async {
+            print(widget.widget.email);
+            final result = await context
+                .read<AuthViewModel>()
+                .sendOtp(widget.widget.email);
+            if (mounted) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(result!),
+                ),
+              );
+            }
           },
           child: const RobotoText(
             text: 'Kirim Ulang',

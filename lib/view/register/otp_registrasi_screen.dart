@@ -101,18 +101,19 @@ class _OtpRegistrasiScreenState extends State<OtpRegistrasiScreen> {
                       print(widget.password);
                       if (formKey.currentState!.validate()) {
                         formKey.currentState!.save();
-                        final result = await context
-                            .read<AuthViewModel>()
-                            .registrasi(
+                        final result =
+                            await context.read<AuthViewModel>().registerVerify(
                                 Users(
-                                    email: widget.email,
-                                    password: widget.password),
+                                  email: widget.email,
+                                  password: widget.password,
+                                  otp: otp,
+                                ),
                                 Mentees(
                                   fullName: widget.fullName,
                                   phone: widget.phone,
                                 ));
 
-                        if (result == 'Berhasil mendaftar') {
+                        if (result == 'Register success') {
                           if (mounted) {
                             Navigator.pushAndRemoveUntil(
                                 context,
@@ -122,7 +123,15 @@ class _OtpRegistrasiScreenState extends State<OtpRegistrasiScreen> {
                                 (context) => false);
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content: Text(result),
+                                content: Text(result!),
+                              ),
+                            );
+                          }
+                        } else if (result != 'Register success') {
+                          if (mounted) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(result!),
                               ),
                             );
                           }

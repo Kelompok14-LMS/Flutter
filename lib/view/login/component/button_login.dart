@@ -47,27 +47,28 @@ class _ButtonLoginState extends State<ButtonLogin> {
                     email: widget._emailController.text,
                     password: widget._passwordController.text,
                   ));
-
-                  if (mounted) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(result),
-                      ),
-                    );
-                  }
-
-                  if (result == 'Gagal, Email atau Password salah!') {
-                    return;
-                  } else if (result == 'Berhasil Login') {
+                  if (result == 'Login successful') {
                     if (mounted) {
-                      Navigator.pushReplacement(
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(result!),
+                        ),
+                      );
+                      Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
                             builder: (context) => const MainScreen(),
-                          ));
+                          ),
+                          (route) => false);
                     }
-                    widget._emailController.clear();
-                    widget._passwordController.clear();
+                  } else if (result != 'Login successful') {
+                    if (mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(result!),
+                        ),
+                      );
+                    }
                   }
                 }
               },

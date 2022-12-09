@@ -15,6 +15,7 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   final formKey = GlobalKey<FormState>();
   late final TextEditingController _fullNameController;
+  late final TextEditingController _numberPhoneController;
   late final TextEditingController _emailController;
   late final TextEditingController _passwordController;
   var checkboxValue = false;
@@ -23,6 +24,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   void initState() {
     _fullNameController = TextEditingController();
+    _numberPhoneController = TextEditingController();
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
     super.initState();
@@ -31,6 +33,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   void dispose() {
     _fullNameController.dispose();
+    _numberPhoneController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
@@ -43,57 +46,61 @@ class _RegisterScreenState extends State<RegisterScreen> {
       backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 64),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Ayo Jadi Mentee!',
-                style: MyColor().fontOnBoarding,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Form(
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                key: formKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Column(
-                      children: [
-                        FormRegister(
-                            fullNameController: _fullNameController,
-                            emailController: _emailController,
-                            passwordController: _passwordController),
-                        const SizedBox(
-                          height: 64,
-                        ),
-                        ButtonRegister(
-                          size: size,
-                          checkboxValue: checkboxValue,
-                          mounted: mounted,
-                          formKey: formKey,
-                          emailController: _emailController,
-                          passwordController: _passwordController,
-                          fullNameController: _fullNameController,
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        const MoveLogin(),
-                        const SizedBox(
-                          height: 16,
-                        )
-                      ],
-                    )
-                  ],
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 64),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Ayo Jadi Mentee!',
+                  style: MyColor().fontOnBoarding,
                 ),
-              ),
-            ],
+                const SizedBox(
+                  height: 20,
+                ),
+                Form(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  key: formKey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Column(
+                        children: [
+                          FormRegister(
+                              fullNameController: _fullNameController,
+                              numberPhoneController: _numberPhoneController,
+                              emailController: _emailController,
+                              passwordController: _passwordController),
+                          const SizedBox(
+                            height: 64,
+                          ),
+                          ButtonRegister(
+                            size: size,
+                            checkboxValue: checkboxValue,
+                            mounted: mounted,
+                            formKey: formKey,
+                            emailController: _emailController,
+                            numberPhoneController: _numberPhoneController,
+                            passwordController: _passwordController,
+                            fullNameController: _fullNameController,
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          const MoveLogin(),
+                          const SizedBox(
+                            height: 16,
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
