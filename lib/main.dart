@@ -6,6 +6,8 @@ import 'package:edu_world/view_models/auth_view_model.dart';
 import 'package:edu_world/view_models/favorite_view_model.dart';
 import 'package:edu_world/view_models/list_course_view_model.dart';
 import 'package:edu_world/view_models/main_view_model.dart';
+import 'package:edu_world/view_models/materials_view_model.dart';
+import 'package:edu_world/view_models/modules_view_model.dart';
 import 'package:edu_world/view_models/onboarding_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -42,6 +44,12 @@ void main() {
     ),
     ChangeNotifierProvider(
       create: (context) => AssignmentViewModel(),
+    ),
+    ChangeNotifierProvider(
+      create: (context) => ModulesViewModel(),
+    ),
+    ChangeNotifierProvider(
+      create: (context) => MaterialsViewModel(),
     ),
   ], child: const MyApp()));
 }
