@@ -4,7 +4,7 @@ class CourseModel {
   String? mentorName;
   String? category;
   String? title;
-  String? descriptions;
+  String? description;
   String? thumbnail;
   String? createdAt;
   String? updateAt;
@@ -13,18 +13,18 @@ class CourseModel {
     this.mentorName,
     this.category,
     this.title,
-    this.descriptions,
+    this.description,
     this.thumbnail,
     this.createdAt,
     this.updateAt,
   });
 
   CourseModel.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        mentorName = json['mentor_id'],
-        category = json['category_id'],
+      : id = json['course_id'],
+        mentorName = json['mentor'],
+        category = json['category'],
         title = json['title'],
-        descriptions = json['descriptions'],
+        description = json['description'],
         thumbnail = json['thumbnail'],
         createdAt = json['created_at'],
         updateAt = json['update_at'];
@@ -32,10 +32,10 @@ class CourseModel {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'mentor_id': mentorName,
-      'category_id': category,
+      'mentor': mentorName,
+      'category': category,
       'title': title,
-      'descriptions': descriptions,
+      'description': description,
       'thumbnail': thumbnail,
       'created_at': createdAt,
       'update_at': updateAt,

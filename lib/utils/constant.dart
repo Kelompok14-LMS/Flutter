@@ -67,6 +67,15 @@ class MyColor {
 // font hintTextField
   TextStyle hintTextField =
       GoogleFonts.roboto(fontSize: 16, fontWeight: FontWeight.w400);
+// font EmptyCourse
+  TextStyle emptyCourseTextStyle = GoogleFonts.roboto(
+      fontSize: 24, fontWeight: FontWeight.w700, color: primary);
+// font EmptyCourseSpan
+  TextStyle emptyCourseTextStyleSpan = GoogleFonts.roboto(
+      fontSize: 24, fontWeight: FontWeight.w700, color: primaryLogo);
+// font tabBar
+  TextStyle tabBarTextStyle = GoogleFonts.roboto(
+      fontSize: 14, fontWeight: FontWeight.w700, color: primary);
 // font appbar
   TextStyle appTextsStyle = GoogleFonts.roboto(
     fontSize: 22,

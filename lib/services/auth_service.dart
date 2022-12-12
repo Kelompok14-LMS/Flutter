@@ -22,6 +22,7 @@ class AuthService {
         final String token = response.data['data']['token'];
         final helper = await SharedPreferences.getInstance();
         await helper.setString('token', token);
+        print(token);
         return response.data['message'];
       } else if (response.statusCode == 409) {
         return response.data['message'];
