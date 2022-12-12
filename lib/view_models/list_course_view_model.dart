@@ -27,35 +27,35 @@ class ListCourseViewModel with ChangeNotifier {
     CourseModel(
       title: 'Mastering UIX Design for Industry',
       thumbnail: 'https://i.ibb.co/ZcjM2m5/Rectangle-5-1.png',
-      descriptions:
+      description:
           "Kebutuhan UI/UX Designer terus meningkat hingga 20% dari tahun ke tahun. Sedangkan talenta yang ada belum dapat memenuhinya. UI/UX Designer juga salah satu karir yang akan terus dibutuhkan bahkan hingga 2028, disebut-sebut sebagai salah satu karir paling ‘hot’ di dunia teknologi saat ini.",
       mentorName: 'Yono Salim',
     ),
     CourseModel(
       title: 'Becoming fullstack Web Developer',
       thumbnail: 'https://i.ibb.co/wYTGr3G/Rectangle6.png',
-      descriptions:
+      description:
           "Kebutuhan UI/UX Designer terus meningkat hingga 20% dari tahun ke tahun. Sedangkan talenta yang ada belum dapat memenuhinya. UI/UX Designer juga salah satu karir yang akan terus dibutuhkan bahkan hingga 2028, disebut-sebut sebagai salah satu karir paling ‘hot’ di dunia teknologi saat ini.",
       mentorName: 'Zeta Vestia',
     ),
     CourseModel(
       title: 'Business Analyst untuk membantu UMKM',
       thumbnail: 'https://i.ibb.co/ckwvph2/Rectangle7.png',
-      descriptions:
+      description:
           "Kebutuhan UI/UX Designer terus meningkat hingga 20% dari tahun ke tahun. Sedangkan talenta yang ada belum dapat memenuhinya. UI/UX Designer juga salah satu karir yang akan terus dibutuhkan bahkan hingga 2028, disebut-sebut sebagai salah satu karir paling ‘hot’ di dunia teknologi saat ini.",
       mentorName: 'Ahok Louis',
     ),
     CourseModel(
       title: 'Software Developer for Mobile Apps',
       thumbnail: 'https://i.ibb.co/rZStPr5/Rectangle-4.png',
-      descriptions:
+      description:
           "Kebutuhan UI/UX Designer terus meningkat hingga 20% dari tahun ke tahun. Sedangkan talenta yang ada belum dapat memenuhinya. UI/UX Designer juga salah satu karir yang akan terus dibutuhkan bahkan hingga 2028, disebut-sebut sebagai salah satu karir paling ‘hot’ di dunia teknologi saat ini.",
       mentorName: 'Yono Salim',
     ),
     CourseModel(
       title: 'Mastering UIX Design for Industry',
       thumbnail: 'https://i.ibb.co/TY4Hn72/photo5.png',
-      descriptions:
+      description:
           "Kebutuhan UI/UX Designer terus meningkat hingga 20% dari tahun ke tahun. Sedangkan talenta yang ada belum dapat memenuhinya. UI/UX Designer juga salah satu karir yang akan terus dibutuhkan bahkan hingga 2028, disebut-sebut sebagai salah satu karir paling ‘hot’ di dunia teknologi saat ini.",
       mentorName: 'Yono Salim',
     ),
