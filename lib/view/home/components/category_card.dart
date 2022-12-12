@@ -17,12 +17,13 @@ class CategoryCard extends StatefulWidget {
 }
 
 class _CategoryCardState extends State<CategoryCard> {
-  @override
-  void initState() {
-    Provider.of<CourseViewModel>(context, listen: false)
-        .getCoursebyCategory(widget.category);
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   Provider.of<CourseViewModel>(context, listen: false)
+  //       .getCoursebyCategory(widget.category);
+  //   print(widget.category);
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,11 @@ class _CategoryCardState extends State<CategoryCard> {
 
     return Expanded(
       child: GridView.builder(
-        itemCount: courseClassViewModel.uiux.length,
+        itemCount: widget.category == "UI/UX"
+            ? courseClassViewModel.uiUx.length
+            : widget.category == "Front End"
+                ? courseClassViewModel.frontEnd.length
+                : courseClassViewModel.backEnd.length,
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 28),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
@@ -41,9 +46,14 @@ class _CategoryCardState extends State<CategoryCard> {
         ),
         itemBuilder: (context, index) {
           return KelasCourse(
-              height: 104,
-              fontSize: 16,
-              courseModel: courseClassViewModel.uiux[index]);
+            height: 104,
+            fontSize: 16,
+            courseModel: widget.category == "UI/UX"
+                ? courseClassViewModel.uiUx[index]
+                : widget.category == "Front End"
+                    ? courseClassViewModel.frontEnd[index]
+                    : courseClassViewModel.backEnd[index],
+          );
         },
       ),
       // child: GridView.count(

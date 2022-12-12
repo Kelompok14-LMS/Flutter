@@ -25,6 +25,9 @@ class _CustomTabBarButtonState extends State<CustomTabBarButton> {
   /// List of body icon
 
   int current = 0;
+  int buttonCounterUiUx = 0;
+  int buttonCounterFrontEnd = 0;
+  int buttonCounterBackEnd = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -36,9 +39,11 @@ class _CustomTabBarButtonState extends State<CustomTabBarButton> {
         courseClassViewModel: courseClassViewModel,
         listCourseViewModel: listCourseViewModel,
       ),
-      const CategoryCard(category: "UI/UX"),
-      const Text('data'),
-      const Text('data'),
+      const CategoryCard(
+        category: "UI/UX",
+      ),
+      const CategoryCard(category: "Front End"),
+      const CategoryCard(category: "Back End"),
     ];
     return Expanded(
       child: Column(
@@ -55,10 +60,31 @@ class _CustomTabBarButtonState extends State<CustomTabBarButton> {
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (ctx, index) {
                     return GestureDetector(
-                      onTap: () {
+                      onTap: () async {
                         setState(() {
                           current = index;
                         });
+                        if (index == 1) {
+                          buttonCounterUiUx++;
+                          if (buttonCounterUiUx <= 1) {
+                            Provider.of<CourseViewModel>(context, listen: false)
+                                .getCoursebyCategory("UI/UX");
+                          }
+                        }
+                        if (index == 2) {
+                          buttonCounterFrontEnd++;
+                          if (buttonCounterFrontEnd <= 1) {
+                            Provider.of<CourseViewModel>(context, listen: false)
+                                .getCoursebyCategory("Front End");
+                          }
+                        }
+                        if (index == 3) {
+                          buttonCounterBackEnd++;
+                          if (buttonCounterBackEnd <= 1) {
+                            Provider.of<CourseViewModel>(context, listen: false)
+                                .getCoursebyCategory("Back End");
+                          }
+                        }
                       },
                       child: AnimatedContainer(
                         duration: const Duration(milliseconds: 300),

@@ -21,12 +21,12 @@ class CourseDioService {
         },
       ),
     );
-    _dio.interceptors.add(
-      LogInterceptor(
-        responseBody: true,
-        requestBody: true,
-      ),
-    );
+    // _dio.interceptors.add(
+    //   LogInterceptor(
+    //     responseBody: true,
+    //     requestBody: true,
+    //   ),
+    // );
   }
 
   Future<List<CourseModel>> getAllCourse() async {
@@ -48,19 +48,15 @@ class CourseDioService {
   Future<List<CourseModel>> getCoursebyCategory(String category) async {
     try {
       final response = await _dio.get(
-        '/api/v1/courses',
+        '/api/v1/courses/categories/$category',
         queryParameters: {"keyword": ""},
       );
-      print("data ataaaa ${response.data["data"]["course_id"]}");
-      if (response.data["data"]["category"] == category) {
-        List<dynamic> data = response.data['data'];
-        List<CourseModel> result =
-            data.map((e) => CourseModel.fromJson(e)).toList();
-        print('dikembalikan');
-        return result;
-      } else {
-        return [];
-      }
+      print("data ataaaa ${response.data["data"]}");
+      List<dynamic> data = response.data['data'];
+      List<CourseModel> result =
+          data.map((e) => CourseModel.fromJson(e)).toList();
+      print('dikembalikan');
+      return result;
     } catch (e) {
       rethrow;
     }

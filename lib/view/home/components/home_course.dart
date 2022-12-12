@@ -73,8 +73,10 @@ class HomeCourse extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24),
               child: Row(
-                children: List.generate(courseClassViewModel.allCourse.length,
-                    (index) {
+                children: List.generate(
+                    courseClassViewModel.allCourse.length <= 3
+                        ? courseClassViewModel.allCourse.length
+                        : 3, (index) {
                   return KelasCourse(
                     height: 90,
                     fontSize: 14,
