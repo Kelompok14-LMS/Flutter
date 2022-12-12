@@ -13,6 +13,7 @@ class CourseViewModel with ChangeNotifier {
   CourseState courseState = CourseState.none;
   List<CourseModel> courseCardModel = [];
   List<CourseModel> endCourseCardModel = [];
+  List<CourseModel> allCourse = [];
   final String _token = '';
   String get tokenUser => _token;
   bool _isOngoing = true;
@@ -24,7 +25,7 @@ class CourseViewModel with ChangeNotifier {
     try {
       final result = await _dioService.getAllCourse();
       courseState = CourseState.none;
-      courseCardModel = result;
+      allCourse = result;
     } catch (e) {
       courseState = CourseState.error;
     }
