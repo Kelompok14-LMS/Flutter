@@ -2,21 +2,23 @@ import 'package:edu_world/models/materials_model.dart';
 import 'package:edu_world/services/materials_service.dart';
 import 'package:flutter/material.dart';
 
-class MaterialsViewModel with ChangeNotifier{
+class MaterialsViewModel with ChangeNotifier {
+  final _dioService = MaterialDioService();
 
-  List<MaterialsModel> _materials = [];
-    
-  List<MaterialsModel> get modules {
-    return [..._materials];
-  }
-  
-  Future<void> getModules() async {
+  List<Modules> moduls = [];
+
+  // List<MaterialsModel> get modules {
+  //   return [..._materials];
+  // }
+
+  Future<void> getPreviewMaterialsModules(String courseId) async {
     try {
-      final result = await MaterialsAPI().getMaterials();
-      _materials = result;
-      notifyListeners();
+      final result = await _dioService.getPreviewModulesMaterials(courseId);
+      moduls = result;
+      // print(moduls[0].materials!);
     } catch (e) {
       rethrow;
     }
+    notifyListeners();
   }
 }

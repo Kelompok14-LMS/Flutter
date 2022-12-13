@@ -81,4 +81,19 @@ class CourseDioService {
       rethrow;
     }
   }
+
+  Future<List<CourseModel>> getPopularCourse() async {
+    try {
+      final response = await _dio.get(
+        '/api/v1/courses/popular',
+      );
+
+      List<dynamic> data = response.data['data'];
+      List<CourseModel> result =
+          data.map((e) => CourseModel.fromJson(e)).toList();
+      return result;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

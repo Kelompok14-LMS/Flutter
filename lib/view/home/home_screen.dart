@@ -1,13 +1,7 @@
 import 'package:edu_world/view/components/search_bar.dart';
 import 'package:edu_world/view/home/components/custom_tab_bar_button.dart';
-import 'package:edu_world/view/detail_course/detail_course_screen.dart';
-import 'package:edu_world/view/detail_course/detail_course_screen_revisi.dart';
-import 'package:edu_world/view/list_course/list_course.dart';
-import 'package:edu_world/view/list_course/widget/course/kelas_course_home.dart';
-import 'package:edu_world/view/list_course/widget/rekomendasi/design.dart';
-import 'package:edu_world/view/recommendation/recommendation_view.dart';
-import 'package:edu_world/view_models/course_class_view_model.dart';
 import 'package:edu_world/view_models/couse_view_model.dart';
+import 'package:edu_world/view_models/popular_view_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -22,6 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     Provider.of<CourseViewModel>(context, listen: false).getAllCourse();
+    Provider.of<PopularViewModel>(context, listen: false).getPopularCourse();
     super.initState();
   }
 
