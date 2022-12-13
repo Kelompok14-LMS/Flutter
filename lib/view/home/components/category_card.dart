@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:edu_world/view/home/components/grid_course_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -28,41 +29,41 @@ class _CategoryCardState extends State<CategoryCard> {
   @override
   Widget build(BuildContext context) {
     final courseClassViewModel = Provider.of<CourseViewModel>(context);
-
-    return Expanded(
-      child: GridView.builder(
-        itemCount: widget.category == "UI/UX"
-            ? courseClassViewModel.uiUx.length
-            : widget.category == "Front End"
-                ? courseClassViewModel.frontEnd.length
-                : courseClassViewModel.backEnd.length,
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 28),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          mainAxisSpacing: 8,
-          crossAxisSpacing: 8,
-          childAspectRatio: 0.9,
-          mainAxisExtent: 224,
-        ),
-        itemBuilder: (context, index) {
-          return KelasCourse(
-            height: 104,
-            fontSize: 16,
-            courseModel: widget.category == "UI/UX"
-                ? courseClassViewModel.uiUx[index]
-                : widget.category == "Front End"
-                    ? courseClassViewModel.frontEnd[index]
-                    : courseClassViewModel.backEnd[index],
-          );
-        },
-      ),
-      // child: GridView.count(
-      //   crossAxisCount: 2,
-      //   children: List.generate(
-      //       courseClassViewModel.uiux.length,
-      //       (index) => KelasCourse(
-      //           courseModel: courseClassViewModel.uiux[index])),
-      // ),
-    );
+    final courseState = courseClassViewModel.courseState;
+    return courseState == CourseState.loading
+        ? const Expanded(child: GridCourseShimmer())
+        : courseState == CourseState.error
+            ? const Expanded(
+                child: Center(child: Text('Error Load Data')),
+              )
+            : Expanded(
+                child: GridView.builder(
+                  itemCount: widget.category == "UI/UX"
+                      ? courseClassViewModel.uiUx.length
+                      : widget.category == "Front End"
+                          ? courseClassViewModel.frontEnd.length
+                          : courseClassViewModel.backEnd.length,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 24, vertical: 28),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 8,
+                    crossAxisSpacing: 8,
+                    childAspectRatio: 0.9,
+                    mainAxisExtent: 224,
+                  ),
+                  itemBuilder: (context, index) {
+                    return KelasCourse(
+                      height: 104,
+                      fontSize: 16,
+                      courseModel: widget.category == "UI/UX"
+                          ? courseClassViewModel.uiUx[index]
+                          : widget.category == "Front End"
+                              ? courseClassViewModel.frontEnd[index]
+                              : courseClassViewModel.backEnd[index],
+                    );
+                  },
+                ),
+              );
   }
 }

@@ -39,21 +39,24 @@ class CourseViewModel with ChangeNotifier {
     courseState = CourseState.loading;
 
     try {
-      // print('get course');
       if (category == "UI/UX") {
         final result = await _dioService
             .getCoursebyCategory("1b911bd0-d19a-4691-b250-691601800aab");
         uiUx = result;
+        await Future.delayed(const Duration(seconds: 1));
       }
       if (category == "Front End") {
         final result = await _dioService
             .getCoursebyCategory("5ac5a7cd-b39f-473b-bfb9-c28f90b70229");
+
         frontEnd = result;
+        await Future.delayed(const Duration(seconds: 1));
       }
       if (category == "Back End") {
         final result = await _dioService
             .getCoursebyCategory("fd31982e-75ad-4bb1-8d9a-786353a7ae6f");
         backEnd = result;
+        await Future.delayed(const Duration(seconds: 1));
       }
       courseState = CourseState.none;
     } catch (e) {

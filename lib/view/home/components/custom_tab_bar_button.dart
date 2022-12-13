@@ -39,9 +39,7 @@ class _CustomTabBarButtonState extends State<CustomTabBarButton> {
         courseClassViewModel: courseClassViewModel,
         listCourseViewModel: listCourseViewModel,
       ),
-      const CategoryCard(
-        category: "UI/UX",
-      ),
+      const CategoryCard(category: "UI/UX"),
       const CategoryCard(category: "Front End"),
       const CategoryCard(category: "Back End"),
     ];
