@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:edu_world/models/materials_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final _dio = Dio(
@@ -8,8 +7,8 @@ final _dio = Dio(
   ),
 );
 
-class MaterialDioService {
-  MaterialDioService() {
+class EnrollDioService {
+  EnrollDioService() {
     _dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {
@@ -29,15 +28,29 @@ class MaterialDioService {
     // );
   }
 
-  Future<List<Modules>> getPreviewModulesMaterials(String courseId) async {
+  Future<String> enrollCourse(String courseId, String menteeId) async {
     try {
-      final response = await _dio.get(
-        '/api/v1/courses/$courseId/details',
+      final response = await _dio.post(
+        '/api/v1/courses/enroll-course',
+        data: {
+          "course_id": courseId,
+          "mentee_id": menteeId,
+        },
       );
 
-      List<dynamic> data = response.data['data']['modules'];
-      List<Modules> result = data.map((e) => Modules.fromJson(e)).toList();
-      return result;
+      return response.data['message'];
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<bool> checkEnrollmentCourse(String courseId, String menteeId) async {
+    try {
+      final response = await _dio.get(
+        '/api/v1/mentees/$menteeId/courses/$courseId',
+      );
+      print('apinya jalan');
+      return response.data['data']['status_enrollment'];
     } catch (e) {
       rethrow;
     }

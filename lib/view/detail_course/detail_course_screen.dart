@@ -1,18 +1,25 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:edu_world/view/detail_course/modul_course_screen.dart';
+import 'package:edu_world/view_models/materials_view_model.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+
 import 'package:edu_world/models/course_model.dart';
+import 'package:edu_world/models/detail_course_model.dart';
 import 'package:edu_world/models/review_card_model.dart';
-import 'package:edu_world/models/title_course_model.dart';
 import 'package:edu_world/utils/constant.dart';
 import 'package:edu_world/view/detail_course/components/review_card.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:edu_world/models/detail_course_model.dart';
-import 'package:flutter/material.dart';
+import 'package:edu_world/view_models/enroll_view_model.dart';
 
 class DetailCourseScreen extends StatefulWidget {
   const DetailCourseScreen({
     Key? key,
     required this.courseModel,
+    required this.mentee,
   }) : super(key: key);
   final CourseModel courseModel;
+  final String mentee;
 
   @override
   State<DetailCourseScreen> createState() => _DetailCourseScreenState();
@@ -20,7 +27,17 @@ class DetailCourseScreen extends StatefulWidget {
 
 class _DetailCourseScreenState extends State<DetailCourseScreen> {
   @override
+  void initState() {
+    // Provider.of<EnrollViewModel>(context, listen: false)
+    //     .checkEnrollmentCourse(widget.courseModel.id!, widget.mentee);
+    Provider.of<MaterialsViewModel>(context, listen: false)
+        .getPreviewMaterialsModules(widget.courseModel.id!);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final dataMaterials = Provider.of<MaterialsViewModel>(context);
     return Scaffold(
         appBar: AppBar(
           centerTitle: false,
@@ -59,7 +76,7 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
                         image: DecorationImage(
-                            image: NetworkImage(detailCourse[0].image!),
+                            image: NetworkImage(widget.courseModel.thumbnail!),
                             fit: BoxFit.cover),
                       ),
                       height: 166,
@@ -68,7 +85,7 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
                     Padding(
                       padding: const EdgeInsets.only(top: 10),
                       child: Text(
-                        detailCourse[0].title!,
+                        widget.courseModel.title!,
                         style: GoogleFonts.roboto(
                           fontSize: 20,
                           fontWeight: FontWeight.w700,
@@ -90,7 +107,7 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
                           ),
                         ),
                         Text(
-                          detailCourse[0].author!,
+                          widget.courseModel.mentorName!,
                           style: GoogleFonts.roboto(
                             fontSize: 16,
                             fontWeight: FontWeight.w400,
@@ -129,7 +146,7 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
                     Padding(
                       padding: const EdgeInsets.only(top: 8),
                       child: Text(
-                        detailCourse[0].description!,
+                        widget.courseModel.description!,
                         style: GoogleFonts.roboto(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
@@ -175,7 +192,7 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 8),
                                           child: Text(
-                                            dummyTitle[index].section!,
+                                            "Section",
                                             style: GoogleFonts.roboto(
                                               fontSize: 13,
                                               fontWeight: FontWeight.w500,
@@ -189,7 +206,7 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
                                       width: 10,
                                     ),
                                     Text(
-                                      dummyTitle[index].titleSection!,
+                                      dataMaterials.moduls[index].title!,
                                       style: GoogleFonts.roboto(
                                         fontSize: 13,
                                         fontWeight: FontWeight.w500,
@@ -199,33 +216,43 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
                                   ],
                                 ),
                                 children: [
-                                  ListTile(
-                                    dense: true,
-                                    leading: const Icon(
-                                      Icons.play_circle_filled_outlined,
-                                      size: 25,
-                                      color: Color(0xff112D4E),
+                                  Visibility(
+                                    visible:
+                                        dataMaterials.moduls[index].materials !=
+                                            null,
+                                    child: ListTile(
+                                      dense: true,
+                                      leading: const Icon(
+                                        Icons.play_circle_filled_outlined,
+                                        size: 25,
+                                        color: Color(0xff112D4E),
+                                      ),
+                                      title: Text("Dummy",
+                                          style: GoogleFonts.roboto(
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.w500,
+                                            color: const Color(0xff112D4E),
+                                          )),
                                     ),
-                                    title: Text(dummyTitle[index].videoPertama!,
-                                        style: GoogleFonts.roboto(
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.w500,
-                                          color: const Color(0xff112D4E),
-                                        )),
                                   ),
-                                  ListTile(
-                                    dense: true,
-                                    leading: const Icon(
-                                      Icons.play_circle_filled_outlined,
-                                      size: 25,
-                                      color: Color(0xff112D4E),
+                                  Visibility(
+                                    visible:
+                                        dataMaterials.moduls[index].materials !=
+                                            null,
+                                    child: ListTile(
+                                      dense: true,
+                                      leading: const Icon(
+                                        Icons.play_circle_filled_outlined,
+                                        size: 25,
+                                        color: Color(0xff112D4E),
+                                      ),
+                                      title: Text("Dummy",
+                                          style: GoogleFonts.roboto(
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.w500,
+                                            color: const Color(0xff112D4E),
+                                          )),
                                     ),
-                                    title: Text(dummyTitle[index].videoKedua!,
-                                        style: GoogleFonts.roboto(
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.w500,
-                                          color: const Color(0xff112D4E),
-                                        )),
                                   ),
                                 ],
                               ),
@@ -233,7 +260,7 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
                           );
                         },
                         separatorBuilder: (context, index) => const SizedBox(),
-                        itemCount: dummyTitle.length),
+                        itemCount: dataMaterials.moduls.length),
                   ],
                 ),
               ),
@@ -277,7 +304,15 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
           color: Colors.transparent,
           child: Center(
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Provider.of<EnrollViewModel>(context, listen: false)
+                    .enrollCourse(widget.courseModel.id!, widget.mentee);
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                    builder: (context) => const ModulCourseScreen(),
+                  ),
+                );
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: MyColor.primaryLogo,
               ),
@@ -309,44 +344,44 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
     )
   ];
 
-  List<TitleCourseModel> dummyTitle = [
-    TitleCourseModel(
-      titleSection: 'Introduction',
-      section: 'Section 1',
-      videoPertama: "Hello! Let's learn UI/UX",
-      videoKedua: 'What to Prepare?',
-    ),
-    TitleCourseModel(
-      titleSection: 'What is UI?',
-      section: 'Section 2',
-      videoPertama: "Let's learn UI",
-      videoKedua: 'What do you must know about UI',
-    ),
-    TitleCourseModel(
-      titleSection: 'What is UX?',
-      section: 'Section 3',
-      videoPertama: "Let's learn UI",
-      videoKedua: 'What do you must know about UI',
-    ),
-    TitleCourseModel(
-      titleSection: 'What are the Tools?',
-      section: 'Section 4',
-      videoPertama: "Let's learn UI",
-      videoKedua: 'What do you must know about UI',
-    ),
-    TitleCourseModel(
-      titleSection: 'Human-Centered Design',
-      section: 'Section 5',
-      videoPertama: "Let's learn UI",
-      videoKedua: 'What do you must know about UI',
-    ),
-    TitleCourseModel(
-      titleSection: 'Resume',
-      section: 'Assignment',
-      videoPertama: "Let's learn UI",
-      videoKedua: 'What do you must know about UI',
-    ),
-  ];
+  // List<TitleCourseModel> dummyTitle = [
+  //   TitleCourseModel(
+  //     titleSection: 'Introduction',
+  //     section: 'Section 1',
+  //     videoPertama: "Hello! Let's learn UI/UX",
+  //     videoKedua: 'What to Prepare?',
+  //   ),
+  //   TitleCourseModel(
+  //     titleSection: 'What is UI?',
+  //     section: 'Section 2',
+  //     videoPertama: "Let's learn UI",
+  //     videoKedua: 'What do you must know about UI',
+  //   ),
+  //   TitleCourseModel(
+  //     titleSection: 'What is UX?',
+  //     section: 'Section 3',
+  //     videoPertama: "Let's learn UI",
+  //     videoKedua: 'What do you must know about UI',
+  //   ),
+  //   TitleCourseModel(
+  //     titleSection: 'What are the Tools?',
+  //     section: 'Section 4',
+  //     videoPertama: "Let's learn UI",
+  //     videoKedua: 'What do you must know about UI',
+  //   ),
+  //   TitleCourseModel(
+  //     titleSection: 'Human-Centered Design',
+  //     section: 'Section 5',
+  //     videoPertama: "Let's learn UI",
+  //     videoKedua: 'What do you must know about UI',
+  //   ),
+  //   TitleCourseModel(
+  //     titleSection: 'Resume',
+  //     section: 'Assignment',
+  //     videoPertama: "Let's learn UI",
+  //     videoKedua: 'What do you must know about UI',
+  //   ),
+  // ];
 
   List<ReviewCardModel> dummyCardReview = [
     ReviewCardModel(

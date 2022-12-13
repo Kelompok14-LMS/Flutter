@@ -1,6 +1,7 @@
 import 'package:edu_world/view/components/search_bar.dart';
 import 'package:edu_world/view/home/components/custom_tab_bar_button.dart';
 import 'package:edu_world/view_models/couse_view_model.dart';
+import 'package:edu_world/view_models/popular_view_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,6 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     Provider.of<CourseViewModel>(context, listen: false).getAllCourse();
+    Provider.of<PopularViewModel>(context, listen: false).getPopularCourse();
     super.initState();
   }
 

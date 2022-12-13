@@ -19,6 +19,7 @@ class _CourseState extends State<Course> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
+        centerTitle: false,
         bottomOpacity: 0.0,
         elevation: 0.0,
         backgroundColor: Colors.white,
