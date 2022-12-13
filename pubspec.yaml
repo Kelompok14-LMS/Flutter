@@ -31,11 +31,11 @@ environment:
 dependencies:
   cupertino_icons: ^1.0.2
   dio: ^4.0.6
-  dropdown_button2: ^1.9.1
   email_validator: ^2.1.17
   file_picker: ^5.2.3
   flutter:
     sdk: flutter
+  flutter_rating_bar: ^4.0.1
   flutter_svg: ^1.1.6
   google_fonts: ^3.0.1
   jwt_decode: ^0.3.1

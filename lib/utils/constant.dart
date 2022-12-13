@@ -20,6 +20,7 @@ class MyColor {
   static const Color danger = Color(0xff961041);
   static const Color info = Color(0xff0848AF);
   static const Color primaryLogo = Color(0xFFE4B548);
+  static const Color review = Color(0xFFB0B9C4);
 // Color secondary = const Color.fromARGB(255, 1, 145, 193);
 // Color transparent = Colors.transparent;
 // Color black = Colors.black;
