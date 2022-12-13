@@ -1,25 +1,22 @@
 class TitleCourseModel {
-  String? title_course;
+  String? titleSection;
   String? section;
-  String? title_video;
-  String? title_slide;
-  String? title_tugas;
+  String? videoPertama;
+  String? videoKedua;
   TitleCourseModel({
-    this.title_course,
+    this.titleSection,
     this.section,
-    this.title_video,
-    this.title_slide,
-    this.title_tugas,
+    this.videoPertama,
+    this.videoKedua,
   });
 
   TitleCourseModel.fromJson(Map<String, dynamic> json) 
-    : title_course = json['title_course'],
+    : titleSection = json['title_section'],
       section = json['section'],
-      title_video = json['title_video'],
-      title_slide = json['title_slide'],
-      title_tugas = json['title_tugas'];
+      videoPertama = json['video_pertama'],
+      videoKedua = json['video_kedua'];
 
   Map<String, dynamic> toJson() {
-    return {'title_course': title_course, 'section': section, 'title_video': title_video, 'title_slide': title_slide, 'title_tugas': title_tugas};
+    return {'title_section': titleSection, 'section': section, 'video_pertama': videoPertama, 'video_kedua': videoKedua};
   }
 }
