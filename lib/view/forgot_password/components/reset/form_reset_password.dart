@@ -25,11 +25,23 @@ class FormResetPassword extends StatelessWidget {
     return Form(
       autovalidateMode: AutovalidateMode.onUserInteraction,
       key: formKey,
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-            child: Consumer<AuthViewModel>(
+      child: Padding(
+        padding:
+            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: Text(
+                'Password Baru',
+                style: MyColor().loginField,
+              ),
+            ),
+            const SizedBox(
+              height: 4,
+            ),
+            Consumer<AuthViewModel>(
               builder: (context, value, child) => TextFormField(
                 obscureText: value.isTrue,
                 controller: _passController,
@@ -43,42 +55,42 @@ class FormResetPassword extends StatelessWidget {
                             Icons.visibility_off,
                             color: primaryColor,
                           )
-                        : Icon(Icons.visibility,
-                            color: primaryColor),
+                        : Icon(Icons.visibility, color: primaryColor),
                   ),
-                  prefixIcon: Padding(
-                    padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                    child: Icon(
-                      Icons.lock_outline,
-                      size: 20,
-                      color: primaryColor,
-                    ),
-                  ),
-                  hintText: 'Masukkan kata sandi baru',
+                  hintText: 'Masukkan password baru',
                   hintStyle: GoogleFonts.roboto(
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
                     color: primaryColor,
                   ),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(6),
+                    borderRadius: BorderRadius.circular(8),
                   ),
+                  isDense: true,
+                  contentPadding: const EdgeInsets.all(15),
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Tidak boleh kosong';
                   }
                   if (value.length < 6) {
-                    return 'Password min.6 character';
+                    return 'Password minimal 6 karakter';
                   }
                   return null;
                 },
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Consumer<AuthViewModel>(
+            const SizedBox(
+              height: 20,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: Text(
+                'Konfirmasi Password Baru',
+                style: MyColor().loginField,
+              ),
+            ),
+            Consumer<AuthViewModel>(
               builder: (context, value, child) => TextFormField(
                 obscureText: value.isTrue1,
                 controller: _confirmController,
@@ -97,22 +109,17 @@ class FormResetPassword extends StatelessWidget {
                             color: primaryColor,
                           ),
                   ),
-                  prefixIcon: const Padding(
-                    padding: EdgeInsets.only(left: 8.0, right: 8.0),
-                    child: Icon(
-                      Icons.lock_outline,
-                      size: 20,
-                    ),
-                  ),
-                  hintText: 'Konfirmasi kata sandi baru',
+                  hintText: 'Konfirmasi password baru',
                   hintStyle: GoogleFonts.roboto(
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
                     color: primaryColor,
                   ),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(6),
+                    borderRadius: BorderRadius.circular(8),
                   ),
+                  isDense: true,
+                  contentPadding: const EdgeInsets.all(15),
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {
@@ -125,8 +132,11 @@ class FormResetPassword extends StatelessWidget {
                 },
               ),
             ),
-          ),
-        ],
+            const SizedBox(
+              height: 64,
+            ),
+          ],
+        ),
       ),
     );
   }

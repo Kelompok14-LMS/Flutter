@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../utils/constant.dart';
 import '../../../../view_models/auth_view_model.dart';
 import '../../../login/login_screen.dart';
 import '../../reset_passsword_screen.dart';
@@ -30,11 +31,10 @@ class ButtonReset extends StatefulWidget {
 class _ButtonResetState extends State<ButtonReset> {
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 6,
+    return SingleChildScrollView(
       child: SizedBox(
-        width: widget.size.width * 0.93,
-        height: widget.size.height * 0.07,
+        width: widget.size.width,
+        height: widget.size.height * 0.068,
         child: ElevatedButton(
           onPressed: () async {
             if (widget.formKey.currentState!.validate()) {
@@ -75,7 +75,16 @@ class _ButtonResetState extends State<ButtonReset> {
               }
             }
           },
-          child: const Text('Masukkan'),
+          style: ElevatedButton.styleFrom(
+              backgroundColor: MyColor.primaryLogo,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+              elevation: 6),
+          child: Text(
+            'Kirim',
+            style: MyColor().loginField,
+          ),
         ),
       ),
     );

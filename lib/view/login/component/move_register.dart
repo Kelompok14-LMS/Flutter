@@ -9,8 +9,6 @@ class MoveRegister extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  final infoColor = MyColor.info;
-
   @override
   Widget build(BuildContext context) {
     return Row(

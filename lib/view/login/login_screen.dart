@@ -1,9 +1,11 @@
-import 'package:edu_world/utils/constant.dart';
 import 'package:edu_world/view/login/component/button_login.dart';
 import 'package:edu_world/view/login/component/forgot_password.dart';
 import 'package:edu_world/view/login/component/form_login.dart';
+import 'package:edu_world/view/login/component/header_login.dart';
 import 'package:edu_world/view/login/component/move_register.dart';
 import 'package:flutter/material.dart';
+import 'package:jwt_decode/jwt_decode.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -21,6 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
   void initState() {
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
+    checkExpTokenJwt();
     super.initState();
   }
 
@@ -44,10 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Selamat Datang!',
-                style: MyColor().fontOnBoarding,
-              ),
+              const HeaderLogin(),
               const SizedBox(
                 height: 20,
               ),
@@ -75,5 +75,34 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+   void checkExpTokenJwt() async {
+    final helper = await SharedPreferences.getInstance();
+    final token = helper.getString('token');
+    if (token != null) {
+      DateTime? expiredDate = Jwt.getExpiryDate(token);
+      bool hasExpired = Jwt.isExpired(token);
+      print('date expaired token : $expiredDate');
+      print('expaired? : $hasExpired');
+      print(token);
+      if (hasExpired == true) {
+        helper.remove('token');
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Batas waktu telah habis'),
+            ),
+          );
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const LoginScreen(),
+            ),
+            (route) => false,
+          );
+        }
+      }
+    }
+    return null;
   }
 }

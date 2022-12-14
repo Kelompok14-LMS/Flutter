@@ -54,7 +54,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             },
           ),
           Positioned(
-            bottom: 50,
+            bottom: 0,
             left: 0,
             right: 0,
             child: Column(
@@ -79,7 +79,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   }),
                 ),
                 Container(
-                  margin: const EdgeInsets.only(left: 16, right: 16, top: 22),
+                  margin: const EdgeInsets.only(left: 16, right: 16, top: 36, bottom: 50),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

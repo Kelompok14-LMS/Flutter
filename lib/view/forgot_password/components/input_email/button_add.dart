@@ -25,51 +25,52 @@ class ButtonAdd extends StatefulWidget {
 class _ButtonAddState extends State<ButtonAdd> {
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 6,
-      child: SizedBox(
-        width: 300,
-        height: 48,
-        child: ElevatedButton(
-          onPressed: ()async {
-          if (widget.formKey.currentState!.validate()) {
-              widget.formKey.currentState!.save();
-              final result = await context
-                  .read<AuthViewModel>()
-                  .sendOtp(widget._emailController.text);
-              if (result == 'Success send OTP to email') {
-                if (mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(result!),
-                    ),
-                  );
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          OtpScreen(email: widget._emailController.text),
-                    ),
-                  );
-                }
-              } else if (result != 'Success send OTP to email') {
-                if (mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(result!),
-                    ),
-                  );
-                }
+    return SizedBox(
+      width: widget.size.width ,
+      height: widget.size.height * 0.068,
+      child: ElevatedButton(
+        onPressed: ()async {
+        if (widget.formKey.currentState!.validate()) {
+            widget.formKey.currentState!.save();
+            final result = await context
+                .read<AuthViewModel>()
+                .sendOtp(widget._emailController.text);
+            if (result == 'Success send OTP to email') {
+              if (mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(result!),
+                  ),
+                );
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        OtpScreen(email: widget._emailController.text),
+                  ),
+                );
+              }
+            } else if (result != 'Success send OTP to email') {
+              if (mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(result!),
+                  ),
+                );
               }
             }
-          },
-          style: ElevatedButton.styleFrom(
-            backgroundColor: MyColor.primaryLogo,
+          }
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: MyColor.primaryLogo,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8)
           ),
-          child: Text(
-            'Kirim',
-            style: MyColor().loginField,
-          ),
+          elevation: 6,
+        ),
+        child: Text(
+          'Kirim',
+          style: MyColor().loginField,
         ),
       ),
     );

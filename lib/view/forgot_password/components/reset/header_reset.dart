@@ -3,43 +3,35 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../../components/roboto_text.dart';
 
-
 class HeaderResetPassword extends StatelessWidget {
   const HeaderResetPassword({
     Key? key,
-    required this.size,
   }) : super(key: key);
-
-  final Size size;
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: [
-        SvgPicture.asset(
-          'assets/forgot/forgot_3.svg',
-          width: size.width * 0.7,
-        ),
-        const SizedBox(
-          height: 47,
-        ),
-        const RobotoText(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: const [
+        RobotoText(
           text: 'Reset kata sandi',
-          fontSize: 22,
-          fontWeight: FontWeight.w400,
+          fontSize: 32,
+          fontWeight: FontWeight.bold,
         ),
-        const SizedBox(
-          height: 6,
+        SizedBox(
+          height: 20,
         ),
-        const RobotoText(
-          text: '''Identitas kamu telah di verifikasi
-atur kata sandi baru kamu''',
-          fontSize: 14,
-          fontWeight: FontWeight.w400,
-          textAlign: TextAlign.center,
+        RobotoText(
+          text: 'Identitasmu telah terverifikasi',
+          fontSize: 16,
+          fontWeight: FontWeight.w600,
         ),
-        const SizedBox(
-          height: 6,
+        RobotoText(
+          text: 'Ayo buat password baru',
+          fontSize: 16,
+        ),
+         SizedBox(
+          height: 20,
         ),
       ],
     );
