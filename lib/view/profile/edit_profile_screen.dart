@@ -1,85 +1,254 @@
+import 'dart:ffi';
+
 import 'package:edu_world/utils/validator.dart';
 import 'package:edu_world/view_models/profile_view_model.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import '../../utils/constant.dart';
+import '../../view_models/auth_view_model.dart';
+import '../login/login_screen.dart';
 import '../main_view.dart';
 
 class EditProfileScreen extends StatefulWidget {
-  const EditProfileScreen({super.key});
+  final int index;
+  const EditProfileScreen({super.key, required this.index});
 
   @override
   State<EditProfileScreen> createState() => _EditProfileScreenState();
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> with Validator {
+  @override
+  void initState() {
+    final profileProvider =
+        Provider.of<ProfileViewModel>(context, listen: false);
+    profileProvider.nameController = TextEditingController(
+        text: profileProvider.mentees[widget.index].fullname);
+    profileProvider.nomorTelpController = TextEditingController(
+        text: profileProvider.mentees[widget.index].phone);
+    profileProvider.tanggalLahirController = TextEditingController(
+        text: profileProvider.mentees[widget.index].birthDate);
+    super.initState();
+  }
+
   final GlobalKey<FormState> keyForm = GlobalKey();
   @override
   Widget build(BuildContext context) {
-    final media = MediaQuery.of(context).size;
     final profileProvider =
         Provider.of<ProfileViewModel>(context, listen: false);
     return Scaffold(
         resizeToAvoidBottomInset: false,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          elevation: 0,
+          leading: Row(
+            children: [
+              IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: const Icon(
+                  Icons.arrow_back_ios_new_sharp,
+                  color: MyColor.primary,
+                ),
+              ),
+            ],
+          ),
+          actions: [
+            ElevatedButton(
+              onPressed: () async {
+                final viewModel = context.read<AuthViewModel>();
+                final result = await viewModel.logout();
+                if (mounted) {
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const LoginScreen(),
+                      ),
+                      (route) => false);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text(result.toString().toString())));
+                }
+              },
+              style: ButtonStyle(
+                elevation: MaterialStateProperty.all(0),
+                backgroundColor: MaterialStateProperty.all(
+                  Colors.transparent,
+                ),
+              ),
+              child: Row(mainAxisSize: MainAxisSize.min, children: [
+                Text(
+                  'Keluar',
+                  style: GoogleFonts.roboto(
+                      color: MyColor.primary,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(
+                  width: 5,
+                ),
+                const Icon(
+                  Icons.logout,
+                  color: MyColor.primary,
+                  size: 24,
+                ),
+              ]),
+            ),
+          ],
+        ),
         body: ListView(
           children: <Widget>[
-            SizedBox(
-              width: media.width,
-              height: media.height * 0.30,
-              child: Stack(
-                children: <Widget>[
-                  Container(
-                    width: media.width,
-                    height: media.height * 0.25,
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage('assets/images/Ellipse 4.png'),
-                          fit: BoxFit.fill),
-                    ),
-                  ),
-                  Positioned(
-                    left: 60,
-                    right: 60,
-                    top: media.height * 0.10,
-                    child: Container(
-                      decoration: const BoxDecoration(
+            Consumer<ProfileViewModel>(
+              builder: (context, value, child) => value
+                          .mentees[widget.index].profilePicture !=
+                      null
+                  ? Container(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          scale: 1.1,
+                          image: NetworkImage(
+                              value.mentees[widget.index].profilePicture),
+                        ),
                         shape: BoxShape.circle,
                       ),
-                      height: 130,
+                      height: 210,
                       width: double.infinity,
-                      child: Center(
-                          child: Image.asset('assets/images/Ellipse 5.png')),
+                      child: Stack(
+                        children: [
+                          Positioned(
+                            left: 157,
+                            top: 165,
+                            right: 157,
+                            child: InkWell(
+                              child: Container(
+                                height: 40,
+                                width: 118,
+                                decoration: BoxDecoration(
+                                  color: MyColor.primaryLogo,
+                                  borderRadius: BorderRadius.circular(16),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    'Edit Foto',
+                                    style: GoogleFonts.roboto(
+                                        color: MyColor.primary,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ),
+                              ),
+                              onTap: () {
+                                profileProvider.ambilFoto(
+                                    context, value.mentees[widget.index].id);
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  : Container(
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                          scale: 1.1,
+                          image: ExactAssetImage('assets/images/Ellipse 6.png'),
+                        ),
+                        shape: BoxShape.circle,
+                      ),
+                      height: 210,
+                      width: double.infinity,
+                      child: Stack(
+                        children: [
+                          Positioned(
+                            left: 157,
+                            top: 165,
+                            right: 157,
+                            child: InkWell(
+                              child: Container(
+                                height: 40,
+                                width: 118,
+                                decoration: BoxDecoration(
+                                  color: MyColor.primaryLogo,
+                                  borderRadius: BorderRadius.circular(16),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    'Edit Foto',
+                                    style: GoogleFonts.roboto(
+                                        color: MyColor.primary,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ),
+                              ),
+                              onTap: () {
+                                profileProvider.ambilFoto(
+                                    context, value.mentees[widget.index].id);
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              ),
+            ),
+            const SizedBox(
+              height: 20,
             ),
             Form(
               key: keyForm,
               child: Padding(
-                padding: const EdgeInsets.only(right: 25, left: 25),
+                padding: const EdgeInsets.only(right: 58, left: 58),
                 child: Column(
                   children: <Widget>[
-                    const Text(
-                      'Zhai Purnomo',
-                      style: TextStyle(
-                        fontSize: 20,
+                    Container(
+                      height: 48,
+                      width: 300,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(8),
+                          shape: BoxShape.rectangle,
+                          boxShadow: const [
+                            BoxShadow(
+                              color: MyColor.primaryLogo,
+                              spreadRadius: 1,
+                            )
+                          ]),
+                      child: Center(
+                        child: Text(
+                          profileProvider.mentees[widget.index].email,
+                          style: GoogleFonts.roboto(
+                            fontSize: 18,
+                            color: Colors.black38,
+                          ),
+                        ),
                       ),
                     ),
                     const SizedBox(
-                      height: 30,
+                      height: 25,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          'Nama Lengkap',
+                          style: GoogleFonts.roboto(
+                              fontSize: 20,
+                              color: MyColor.primary,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
                     ),
                     TextFormField(
                       keyboardType: TextInputType.text,
                       controller: profileProvider.nameController,
                       decoration: InputDecoration(
-                        label: const Text('Nama kamu'),
-                        prefixIcon: const Icon(
-                          Icons.person,
-                        ),
+                        hintText: 'Masukan Nama Lengkap',
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(6),
+                          borderRadius: BorderRadius.circular(8),
                         ),
                       ),
                       validator: validateForm,
@@ -87,33 +256,26 @@ class _EditProfileScreenState extends State<EditProfileScreen> with Validator {
                     const SizedBox(
                       height: 15,
                     ),
-                    TextFormField(
-                      keyboardType: TextInputType.emailAddress,
-                      controller: profileProvider.emailController,
-                      decoration: InputDecoration(
-                        label: const Text('Email'),
-                        prefixIcon: const Icon(
-                          Icons.alternate_email,
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(6),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          'Nomor Ponsel',
+                          style: GoogleFonts.roboto(
+                              fontSize: 20,
+                              color: MyColor.primary,
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
-                      validator: validateForm,
-                    ),
-                    const SizedBox(
-                      height: 15,
                     ),
                     TextFormField(
                       keyboardType: TextInputType.number,
                       controller: profileProvider.nomorTelpController,
                       decoration: InputDecoration(
-                        label: const Text('Nomor Telepon'),
-                        prefixIcon: const Icon(
-                          Icons.call,
-                        ),
+                        hintText: 'Masukan Nomor Ponsel',
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(6),
+                          borderRadius: BorderRadius.circular(8),
                         ),
                       ),
                       validator: validateForm,
@@ -121,33 +283,26 @@ class _EditProfileScreenState extends State<EditProfileScreen> with Validator {
                     const SizedBox(
                       height: 15,
                     ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          'Tanggal Lahir',
+                          style: GoogleFonts.roboto(
+                              fontSize: 20,
+                              color: MyColor.primary,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
                     TextFormField(
-                      keyboardType: TextInputType.datetime,
+                      keyboardType: TextInputType.text,
                       controller: profileProvider.tanggalLahirController,
                       decoration: InputDecoration(
-                        label: const Text('Tanggal Lahir'),
-                        prefixIcon: const Icon(
-                          Icons.calendar_today,
-                        ),
+                        hintText: 'Masukan Tanggal Lahir',
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                      ),
-                      validator: validateForm,
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    TextFormField(
-                      keyboardType: TextInputType.streetAddress,
-                      controller: profileProvider.alamatController,
-                      decoration: InputDecoration(
-                        label: const Text('Alamat'),
-                        prefixIcon: const Icon(
-                          Icons.map,
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(6),
+                          borderRadius: BorderRadius.circular(8),
                         ),
                       ),
                       validator: validateForm,
@@ -157,59 +312,33 @@ class _EditProfileScreenState extends State<EditProfileScreen> with Validator {
                     ),
                     InkWell(
                       onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const EditProfileScreen(),
-                            ));
-                      },
-                      child: Container(
-                        width: 373,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          color: MyColor.danger,
-                        ),
-                        child: const Center(
-                          child: Text(
-                            'Reset Password',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    InkWell(
-                      onTap: () {
                         if (keyForm.currentState!.validate()) {
                           keyForm.currentState!.save();
+                          profileProvider.editProfile(context,
+                              profileProvider.mentees[widget.index].id);
                           Navigator.pushAndRemoveUntil(
                               context,
-                              MaterialPageRoute(
+                              CupertinoPageRoute(
                                 builder: (context) => const MainScreen(),
                               ),
                               ((route) => false));
                         }
                       },
                       child: Container(
-                        width: 373,
-                        height: 40,
+                        width: 300,
+                        height: 48,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          color: MyColor.primary,
-                        ),
-                        child: const Center(
+                            borderRadius: BorderRadius.circular(8),
+                            color: MyColor.primaryLogo),
+                        child: Center(
                           child: Text(
                             'Simpan',
-                            style: TextStyle(color: Colors.white),
+                            style: GoogleFonts.roboto(
+                                color: MyColor.primary,
+                                fontWeight: FontWeight.bold),
                           ),
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 20,
                     ),
                   ],
                 ),
