@@ -1,6 +1,4 @@
 import 'package:edu_world/view/components/search_bar.dart';
-import 'package:edu_world/view/detail_course/detail_course_screen.dart';
-import 'package:edu_world/view/detail_course/detail_course_screen_revisi.dart';
 import 'package:edu_world/view/list_course/list_course.dart';
 import 'package:edu_world/view/list_course/widget/course/kelas_course_home.dart';
 import 'package:edu_world/view/list_course/widget/rekomendasi/design.dart';
@@ -251,13 +249,13 @@ class _HomeScreenState extends State<HomeScreen> {
                             courseModel:
                                 listCourseViewModel.dummyListCourse[index],
                           ),
-                          onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => DetailCourseScreen(
-                                  courseModel: listCourseViewModel
-                                      .dummyListCourse[index]),
-                            ));
-                          },
+                          // onTap: () {
+                          //   Navigator.of(context).push(MaterialPageRoute(
+                          //     builder: (context) => DetailCourseScreen(
+                          //         courseModel: listCourseViewModel
+                          //             .dummyListCourse[index]),
+                          //   ));
+                          // },
                         ),
                       ),
                     ),
