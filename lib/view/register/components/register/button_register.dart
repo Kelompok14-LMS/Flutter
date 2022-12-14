@@ -2,7 +2,6 @@ import 'package:edu_world/utils/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../models/mentees.dart';
 import '../../../../models/users.dart';
 import '../../../../view_models/auth_view_model.dart';
 import '../../../components/roboto_text.dart';
@@ -16,9 +15,11 @@ class ButtonRegister extends StatefulWidget {
     required this.mounted,
     required this.formKey,
     required TextEditingController emailController,
+    required TextEditingController numberPhoneController,
     required TextEditingController passwordController,
     required TextEditingController fullNameController,
   })  : _emailController = emailController,
+        _numberPhoneController = numberPhoneController,
         _passwordController = passwordController,
         _fullNameController = fullNameController,
         super(key: key);
@@ -28,6 +29,7 @@ class ButtonRegister extends StatefulWidget {
   final bool mounted;
   final GlobalKey<FormState> formKey;
   final TextEditingController _emailController;
+  final TextEditingController _numberPhoneController;
   final TextEditingController _passwordController;
   final TextEditingController _fullNameController;
 
@@ -50,48 +52,38 @@ class _ButtonRegisterState extends State<ButtonRegister> {
             elevation: 6,
             child: ElevatedButton(
               onPressed: () async {
-                if (widget.checkboxValue == false) {
-                  if (widget.mounted) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Harap Ceklis untuk mendaftar'),
-                      ),
-                    );
-                  }
-                }
                 if (widget.formKey.currentState!.validate()) {
                   widget.formKey.currentState!.save();
 
-                  final result = await value.registrasi(
-                      Users(
-                        email: widget._emailController.text,
-                        password: widget._passwordController.text,
-                      ),
-                      Mentees(
-                        fullName: widget._fullNameController.text,
-                      ));
+                  final result = await value.register(
+                    Users(
+                      email: widget._emailController.text,
+                      password: widget._passwordController.text,
+                    ),
+                  );
 
-                  if (result == 'Berhasil mendaftar') {
+                  if (result == 'Success send OTP to email') {
                     if (widget.mounted) {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) => OtpRegistrasiScreen(
                               fullName: widget._fullNameController.text,
+                              phone: widget._numberPhoneController.text,
                               email: widget._emailController.text,
                               password: widget._passwordController.text),
                         ),
                       );
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Cek kode OTP melalui Email Kamu'),
+                        SnackBar(
+                          content: Text(result!),
                         ),
                       );
                     }
-                  } else if (result == 'Gagal Mendaftar') {
+                  } else if (result != 'Success send OTP to email') {
                     if (widget.mounted) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          content: Text(result),
+                          content: Text(result!),
                         ),
                       );
                     }

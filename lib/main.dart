@@ -1,14 +1,14 @@
 import 'package:edu_world/utils/constant.dart';
-import 'package:edu_world/view/assignment_course/assignment_screen.dart';
 import 'package:edu_world/view/splash/splash_screen.dart';
-import 'package:edu_world/view_models/course_class_view_model.dart';
 import 'package:edu_world/view_models/auth_view_model.dart';
+import 'package:edu_world/view_models/enroll_view_model.dart';
 import 'package:edu_world/view_models/favorite_view_model.dart';
 import 'package:edu_world/view_models/list_course_view_model.dart';
 import 'package:edu_world/view_models/main_view_model.dart';
 import 'package:edu_world/view_models/materials_view_model.dart';
 import 'package:edu_world/view_models/modules_view_model.dart';
 import 'package:edu_world/view_models/onboarding_view_model.dart';
+import 'package:edu_world/view_models/popular_view_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'view_models/assignment_view_model.dart';
@@ -40,7 +40,7 @@ void main() {
       create: (context) => ListCourseViewModel(),
     ),
     ChangeNotifierProvider(
-      create: (context) => CourseClassViewModel(),
+      create: (context) => PopularViewModel(),
     ),
     ChangeNotifierProvider(
       create: (context) => AssignmentViewModel(),
@@ -50,6 +50,9 @@ void main() {
     ),
     ChangeNotifierProvider(
       create: (context) => MaterialsViewModel(),
+    ),
+    ChangeNotifierProvider(
+      create: (context) => EnrollViewModel(),
     ),
   ], child: const MyApp()));
 }

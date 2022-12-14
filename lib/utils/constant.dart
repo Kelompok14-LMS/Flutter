@@ -20,6 +20,7 @@ class MyColor {
   static const Color danger = Color(0xff961041);
   static const Color info = Color(0xff0848AF);
   static const Color primaryLogo = Color(0xFFE4B548);
+  static const Color review = Color(0xFFB0B9C4);
 // Color secondary = const Color.fromARGB(255, 1, 145, 193);
 // Color transparent = Colors.transparent;
 // Color black = Colors.black;
@@ -67,6 +68,15 @@ class MyColor {
 // font hintTextField
   TextStyle hintTextField =
       GoogleFonts.roboto(fontSize: 16, fontWeight: FontWeight.w400);
+// font EmptyCourse
+  TextStyle emptyCourseTextStyle = GoogleFonts.roboto(
+      fontSize: 24, fontWeight: FontWeight.w700, color: primary);
+// font EmptyCourseSpan
+  TextStyle emptyCourseTextStyleSpan = GoogleFonts.roboto(
+      fontSize: 24, fontWeight: FontWeight.w700, color: primaryLogo);
+// font tabBar
+  TextStyle tabBarTextStyle = GoogleFonts.roboto(
+      fontSize: 14, fontWeight: FontWeight.w700, color: primary);
 // font appbar
   TextStyle appTextsStyle = GoogleFonts.roboto(
     fontSize: 22,

@@ -32,18 +32,19 @@ dependencies:
   cupertino_icons: ^1.0.2
   dio: ^4.0.6
   email_validator: ^2.1.17
+  file_picker: ^5.2.3
   flutter:
     sdk: flutter
+  flutter_rating_bar: ^4.0.1
   flutter_svg: ^1.1.6
   google_fonts: ^3.0.1
+  jwt_decode: ^0.3.1
   percent_indicator: ^4.2.2
   provider: ^6.0.4
-  video_player: ^2.4.8
-  dropdown_button2: ^1.9.1
-  syncfusion_flutter_pdfviewer: ^20.3.59
-  # youtube_player_flutter: ^8.0.0
   shared_preferences: ^2.0.15
-  file_picker: ^5.2.3
+  shimmer: ^2.0.0
+  syncfusion_flutter_pdfviewer: ^20.3.59
+  video_player: ^2.4.8
 
 dev_dependencies:
   flutter_lints: ^2.0.0
@@ -80,7 +81,7 @@ flutter:
       fonts:
         # - asset: assets/font/Roboto-Regular.ttf
         - asset: assets/font/Roboto-Medium.ttf
-        # - asset: fonts/Schyler-Italic.ttf
+          # - asset: fonts/Schyler-Italic.ttf
           # style: italic
   #   - family: Trajan Pro
   #     fonts:

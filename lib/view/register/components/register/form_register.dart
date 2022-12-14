@@ -1,6 +1,7 @@
 import 'package:edu_world/utils/constant.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../view_models/auth_view_model.dart';
@@ -9,14 +10,17 @@ class FormRegister extends StatelessWidget {
   const FormRegister({
     Key? key,
     required TextEditingController fullNameController,
+    required TextEditingController numberPhoneController,
     required TextEditingController emailController,
     required TextEditingController passwordController,
   })  : _fullNameController = fullNameController,
+        _numberPhoneController = numberPhoneController,
         _emailController = emailController,
         _passwordController = passwordController,
         super(key: key);
 
   final TextEditingController _fullNameController;
+  final TextEditingController _numberPhoneController;
   final TextEditingController _emailController;
   final TextEditingController _passwordController;
   final primaryColor = MyColor.primary;
@@ -98,6 +102,41 @@ class FormRegister extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 4),
           child: Text(
+            'Nomer Telepon',
+            style: MyColor().loginField,
+          ),
+        ),
+        const SizedBox(
+          height: 8,
+        ),
+        TextFormField(
+          keyboardType: TextInputType.number,
+          controller: _numberPhoneController,
+          decoration: InputDecoration(
+            hintText: 'Masukkan Nomer Telepon',
+            hintStyle: MyColor().hintTextField,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+            isDense: true,
+            contentPadding: const EdgeInsets.all(15),
+          ),
+          inputFormatters: [
+            FilteringTextInputFormatter.digitsOnly,
+          ],
+          validator: (value) {
+            if (value!.isEmpty) {
+              return 'Tidak boleh kosong';
+            }
+            return null;
+          },
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 4),
+          child: Text(
             'Password',
             style: MyColor().loginField,
           ),
@@ -127,11 +166,15 @@ class FormRegister extends StatelessWidget {
               contentPadding: const EdgeInsets.all(15),
             ),
             validator: (value) {
+              final regex = RegExp(r'[A-Z]');
               if (value!.isEmpty) {
                 return 'Tidak boleh kosong';
               }
               if (value.length < 6) {
                 return 'Password min.6 character';
+              }
+              if (!regex.hasMatch(value)) {
+                return 'password tidak memilki huruf besar';
               }
               return null;
             },

@@ -93,7 +93,7 @@ class _OtpScreenState extends State<OtpScreen> {
                 const SizedBox(
                   height: 20,
                 ),
-                const ResendOtpScreen(),
+                ResendOtpScreen(widget: widget),
                 SizedBox(
                   height: sizeAppBar,
                 ),

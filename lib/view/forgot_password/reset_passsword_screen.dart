@@ -5,7 +5,13 @@ import 'components/reset/form_reset_password.dart';
 import 'components/reset/header_reset.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
-  const ResetPasswordScreen({super.key});
+  final String email;
+  final String otp;
+  const ResetPasswordScreen({
+    super.key,
+    required this.email,
+    required this.otp,
+  });
 
   @override
   State<ResetPasswordScreen> createState() => _ResetPasswordScreenState();
@@ -60,7 +66,13 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
               const SizedBox(
                 height: 16,
               ),
-              ButtonReset(size: size, formKey: formKey),
+              ButtonReset(
+                size: size,
+                formKey: formKey,
+                passController: _passController,
+                confirmController: _confirmController,
+                widget: widget,
+              ),
             ],
           ),
         ),

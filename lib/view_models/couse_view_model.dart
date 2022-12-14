@@ -1,5 +1,7 @@
-import 'package:edu_world/services/course_service.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+
+import 'package:edu_world/services/course_service.dart';
 
 import '../models/course_model.dart';
 
@@ -8,30 +10,17 @@ enum CourseState { none, loading, error }
 class CourseViewModel with ChangeNotifier {
   final _dioService = CourseDioService();
   final ScrollController scrollController = ScrollController();
-  late double topBarOpacity = 0.0;
   CourseState courseState = CourseState.none;
   List<CourseModel> courseCardModel = [];
-
-  /// for CourseScreen & FavoriteScreen
-  void scrollControll() {
-    scrollController.addListener(() {
-      if (scrollController.offset >= 24) {
-        if (topBarOpacity != 1.0) {
-          topBarOpacity = 1.0;
-        }
-      } else if (scrollController.offset <= 24 &&
-          scrollController.offset >= 0) {
-        if (topBarOpacity != scrollController.offset / 24) {
-          topBarOpacity = scrollController.offset / 24;
-        }
-      } else if (scrollController.offset <= 0) {
-        if (topBarOpacity != 0.0) {
-          topBarOpacity = 0.0;
-        }
-      }
-    });
-    notifyListeners();
-  }
+  List<CourseModel> endCourseCardModel = [];
+  List<CourseModel> allCourse = [];
+  List<CourseModel> uiUx = [];
+  List<CourseModel> frontEnd = [];
+  List<CourseModel> backEnd = [];
+  final String _token = '';
+  String get tokenUser => _token;
+  bool _isOngoing = true;
+  bool get isOngoing => _isOngoing;
 
   void getAllCourse() async {
     courseState = CourseState.loading;
@@ -39,48 +28,67 @@ class CourseViewModel with ChangeNotifier {
     try {
       final result = await _dioService.getAllCourse();
       courseState = CourseState.none;
-      courseCardModel = result;
+      allCourse = result;
     } catch (e) {
       courseState = CourseState.error;
     }
     notifyListeners();
   }
 
-  final List<CourseModel> myCourseList = [
-    CourseModel(
-      title: 'Mastering UIX Design for Industry',
-      mentorName: 'Yono Salim',
-      descriptions:
-          "Kebutuhan UI/UX Designer terus meningkat hingga 20% dari tahun ke tahun. Sedangkan talenta yang ada belum dapat memenuhinya. UI/UX Designer juga salah satu karir yang akan terus dibutuhkan bahkan hingga 2028, disebut-sebut sebagai salah satu karir paling ‘hot’ di dunia teknologi saat ini.",
-      thumbnail: 'https://i.ibb.co/ZcjM2m5/Rectangle-5-1.png',
-    ),
-    CourseModel(
-      title: 'Becoming Full Stack Web Developer',
-      mentorName: 'Zeta Vestia',
-      descriptions:
-          "Kebutuhan UI/UX Designer terus meningkat hingga 20% dari tahun ke tahun. Sedangkan talenta yang ada belum dapat memenuhinya. UI/UX Designer juga salah satu karir yang akan terus dibutuhkan bahkan hingga 2028, disebut-sebut sebagai salah satu karir paling ‘hot’ di dunia teknologi saat ini.",
-      thumbnail: 'https://i.ibb.co/rpYfcvH/Rectangle-5-2.png',
-    ),
-    CourseModel(
-      title: 'Business Analyst untuk Membantu UMKM',
-      mentorName: 'Ahok Louis',
-      descriptions:
-          "Kebutuhan UI/UX Designer terus meningkat hingga 20% dari tahun ke tahun. Sedangkan talenta yang ada belum dapat memenuhinya. UI/UX Designer juga salah satu karir yang akan terus dibutuhkan bahkan hingga 2028, disebut-sebut sebagai salah satu karir paling ‘hot’ di dunia teknologi saat ini.",
-      thumbnail: 'https://i.ibb.co/JWZs7Fq/Rectangle-5.png',
-    ),
-    CourseModel(
-      title: 'Software Developer for Mobile Apps',
-      mentorName: 'Yono Salim',
-      descriptions:
-          "Kebutuhan UI/UX Designer terus meningkat hingga 20% dari tahun ke tahun. Sedangkan talenta yang ada belum dapat memenuhinya. UI/UX Designer juga salah satu karir yang akan terus dibutuhkan bahkan hingga 2028, disebut-sebut sebagai salah satu karir paling ‘hot’ di dunia teknologi saat ini.",
-      thumbnail: 'https://i.ibb.co/QrTPxMG/Rectangle-5-3.png',
-    ),
-    CourseModel(
-      title: 'Data Analyst from Zero to Hero',
-      mentorName: 'Yono Salim',
-      descriptions:
-          "Kebutuhan UI/UX Designer terus meningkat hingga 20% dari tahun ke tahun. Sedangkan talenta yang ada belum dapat memenuhinya. UI/UX Designer juga salah satu karir yang akan terus dibutuhkan bahkan hingga 2028, disebut-sebut sebagai salah satu karir paling ‘hot’ di dunia teknologi saat ini.",
-      thumbnail: 'https://i.ibb.co/QrTPxMG/Rectangle-5-3.png',
-    ),
-  ];
+  void getCoursebyCategory(String category) async {
+    courseState = CourseState.loading;
+
+    try {
+      if (category == "UI/UX") {
+        final result = await _dioService
+            .getCoursebyCategory("1b911bd0-d19a-4691-b250-691601800aab");
+        uiUx = result;
+        await Future.delayed(const Duration(seconds: 1));
+      }
+      if (category == "Front End") {
+        final result = await _dioService
+            .getCoursebyCategory("5ac5a7cd-b39f-473b-bfb9-c28f90b70229");
+
+        frontEnd = result;
+        await Future.delayed(const Duration(seconds: 1));
+      }
+      if (category == "Back End") {
+        final result = await _dioService
+            .getCoursebyCategory("fd31982e-75ad-4bb1-8d9a-786353a7ae6f");
+        backEnd = result;
+        await Future.delayed(const Duration(seconds: 1));
+      }
+      courseState = CourseState.none;
+    } catch (e) {
+      courseState = CourseState.error;
+    }
+    notifyListeners();
+  }
+
+  void getEnrolledCourseMentee(
+      String menteeId, String keyword, String status) async {
+    // courseState = CourseState.loading;
+
+    try {
+      final result =
+          await _dioService.getEnrolledCourseMentee(menteeId, keyword, status);
+      if (status == "ongoing") {
+        courseCardModel.clear();
+        courseCardModel = result;
+      } else {
+        endCourseCardModel = result;
+      }
+      // courseState = CourseState.none;
+
+      courseCardModel = result;
+    } catch (e) {
+      // courseState = CourseState.error;
+    }
+    notifyListeners();
+  }
+
+  void changeCourseToogle() {
+    _isOngoing = !_isOngoing;
+    notifyListeners();
+  }
 }
