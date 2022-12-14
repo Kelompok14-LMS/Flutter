@@ -5,6 +5,7 @@ import 'package:edu_world/models/review_card_model.dart';
 import 'package:edu_world/models/title_course_model.dart';
 import 'package:edu_world/utils/constant.dart';
 import 'package:edu_world/view/detail_course/components/review_card.dart';
+import 'package:edu_world/view/detail_course/video_materi_screen.dart';
 import 'package:edu_world/view_models/enroll_view_model.dart';
 import 'package:edu_world/view_models/materials_view_model.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -26,6 +27,8 @@ class ModulCourseScreen extends StatefulWidget {
 
 class _ModulCourseScreenState extends State<ModulCourseScreen> {
   double topBarOpacity = 0.0;
+
+  bool isExpansionTrailing = false;
 
   @override
   Widget build(BuildContext context) {
@@ -169,6 +172,11 @@ class _ModulCourseScreenState extends State<ModulCourseScreen> {
                               data: Theme.of(context)
                                   .copyWith(dividerColor: Colors.transparent),
                               child: ExpansionTile(
+                                onExpansionChanged: (value) {
+                                  setState(() {
+                                    isExpansionTrailing = value;
+                                  });
+                                },
                                 title: Row(
                                   children: [
                                     Container(
@@ -197,12 +205,22 @@ class _ModulCourseScreenState extends State<ModulCourseScreen> {
                                     const SizedBox(
                                       width: 10,
                                     ),
-                                    Text(
-                                      dataMaterials.moduls[index].title!,
-                                      style: GoogleFonts.roboto(
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w500,
-                                        color: const Color(0xff112D4E),
+                                    Expanded(
+                                      child: Text(
+                                        dataMaterials.moduls[index].title!,
+                                        maxLines: 2,
+                                        style: GoogleFonts.roboto(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w500,
+                                          color: const Color(0xff112D4E),
+                                        ),
+                                      ),
+                                    ),
+                                    Visibility(
+                                      visible: isExpansionTrailing,
+                                      child: const Icon(
+                                        Icons.check_circle,
+                                        color: Color(0xFFB0B9C4),
                                       ),
                                     ),
                                   ],
@@ -220,11 +238,24 @@ class _ModulCourseScreenState extends State<ModulCourseScreen> {
                                         color: Color(0xff112D4E),
                                       ),
                                       title: Text("Dummy",
-                                          style: GoogleFonts.roboto(
-                                            fontSize: 13,
-                                            fontWeight: FontWeight.w500,
-                                            color: const Color(0xff112D4E),
-                                          )),
+                                        style: GoogleFonts.roboto(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w500,
+                                          color: const Color(0xff112D4E),
+                                        ),
+                                      ),
+                                      trailing: const Icon(
+                                        Icons.check_circle,
+                                        color: Color(0xFFB0B9C4),
+                                      ),
+                                      // onTap: (){
+                                      //   Navigator.push(
+                                      //     context,
+                                      //     MaterialPageRoute(
+                                      //       builder: (context) => const VideoMateriScreen(),
+                                      //     ),
+                                      //   );
+                                      // },
                                     ),
                                   ),
                                   Visibility(
@@ -239,11 +270,24 @@ class _ModulCourseScreenState extends State<ModulCourseScreen> {
                                         color: Color(0xff112D4E),
                                       ),
                                       title: Text("Dummy",
-                                          style: GoogleFonts.roboto(
-                                            fontSize: 13,
-                                            fontWeight: FontWeight.w500,
-                                            color: const Color(0xff112D4E),
-                                          )),
+                                        style: GoogleFonts.roboto(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w500,
+                                          color: const Color(0xff112D4E),
+                                        ),
+                                      ),
+                                      trailing: const Icon(
+                                        Icons.check_circle,
+                                        color: Color(0xFFB0B9C4),
+                                      ),
+                                      // onTap: (){
+                                      //   Navigator.push(
+                                      //     context,
+                                      //     MaterialPageRoute(
+                                      //       builder: (context) => const VideoMateriScreen(),
+                                      //     ),
+                                      //   );
+                                      // }
                                     ),
                                   ),
                                 ],
@@ -282,45 +326,6 @@ class _ModulCourseScreenState extends State<ModulCourseScreen> {
       author: 'Yono Salim',
     )
   ];
-
-  // List<TitleCourseModel> dummyTitle = [
-  //   TitleCourseModel(
-  //     titleSection: 'Introduction',
-  //     section: 'Section 1',
-  //     videoPertama: "Hello! Let's learn UI/UX",
-  //     videoKedua: 'What to Prepare?',
-  //   ),
-  //   TitleCourseModel(
-  //     titleSection: 'What is UI?',
-  //     section: 'Section 2',
-  //     videoPertama: "Let's learn UI",
-  //     videoKedua: 'What do you must know about UI',
-  //   ),
-  //   TitleCourseModel(
-  //     titleSection: 'What is UX?',
-  //     section: 'Section 3',
-  //     videoPertama: "Let's learn UI",
-  //     videoKedua: 'What do you must know about UI',
-  //   ),
-  //   TitleCourseModel(
-  //     titleSection: 'What are the Tools?',
-  //     section: 'Section 4',
-  //     videoPertama: "Let's learn UI",
-  //     videoKedua: 'What do you must know about UI',
-  //   ),
-  //   TitleCourseModel(
-  //     titleSection: 'Human-Centered Design',
-  //     section: 'Section 5',
-  //     videoPertama: "Let's learn UI",
-  //     videoKedua: 'What do you must know about UI',
-  //   ),
-  //   TitleCourseModel(
-  //     titleSection: 'Resume',
-  //     section: 'Assignment',
-  //     videoPertama: "Let's learn UI",
-  //     videoKedua: 'What do you must know about UI',
-  //   ),
-  // ];
 
   List<ReviewCardModel> dummyCardReview = [
     ReviewCardModel(
