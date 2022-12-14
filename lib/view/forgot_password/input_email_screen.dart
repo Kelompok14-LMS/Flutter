@@ -1,4 +1,3 @@
-import 'package:edu_world/utils/constant.dart';
 import 'package:edu_world/view/components/roboto_text.dart';
 import 'package:flutter/material.dart';
 
@@ -32,7 +31,6 @@ class _InputEmailScreenState extends State<InputEmailScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    double sizeAppBar = MediaQuery.of(context).padding.top;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -52,47 +50,29 @@ class _InputEmailScreenState extends State<InputEmailScreen> {
         backgroundColor: Colors.transparent,
       ),
       body: Center(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 64),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                HeaderInputEmail(size: size),
-                const SizedBox(
-                  height: 24,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  child: Text(
-                    'Email',
-                    style: MyColor().loginField,
-                  ),
-                ),
-                const SizedBox(
-                  height: 4,
-                ),
-                FormEmail(
-                  formKey: formKey,
-                  emailController: _emailController,
-                ),
-                const SizedBox(
-                  height: 64,
-                ),
-                ButtonAdd(
-                  size: size,
-                  formKey: formKey,
-                  emailController: _emailController,
-                ),
-                SizedBox(
-                  height: sizeAppBar,
-                ),
-                SizedBox(
-                  height: sizeAppBar,
-                ),
-              ],
-            ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 64),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              HeaderInputEmail(size: size),
+              const SizedBox(
+                height: 20,
+              ),
+              FormEmail(
+                formKey: formKey,
+                emailController: _emailController,
+              ),
+              const SizedBox(
+                height: 64,
+              ),
+              ButtonAdd(
+                size: size,
+                formKey: formKey,
+                emailController: _emailController,
+              ),
+            ],
           ),
         ),
       ),

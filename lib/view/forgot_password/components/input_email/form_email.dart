@@ -21,35 +21,49 @@ class FormEmail extends StatefulWidget {
 class _FormEmailState extends State<FormEmail> {
   @override
   Widget build(BuildContext context) {
-    const primaryColor = MyColor.primary;
-    return Form(
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      key: widget.formKey,
-      child: TextFormField(
-        controller: widget._emailController,
-        decoration: InputDecoration(
-          hintText: 'Masukkan Email',
-          hintStyle: GoogleFonts.roboto(
-            fontSize: 16,
-            fontWeight: FontWeight.w400,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          child: Text(
+            'Email',
+            style: MyColor().loginField,
           ),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
-          isDense: true,
-          contentPadding: const EdgeInsets.all(15),
         ),
-        validator: (email) {
-          if (email == '') {
-            return 'Email tidak boleh kosong';
-          }
-          if (email != null && !EmailValidator.validate(email)) {
-            return 'Masukkan email dengan benar';
-          } else {
-            return null;
-          }
-        },
-      ),
+        Padding(
+          padding: const EdgeInsets.only(top: 4.0),
+          child: Form(
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            key: widget.formKey,
+            child: TextFormField(
+              controller: widget._emailController,
+              decoration: InputDecoration(
+                hintText: 'Masukkan Email',
+                hintStyle: GoogleFonts.roboto(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w400,
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                isDense: true,
+                contentPadding: const EdgeInsets.all(15),
+              ),
+              validator: (email) {
+                if (email == '') {
+                  return 'Email tidak boleh kosong';
+                }
+                if (email != null && !EmailValidator.validate(email)) {
+                  return 'Masukkan email dengan benar';
+                } else {
+                  return null;
+                }
+              },
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

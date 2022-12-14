@@ -42,7 +42,7 @@ class _ButtonRegisterState extends State<ButtonRegister> {
   Widget build(BuildContext context) {
     return SizedBox(
       width: widget.size.width,
-      height: 56,
+      height: widget.size.height * 0.068,
       child: Consumer<AuthViewModel>(
         builder: (context, value, child) {
           return Card(

@@ -42,7 +42,6 @@ class _OtpScreenState extends State<OtpScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    double sizeAppBar = MediaQuery.of(context).padding.top;
     return Scaffold(
       appBar: AppBar(
         leadingWidth: 200,
@@ -63,7 +62,7 @@ class _OtpScreenState extends State<OtpScreen> {
       body: Center(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 64),
+            padding: const EdgeInsets.symmetric(horizontal: 60),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -94,12 +93,6 @@ class _OtpScreenState extends State<OtpScreen> {
                   height: 20,
                 ),
                 ResendOtpScreen(widget: widget),
-                SizedBox(
-                  height: sizeAppBar,
-                ),
-                SizedBox(
-                  height: sizeAppBar,
-                ),
               ],
             ),
           ),

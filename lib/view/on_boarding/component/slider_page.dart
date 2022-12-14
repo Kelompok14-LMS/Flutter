@@ -28,7 +28,7 @@ class SliderPage extends StatelessWidget {
           children: [
             SvgPicture.asset(
               image,
-              width: size.width * 0.7,
+              width: size.width * 0.6,
             ),
             const SizedBox(
               height: 64,
@@ -45,17 +45,9 @@ class SliderPage extends StatelessWidget {
                 ],
               ),
             ),
-            // RobotoText(
-            //   fontWeight: FontWeight.w500,
-            //   text: desc,
-            //   fontSize: 32,
-            //   textAlign: TextAlign.justify,
-            //   lineHeight: 1.4,
-            //   color: MyColor.primary,
-            // ),
-            // SizedBox(
-            //   height: size.height * 0.15,
-            // ),
+            const SizedBox(
+              height: 100,
+            )
           ],
         ),
       ),
