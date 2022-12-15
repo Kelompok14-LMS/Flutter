@@ -29,6 +29,8 @@ class CourseModel {
         createdAt = json['created_at'],
         updateAt = json['update_at'];
 
+  get materials => null;
+
   Map<String, dynamic> toJson() {
     return {
       'id': id,
