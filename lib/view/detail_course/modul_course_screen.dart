@@ -5,7 +5,7 @@ import 'package:edu_world/models/review_card_model.dart';
 import 'package:edu_world/models/title_course_model.dart';
 import 'package:edu_world/utils/constant.dart';
 import 'package:edu_world/view/detail_course/components/review_card.dart';
-import 'package:edu_world/view/detail_course/video_materi_screen.dart';
+import 'package:edu_world/view/detail_course/material_materi_screen.dart';
 import 'package:edu_world/view_models/enroll_view_model.dart';
 import 'package:edu_world/view_models/materials_view_model.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -29,6 +29,14 @@ class _ModulCourseScreenState extends State<ModulCourseScreen> {
   double topBarOpacity = 0.0;
 
   bool isExpansionTrailing = false;
+  bool isComplate = false;
+
+  @override
+  void initState() {
+    Provider.of<MaterialsViewModel>(context, listen: false)
+        .getPreviewMaterialsModules(widget.courseModel.id!);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -248,14 +256,16 @@ class _ModulCourseScreenState extends State<ModulCourseScreen> {
                                         Icons.check_circle,
                                         color: Color(0xFFB0B9C4),
                                       ),
-                                      // onTap: (){
-                                      //   Navigator.push(
-                                      //     context,
-                                      //     MaterialPageRoute(
-                                      //       builder: (context) => const VideoMateriScreen(),
-                                      //     ),
-                                      //   );
-                                      // },
+                                      onTap: (){
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => VideoMateriScreen(
+                                              courseModel: widget.courseModel,
+                                            ),
+                                          ),
+                                        );
+                                      },
                                     ),
                                   ),
                                   Visibility(
@@ -280,14 +290,16 @@ class _ModulCourseScreenState extends State<ModulCourseScreen> {
                                         Icons.check_circle,
                                         color: Color(0xFFB0B9C4),
                                       ),
-                                      // onTap: (){
-                                      //   Navigator.push(
-                                      //     context,
-                                      //     MaterialPageRoute(
-                                      //       builder: (context) => const VideoMateriScreen(),
-                                      //     ),
-                                      //   );
-                                      // }
+                                      onTap: (){
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => VideoMateriScreen(
+                                              courseModel: widget.courseModel,
+                                            ),
+                                          ),
+                                        );
+                                      }
                                     ),
                                   ),
                                 ],
