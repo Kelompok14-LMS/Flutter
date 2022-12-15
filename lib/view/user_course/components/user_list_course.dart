@@ -117,15 +117,27 @@ class _UserListCourseState extends State<UserListCourse> {
                                         width: 12,
                                       ),
                                       const Icon(
-                                        Icons.favorite,
+                                        Icons.star,
                                         color: MyColor.primaryLogo,
                                         size: 20,
+                                      ),
+                                      const SizedBox(
+                                        width: 4,
+                                      ),
+                                      const RobotoText(
+                                        text: '4.7',
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w700,
+                                        color: MyColor.primary,
+                                      ),
+                                      const SizedBox(
+                                        width: 4,
                                       ),
                                       const RobotoText(
                                         text: '(63)',
                                         fontSize: 16,
                                         fontWeight: FontWeight.w400,
-                                        color: MyColor.primary,
+                                        color: Color(0xFF8896A7),
                                       )
                                     ],
                                   ),
@@ -136,58 +148,18 @@ class _UserListCourseState extends State<UserListCourse> {
                         ),
                         Padding(
                           padding: const EdgeInsets.all(16.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                child: Column(
-                                  children: [
-                                    LinearPercentIndicator(
-                                      padding: EdgeInsets.zero,
-                                      barRadius: const Radius.circular(16),
-                                      percent: 0.8,
-                                      lineHeight: 23,
-                                      progressColor: MyColor.primaryLogo,
-                                      backgroundColor: Colors.white,
-                                      center: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: const [
-                                          RobotoText(
-                                            text: '80%',
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w700,
-                                          ),
-                                          SizedBox(
-                                            width: 8,
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 16,
-                              ),
-                              Stack(
-                                alignment: Alignment.center,
-                                children: const <Widget>[
-                                  Icon(
-                                    Icons.favorite,
-                                    color: MyColor.primary,
-                                    size: 28,
-                                  ),
-                                  Center(
-                                    child: Icon(
-                                      Icons.favorite,
-                                      color: MyColor.primaryLogo,
-                                      size: 24,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
+                          child: LinearPercentIndicator(
+                            padding: EdgeInsets.zero,
+                            barRadius: const Radius.circular(16),
+                            percent: 0.8,
+                            lineHeight: 23,
+                            progressColor: MyColor.primaryLogo,
+                            backgroundColor: Colors.white,
+                            center: const RobotoText(
+                              text: '80%',
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
                         ),
                       ],

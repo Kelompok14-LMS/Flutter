@@ -77,6 +77,15 @@ class MyColor {
 // font tabBar
   TextStyle tabBarTextStyle = GoogleFonts.roboto(
       fontSize: 14, fontWeight: FontWeight.w700, color: primary);
+// font reviewCourseText
+  TextStyle reviewCourseTextStyle = GoogleFonts.roboto(
+      fontSize: 16, fontWeight: FontWeight.w700, color: primary);
+// font reviewCourseTextRating
+  TextStyle reviewCourseSubTextStyleRating = GoogleFonts.roboto(
+      fontSize: 16, fontWeight: FontWeight.w400, color: primary);
+// font reviewCourseSubText
+  TextStyle reviewCourseSubTextStyle = GoogleFonts.roboto(
+      fontSize: 14, fontWeight: FontWeight.w400, color: primary);
 // font appbar
   TextStyle appTextsStyle = GoogleFonts.roboto(
     fontSize: 22,
