@@ -196,7 +196,10 @@ class _HomeCourseState extends State<HomeCourse> {
                                               mentee: mentee!,
                                               courseModel: popularCourse
                                                   .popularCourse[index])
-                                          : const ModulCourseScreen(),
+                                          : ModulCourseScreen(
+                                            mentee: mentee!,
+                                            courseModel: popularCourse.popularCourse[index]
+                                          ),
                                 ),
                               );
                             },
