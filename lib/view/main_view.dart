@@ -43,10 +43,10 @@ class _MainScreenState extends State<MainScreen> {
               ),
               BottomNavigationBarItem(
                 icon: Icon(
-                  Icons.favorite,
+                  Icons.star,
                   size: 30,
                 ),
-                label: 'Favorit',
+                label: 'Ulasan',
               ),
               BottomNavigationBarItem(
                 icon: Icon(
