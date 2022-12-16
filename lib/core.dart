@@ -9,7 +9,6 @@ export 'package:edu_world/models/detail_course_model.dart';
 export 'package:edu_world/models/mentee_assignment_model.dart';
 export 'package:edu_world/models/mentees.dart';
 export 'package:edu_world/models/on_boarding.dart';
-export 'package:edu_world/models/slide_materi_model.dart';
 export 'package:edu_world/models/title_course_model.dart';
 export 'package:edu_world/models/users.dart';
 export 'package:edu_world/models/video_materi_model.dart';
