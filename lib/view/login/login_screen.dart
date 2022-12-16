@@ -1,10 +1,13 @@
+import 'package:edu_world/utils/finite_state.dart';
 import 'package:edu_world/view/login/component/button_login.dart';
 import 'package:edu_world/view/login/component/forgot_password.dart';
 import 'package:edu_world/view/login/component/form_login.dart';
 import 'package:edu_world/view/login/component/header_login.dart';
 import 'package:edu_world/view/login/component/move_register.dart';
+import 'package:edu_world/view_models/auth_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:jwt_decode/jwt_decode.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -40,43 +43,67 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 64),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const HeaderLogin(),
-              const SizedBox(
-                height: 20,
+      body: Consumer<AuthViewModel>(
+        builder: (context, value, child) {
+          if (value.state == ViewState.error) {
+            return AlertDialog(
+              title: const Text('Error'),
+              content: const Text('Terjadi Kesalahan!'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const LoginScreen(),
+                        ),
+                        (route) => false);
+                  },
+                  child: const Text('Ok'),
+                )
+              ],
+            );
+          }
+          return SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 64),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const HeaderLogin(),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  FormLogin(
+                    formKey: formKey,
+                    emailController: _emailController,
+                    passwordController: _passwordController,
+                  ),
+                  const ForgotPassword(),
+                  const SizedBox(
+                    height: 64,
+                  ),
+                  ButtonLogin(
+                    size: size,
+                    formKey: formKey,
+                    emailController: _emailController,
+                    passwordController: _passwordController,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const MoveRegister(),
+                ],
               ),
-              FormLogin(
-                formKey: formKey,
-                emailController: _emailController,
-                passwordController: _passwordController,
-              ),
-              const ForgotPassword(),
-              const SizedBox(
-                height: 64,
-              ),
-              ButtonLogin(
-                size: size,
-                formKey: formKey,
-                emailController: _emailController,
-                passwordController: _passwordController,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              const MoveRegister(),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }
-   void checkExpTokenJwt() async {
+
+  void checkExpTokenJwt() async {
     final helper = await SharedPreferences.getInstance();
     final token = helper.getString('token');
     if (token != null) {

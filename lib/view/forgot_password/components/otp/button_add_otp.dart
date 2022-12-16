@@ -2,6 +2,7 @@ import 'package:edu_world/utils/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../utils/finite_state.dart';
 import '../../../../view_models/auth_view_model.dart';
 import '../../otp_screen.dart';
 import '../../reset_passsword_screen.dart';
@@ -40,54 +41,67 @@ class _ButtonAddOtpState extends State<ButtonAddOtp> {
     return SizedBox(
       width: widget.size.width,
       height: widget.size.height * 0.068,
-      child: ElevatedButton(
-        onPressed: () async {
-          final otp = widget._oneController.text +
-              widget._twoController.text +
-              widget._threeController.text +
-              widget._fourController.text;
-          if (widget.formKey.currentState!.validate()) {
-            widget.formKey.currentState!.save();
-            final result = await context
-                .read<AuthViewModel>()
-                .checkOtp(widget.widget.email, otp);
-            if (result == 'OTP matched') {
-              if (mounted) {
-                print(otp);
-                print(widget.widget.email);
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(result!),
-                  ),
-                );
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ResetPasswordScreen(
-                        email: widget.widget.email, otp: otp),
-                  ),
-                );
-              }
-            } else if (result != 'OTP matched') {
-              if (mounted) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(result!),
-                  ),
-                );
-              }
-            }
+      child: Consumer<AuthViewModel>(
+        builder: (context, value, child) {
+          if (value.state == ViewState.loading) {
+            return const Center(
+              child: CircularProgressIndicator(
+                backgroundColor: MyColor.primaryLogo,
+                color: Colors.white,
+              ),
+            );
           }
+          return ElevatedButton(
+            onPressed: () async {
+              final otp = widget._oneController.text +
+                  widget._twoController.text +
+                  widget._threeController.text +
+                  widget._fourController.text;
+              if (widget.formKey.currentState!.validate()) {
+                widget.formKey.currentState!.save();
+                final result = await context
+                    .read<AuthViewModel>()
+                    .checkOtp(widget.widget.email, otp);
+                if (result == 'OTP matched') {
+                  if (mounted) {
+                    print(otp);
+                    print(widget.widget.email);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(result!),
+                      ),
+                    );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ResetPasswordScreen(
+                            email: widget.widget.email, otp: otp),
+                      ),
+                    );
+                  }
+                } else if (result != 'OTP matched') {
+                  if (mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(result!),
+                      ),
+                    );
+                  }
+                }
+              }
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: MyColor.primaryLogo,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8)),
+              elevation: 6,
+            ),
+            child: Text(
+              'Kirim',
+              style: MyColor().loginField,
+            ),
+          );
         },
-        style: ElevatedButton.styleFrom(
-          backgroundColor: MyColor.primaryLogo,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-          elevation: 6,
-        ),
-        child: Text(
-          'Kirim',
-          style: MyColor().loginField,
-        ),
       ),
     );
   }

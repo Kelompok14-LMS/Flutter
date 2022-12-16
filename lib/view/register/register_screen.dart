@@ -2,8 +2,12 @@ import 'package:edu_world/utils/constant.dart';
 import 'package:edu_world/view/login/component/header_login.dart';
 import 'package:edu_world/view/register/components/register/form_register.dart';
 import 'package:edu_world/view/register/components/register/header_register.dart';
+import 'package:edu_world/view_models/auth_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../utils/finite_state.dart';
+import '../login/login_screen.dart';
 import 'components/register/button_register.dart';
 import 'components/register/move_login.dart';
 
@@ -47,59 +51,82 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 64),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const HeaderRegister(),
-              const SizedBox(
-                height: 20,
-              ),
-              Form(
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                key: formKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Column(
+      body: Consumer<AuthViewModel>(
+        builder: (context, value, child) {
+          if (value.state == ViewState.error) {
+            return AlertDialog(
+              title: const Text('Error'),
+              content: const Text('Terjadi Kesalahan!'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const RegisterScreen(),
+                        ),
+                        (route) => false);
+                  },
+                  child: const Text('Ok'),
+                )
+              ],
+            );
+          }
+          return SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 64),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const HeaderRegister(),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Form(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    key: formKey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        FormRegister(
-                            fullNameController: _fullNameController,
-                            numberPhoneController: _numberPhoneController,
-                            emailController: _emailController,
-                            passwordController: _passwordController),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        ButtonRegister(
-                          size: size,
-                          checkboxValue: checkboxValue,
-                          mounted: mounted,
-                          formKey: formKey,
-                          emailController: _emailController,
-                          numberPhoneController: _numberPhoneController,
-                          passwordController: _passwordController,
-                          fullNameController: _fullNameController,
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        const MoveLogin(),
-                        const SizedBox(
-                          height: 16,
+                        Column(
+                          children: [
+                            FormRegister(
+                                fullNameController: _fullNameController,
+                                numberPhoneController: _numberPhoneController,
+                                emailController: _emailController,
+                                passwordController: _passwordController),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            ButtonRegister(
+                              size: size,
+                              checkboxValue: checkboxValue,
+                              mounted: mounted,
+                              formKey: formKey,
+                              emailController: _emailController,
+                              numberPhoneController: _numberPhoneController,
+                              passwordController: _passwordController,
+                              fullNameController: _fullNameController,
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            const MoveLogin(),
+                            const SizedBox(
+                              height: 16,
+                            )
+                          ],
                         )
                       ],
-                    )
-                  ],
-                ),
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
       // body: SingleChildScrollView(
       //   child: Column(

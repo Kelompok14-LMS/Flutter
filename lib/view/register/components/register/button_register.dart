@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../models/users.dart';
+import '../../../../utils/finite_state.dart';
 import '../../../../view_models/auth_view_model.dart';
 import '../../../components/roboto_text.dart';
 import '../../otp_registrasi_screen.dart';
@@ -45,60 +46,65 @@ class _ButtonRegisterState extends State<ButtonRegister> {
       height: widget.size.height * 0.068,
       child: Consumer<AuthViewModel>(
         builder: (context, value, child) {
-          return Card(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-            clipBehavior: Clip.antiAliasWithSaveLayer,
-            elevation: 6,
-            child: ElevatedButton(
-              onPressed: () async {
-                if (widget.formKey.currentState!.validate()) {
-                  widget.formKey.currentState!.save();
+          if (value.state == ViewState.loading) {
+            return const Center(
+              child: CircularProgressIndicator(
+                backgroundColor: MyColor.primaryLogo,
+                color: Colors.white,
+              ),
+            );
+          }
+          return ElevatedButton(
+            onPressed: () async {
+              if (widget.formKey.currentState!.validate()) {
+                widget.formKey.currentState!.save();
 
-                  final result = await value.register(
-                    Users(
-                      email: widget._emailController.text,
-                      password: widget._passwordController.text,
-                    ),
-                  );
+                final result = await value.register(
+                  Users(
+                    email: widget._emailController.text,
+                    password: widget._passwordController.text,
+                  ),
+                );
 
-                  if (result == 'Success send OTP to email') {
-                    if (widget.mounted) {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => OtpRegistrasiScreen(
-                              fullName: widget._fullNameController.text,
-                              phone: widget._numberPhoneController.text,
-                              email: widget._emailController.text,
-                              password: widget._passwordController.text),
-                        ),
-                      );
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(result!),
-                        ),
-                      );
-                    }
-                  } else if (result != 'Success send OTP to email') {
-                    if (widget.mounted) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(result!),
-                        ),
-                      );
-                    }
+                if (result == 'Success send OTP to email') {
+                  if (widget.mounted) {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => OtpRegistrasiScreen(
+                            fullName: widget._fullNameController.text,
+                            phone: widget._numberPhoneController.text,
+                            email: widget._emailController.text,
+                            password: widget._passwordController.text),
+                      ),
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(result!),
+                      ),
+                    );
+                  }
+                } else if (result != 'Success send OTP to email') {
+                  if (widget.mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(result!),
+                      ),
+                    );
                   }
                 }
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: MyColor.primaryLogo,
-              ),
-              child: const RobotoText(
-                text: 'Daftar',
-                fontSize: 20,
-                fontWeight: FontWeight.w700,
-                color: MyColor.primary,
-              ),
+              }
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: MyColor.primaryLogo,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8)),
+              elevation: 6,
+            ),
+            child: const RobotoText(
+              text: 'Daftar',
+              fontSize: 20,
+              fontWeight: FontWeight.w700,
+              color: MyColor.primary,
             ),
           );
         },
