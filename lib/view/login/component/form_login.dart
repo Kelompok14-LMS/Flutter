@@ -96,7 +96,7 @@ class FormLogin extends StatelessWidget {
                     return 'Tidak boleh kosong';
                   }
                   if (value != null && value.length < 6) {
-                    return 'Password min.6 character';
+                    return 'Password mininam 6 karakter';
                   }
                   return null;
                 },
