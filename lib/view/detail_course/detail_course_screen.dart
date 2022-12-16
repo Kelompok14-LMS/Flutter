@@ -309,10 +309,8 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
                     .enrollCourse(widget.courseModel.id!, widget.mentee);
                 Navigator.of(context).pushReplacement(
                   MaterialPageRoute(
-                    builder: (context) =>  ModulCourseScreen(
-                      mentee: widget.mentee!,
-                      courseModel: widget.courseModel
-                    ),
+                    builder: (context) => ModulCourseScreen(
+                        mentee: widget.mentee, courseModel: widget.courseModel),
                   ),
                 );
               },
