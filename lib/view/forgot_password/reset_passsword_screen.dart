@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../components/roboto_text.dart';
 import 'components/reset/button_reset.dart';
 import 'components/reset/form_reset_password.dart';
 import 'components/reset/header_reset.dart';
@@ -41,39 +42,47 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            icon: const Icon(
-              Icons.arrow_back,
-              color: Colors.black,
-            )),
+        leadingWidth: 200,
+        leading: TextButton.icon(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(Icons.arrow_back_ios),
+          label: const RobotoText(
+            text: 'Kembali',
+            fontSize: 16,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
         elevation: 0,
         backgroundColor: Colors.transparent,
       ),
       body: Center(
         child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              HeaderResetPassword(size: size),
-              FormResetPassword(
-                formKey: formKey,
-                passController: _passController,
-                confirmController: _confirmController,
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              ButtonReset(
-                size: size,
-                formKey: formKey,
-                passController: _passController,
-                confirmController: _confirmController,
-                widget: widget,
-              ),
-            ],
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 64),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const HeaderResetPassword(),
+                FormResetPassword(
+                  formKey: formKey,
+                  passController: _passController,
+                  confirmController: _confirmController,
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                ButtonReset(
+                  size: size,
+                  formKey: formKey,
+                  passController: _passController,
+                  confirmController: _confirmController,
+                  widget: widget,
+                ),
+              ],
+            ),
           ),
         ),
       ),

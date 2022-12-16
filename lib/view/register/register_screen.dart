@@ -1,5 +1,7 @@
 import 'package:edu_world/utils/constant.dart';
+import 'package:edu_world/view/login/component/header_login.dart';
 import 'package:edu_world/view/register/components/register/form_register.dart';
+import 'package:edu_world/view/register/components/register/header_register.dart';
 import 'package:flutter/material.dart';
 
 import 'components/register/button_register.dart';
@@ -46,61 +48,56 @@ class _RegisterScreenState extends State<RegisterScreen> {
       backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 64),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Ayo Jadi Mentee!',
-                  style: MyColor().fontOnBoarding,
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Form(
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  key: formKey,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Column(
-                        children: [
-                          FormRegister(
-                              fullNameController: _fullNameController,
-                              numberPhoneController: _numberPhoneController,
-                              emailController: _emailController,
-                              passwordController: _passwordController),
-                          const SizedBox(
-                            height: 64,
-                          ),
-                          ButtonRegister(
-                            size: size,
-                            checkboxValue: checkboxValue,
-                            mounted: mounted,
-                            formKey: formKey,
-                            emailController: _emailController,
-                            numberPhoneController: _numberPhoneController,
-                            passwordController: _passwordController,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 64),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const HeaderRegister(),
+              const SizedBox(
+                height: 20,
+              ),
+              Form(
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                key: formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Column(
+                      children: [
+                        FormRegister(
                             fullNameController: _fullNameController,
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          const MoveLogin(),
-                          const SizedBox(
-                            height: 16,
-                          )
-                        ],
-                      )
-                    ],
-                  ),
+                            numberPhoneController: _numberPhoneController,
+                            emailController: _emailController,
+                            passwordController: _passwordController),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        ButtonRegister(
+                          size: size,
+                          checkboxValue: checkboxValue,
+                          mounted: mounted,
+                          formKey: formKey,
+                          emailController: _emailController,
+                          numberPhoneController: _numberPhoneController,
+                          passwordController: _passwordController,
+                          fullNameController: _fullNameController,
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        const MoveLogin(),
+                        const SizedBox(
+                          height: 16,
+                        )
+                      ],
+                    )
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

@@ -23,7 +23,7 @@ Meraih ''',
     ),
     OnBoarding(
       image: 'assets/onboarding/pict_3.svg',
-      desc: '''Akses Semua Kelas
+      desc: '''Akses Semua Kelas 
 secara ''',
       diffDesc: 'Gratis',
     ),

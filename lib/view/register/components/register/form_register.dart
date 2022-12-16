@@ -27,138 +27,27 @@ class FormRegister extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 4),
-          child: Text(
-            'Nama Lengkap',
-            style: MyColor().loginField,
-          ),
-        ),
-        const SizedBox(
-          height: 8,
-        ),
-        TextFormField(
-          controller: _fullNameController,
-          decoration: InputDecoration(
-            hintStyle: MyColor().hintTextField,
-            hintText: 'Masukkan Nama Lengkap',
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
+    return Padding(
+      padding:
+          EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 4),
+            child: Text(
+              'Nama Lengkap',
+              style: MyColor().loginField,
             ),
-            isDense: true,
-            contentPadding: const EdgeInsets.all(15),
           ),
-          validator: (value) {
-            if (value!.isEmpty) {
-              return 'Tidak boleh kosong';
-            }
-            if (value.length < 3) {
-              return 'Nama min.3 character';
-            }
-            return null;
-          },
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 4),
-          child: Text(
-            'Email',
-            style: MyColor().loginField,
+          const SizedBox(
+            height: 4,
           ),
-        ),
-        const SizedBox(
-          height: 8,
-        ),
-        TextFormField(
-          controller: _emailController,
-          decoration: InputDecoration(
-            hintText: 'Masukkan Email',
-            hintStyle: MyColor().hintTextField,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
-            isDense: true,
-            contentPadding: const EdgeInsets.all(15),
-          ),
-          validator: (email) {
-            if (email == '') {
-              return 'Tidak boleh kosong';
-            }
-            if (email != null && !EmailValidator.validate(email)) {
-              return 'Masukkan Email dengan benar';
-            } else {
-              return null;
-            }
-          },
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 4),
-          child: Text(
-            'Nomer Telepon',
-            style: MyColor().loginField,
-          ),
-        ),
-        const SizedBox(
-          height: 8,
-        ),
-        TextFormField(
-          keyboardType: TextInputType.number,
-          controller: _numberPhoneController,
-          decoration: InputDecoration(
-            hintText: 'Masukkan Nomer Telepon',
-            hintStyle: MyColor().hintTextField,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
-            isDense: true,
-            contentPadding: const EdgeInsets.all(15),
-          ),
-          inputFormatters: [
-            FilteringTextInputFormatter.digitsOnly,
-          ],
-          validator: (value) {
-            if (value!.isEmpty) {
-              return 'Tidak boleh kosong';
-            }
-            return null;
-          },
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 4),
-          child: Text(
-            'Password',
-            style: MyColor().loginField,
-          ),
-        ),
-        const SizedBox(
-          height: 8,
-        ),
-        Consumer<AuthViewModel>(
-          builder: (context, value, child) => TextFormField(
-            obscureText: value.isTrue,
-            controller: _passwordController,
+          TextFormField(
+            controller: _fullNameController,
             decoration: InputDecoration(
-              suffixIcon: IconButton(
-                onPressed: () {
-                  value.toggleObs();
-                },
-                icon: value.isTrue
-                    ? Icon(Icons.visibility_off, color: primaryColor)
-                    : Icon(Icons.visibility, color: primaryColor),
-              ),
-              hintText: 'Masukkan Password',
               hintStyle: MyColor().hintTextField,
+              hintText: 'Masukkan Nama Lengkap',
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
               ),
@@ -166,63 +55,32 @@ class FormRegister extends StatelessWidget {
               contentPadding: const EdgeInsets.all(15),
             ),
             validator: (value) {
-              final regex = RegExp(r'[A-Z]');
               if (value!.isEmpty) {
                 return 'Tidak boleh kosong';
               }
-              if (value.length < 6) {
-                return 'Password min.6 character';
-              }
-              if (!regex.hasMatch(value)) {
-                return 'password tidak memilki huruf besar';
+              if (value.length < 3) {
+                return 'Nama minimal 3 karakter';
               }
               return null;
             },
           ),
-        ),
-        const SizedBox(
-          height: 12,
-        ),
-        Text(
-          'Password harus menggunakan huruf besar dan',
-          style: MyColor().subjudulCourse,
-        ),
-        const SizedBox(
-          height: 8,
-        ),
-        Text(
-          'minimal 6 karakter',
-          style: MyColor().subjudulCourse,
-        ),
-        const SizedBox(
-          height: 8,
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 4),
-          child: Text(
-            'Konfirmasi Password',
-            style: MyColor().loginField,
+          const SizedBox(
+            height: 20,
           ),
-        ),
-        const SizedBox(
-          height: 8,
-        ),
-        Consumer<AuthViewModel>(
-          builder: (context, value, child) => TextFormField(
-            obscureText: value.isTrue1,
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 4),
+            child: Text(
+              'Email',
+              style: MyColor().loginField,
+            ),
+          ),
+          const SizedBox(
+            height: 4,
+          ),
+          TextFormField(
+            controller: _emailController,
             decoration: InputDecoration(
-              suffixIcon: IconButton(
-                onPressed: () {
-                  value.toggleObs2();
-                },
-                icon: value.isTrue1
-                    ? Icon(Icons.visibility_off, color: primaryColor)
-                    : Icon(Icons.visibility, color: primaryColor),
-              ),
-              hintText: 'Konfirmasi Password',
+              hintText: 'Masukkan Email',
               hintStyle: MyColor().hintTextField,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
@@ -230,20 +88,99 @@ class FormRegister extends StatelessWidget {
               isDense: true,
               contentPadding: const EdgeInsets.all(15),
             ),
-            validator: (value) {
-              if (value == '') {
+            validator: (email) {
+              if (email == '') {
                 return 'Tidak boleh kosong';
-              } else if (value != _passwordController.text) {
-                return 'Password Berbeda';
+              }
+              if (email != null && !EmailValidator.validate(email)) {
+                return 'Masukkan Email dengan benar';
+              } else {
+                return null;
+              }
+            },
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 4),
+            child: Text(
+              'Nomer Ponsel',
+              style: MyColor().loginField,
+            ),
+          ),
+          const SizedBox(
+            height: 4,
+          ),
+          TextFormField(
+            keyboardType: TextInputType.number,
+            controller: _numberPhoneController,
+            decoration: InputDecoration(
+              hintText: 'Masukkan Nomer Ponsel',
+              hintStyle: MyColor().hintTextField,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+              isDense: true,
+              contentPadding: const EdgeInsets.all(15),
+            ),
+            inputFormatters: [
+              FilteringTextInputFormatter.digitsOnly,
+            ],
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'Tidak boleh kosong';
               }
               return null;
             },
           ),
-        ),
-        const SizedBox(
-          height: 8,
-        ),
-      ],
+          const SizedBox(
+            height: 20,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 4),
+            child: Text(
+              'Password',
+              style: MyColor().loginField,
+            ),
+          ),
+          const SizedBox(
+            height: 4,
+          ),
+          Consumer<AuthViewModel>(
+            builder: (context, value, child) => TextFormField(
+              obscureText: value.isTrue,
+              controller: _passwordController,
+              decoration: InputDecoration(
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    value.toggleObs();
+                  },
+                  icon: value.isTrue
+                      ? Icon(Icons.visibility_off, color: primaryColor)
+                      : Icon(Icons.visibility, color: primaryColor),
+                ),
+                hintText: 'Masukkan Password',
+                hintStyle: MyColor().hintTextField,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                isDense: true,
+                contentPadding: const EdgeInsets.all(15),
+              ),
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Tidak boleh kosong';
+                }
+                if (value.length < 6) {
+                  return 'Password minimal 6 character';
+                }
+                return null;
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

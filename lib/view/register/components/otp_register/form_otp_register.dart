@@ -29,10 +29,11 @@ class FormOtpRegister extends StatelessWidget {
       autovalidateMode: AutovalidateMode.onUserInteraction,
       key: formKey,
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           SizedBox(
-            width: size.width * 0.15,
+            width: size.width * 0.14,
             child: TextFormField(
               controller: _oneController,
               keyboardType: TextInputType.number,
@@ -55,7 +56,7 @@ class FormOtpRegister extends StatelessWidget {
             ),
           ),
           SizedBox(
-            width: size.width * 0.15,
+            width: size.width * 0.14,
             child: TextFormField(
               controller: _twoController,
               keyboardType: TextInputType.number,
@@ -78,7 +79,7 @@ class FormOtpRegister extends StatelessWidget {
             ),
           ),
           SizedBox(
-            width: size.width * 0.15,
+            width: size.width * 0.14,
             child: TextFormField(
               controller: _threeController,
               keyboardType: TextInputType.number,
@@ -101,7 +102,7 @@ class FormOtpRegister extends StatelessWidget {
             ),
           ),
           SizedBox(
-            width: size.width * 0.15,
+            width: size.width * 0.14,
             child: TextFormField(
               controller: _fourController,
               keyboardType: TextInputType.number,

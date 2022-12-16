@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 final _dio = Dio(
   BaseOptions(
-    baseUrl: 'http://educatetheworld.tech',
+    baseUrl: 'https://stagging.educatetheworld.tech',
   ),
 );
 
@@ -44,11 +44,11 @@ class MaterialDioService {
   }
 
   // get material
-  Future<List<Materials>> getDetailMaterials(String menteeId, String materialId) async {
+  Future<List<Materials>> getDetailMaterials(
+      String menteeId, String materialId) async {
     try {
-      final response = await _dio.get(
-        '/api/v1/mentees/$menteeId/materials/$materialId'
-      );
+      final response =
+          await _dio.get('/api/v1/mentees/$menteeId/materials/$materialId');
       List<dynamic> data = response.data['data']['modules']['materials'];
       List<Materials> result = data.map((e) => Materials.fromJson(e)).toList();
       return result;
@@ -58,11 +58,11 @@ class MaterialDioService {
   }
 
   // get video material
-  Future<List<Materials>> getVideoMaterials(String menteeId, String courseId) async {
+  Future<List<Materials>> getVideoMaterials(
+      String menteeId, String courseId) async {
     try {
-      final response = await _dio.get(
-        '/api/v1/mentees/$menteeId/courses/$courseId/details'
-      );
+      final response =
+          await _dio.get('/api/v1/mentees/$menteeId/courses/$courseId/details');
       List<dynamic> data = response.data['data']['modules']['materials'];
       List<Materials> result = data.map((e) => Materials.fromJson(e)).toList();
       return result;
@@ -70,5 +70,4 @@ class MaterialDioService {
       rethrow;
     }
   }
-
 }

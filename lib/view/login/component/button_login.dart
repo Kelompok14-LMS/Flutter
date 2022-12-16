@@ -34,8 +34,8 @@ class _ButtonLoginState extends State<ButtonLogin> {
       clipBehavior: Clip.antiAliasWithSaveLayer,
       elevation: 6,
       child: SizedBox(
-        height: 40,
-        width: 300,
+        height: widget.size.height * 0.058,
+        width: widget.size.width,
         child: Consumer<AuthViewModel>(
           builder: (context, value, child) {
             return ElevatedButton(

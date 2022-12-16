@@ -9,7 +9,7 @@ import '../models/mentees.dart';
 class ProfileAPI {
   final Dio dio = Dio(
     BaseOptions(
-      //baseUrl: 'http://educatetheworld.tech/api/v1',
+      //baseUrl: 'https://stagging.educatetheworld.tech/api/v1',
       connectTimeout: 5000,
       receiveTimeout: 3000,
       contentType: 'application/json',

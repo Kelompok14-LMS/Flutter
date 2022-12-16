@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 final _dio = Dio(
   BaseOptions(
-    baseUrl: 'http://educatetheworld.tech',
+    baseUrl: 'https://stagging.educatetheworld.tech',
   ),
 );
 

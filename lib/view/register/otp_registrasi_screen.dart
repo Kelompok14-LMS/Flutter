@@ -3,10 +3,13 @@ import 'package:provider/provider.dart';
 
 import '../../models/mentees.dart';
 import '../../models/users.dart';
+import '../../utils/constant.dart';
 import '../../view_models/auth_view_model.dart';
+import '../components/roboto_text.dart';
 import '../login/login_screen.dart';
 import 'components/otp_register/form_otp_register.dart';
 import 'components/otp_register/header_otp_register.dart';
+import 'components/otp_register/resend_otp_register.dart';
 
 class OtpRegistrasiScreen extends StatefulWidget {
   final String fullName;
@@ -55,39 +58,53 @@ class _OtpRegistrasiScreenState extends State<OtpRegistrasiScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            icon: const Icon(
-              Icons.arrow_back,
-              color: Colors.black,
-            )),
+        leadingWidth: 200,
+        leading: (TextButton.icon(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(
+            Icons.arrow_back_ios,
+            size: 24,
+          ),
+          label: const RobotoText(
+            text: 'Kembali',
+            fontSize: 16,
+            fontWeight: FontWeight.w700,
+          ),
+        )),
         elevation: 0,
         backgroundColor: Colors.transparent,
       ),
       body: Center(
-        child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 60),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              HeaderOtpRegister(size: size),
+              const HeaderOtpRegister(),
               FormOtpRegister(
-                  formKey: formKey,
-                  size: size,
-                  oneController: _oneController,
-                  twoController: _twoController,
-                  threeController: _threeController,
-                  fourController: _fourController),
-              const SizedBox(
-                height: 34,
+                formKey: formKey,
+                size: size,
+                oneController: _oneController,
+                twoController: _twoController,
+                threeController: _threeController,
+                fourController: _fourController,
               ),
-
+              const SizedBox(
+                height: 64,
+              ),
               //Button
               Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                clipBehavior: Clip.antiAliasWithSaveLayer,
                 elevation: 6,
                 child: SizedBox(
-                  width: size.width * 0.93,
-                  height: size.height * 0.07,
+                  width: size.width,
+                  height: size.height * 0.06,
                   child: ElevatedButton(
                     onPressed: () async {
                       final otp = _oneController.text +
@@ -138,9 +155,24 @@ class _OtpRegistrasiScreenState extends State<OtpRegistrasiScreen> {
                         }
                       }
                     },
-                    child: const Text('Masukkan'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: MyColor.primaryLogo,
+                    ),
+                    child: const RobotoText(
+                      text: 'Kirim',
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700,
+                      color: MyColor.primary,
+                    ),
                   ),
                 ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              ResendOtpRegister(
+                widget: widget,
+                mounted: mounted,
               ),
             ],
           ),
