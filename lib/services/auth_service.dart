@@ -6,7 +6,7 @@ import '../models/users.dart';
 
 class AuthService {
   late final Dio _dio;
-  final baseUrl = 'http://educatetheworld.tech/api/v1';
+  final baseUrl = 'https://stagging.educatetheworld.tech/api/v1';
 
   AuthService() {
     _dio = Dio();
