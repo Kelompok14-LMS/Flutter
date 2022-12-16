@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 final _dio = Dio(
   BaseOptions(
-    baseUrl: 'http://educatetheworld.tech',
+    baseUrl: 'https://stagging.educatetheworld.tech',
   ),
 );
 
@@ -43,13 +43,14 @@ class MaterialDioService {
     }
   }
 
-  Future<List<Modules>> getDetailMaterials(String menteeId, String materialId) async {
+  Future<List<Modules>> getDetailMaterials(
+      String menteeId, String materialId) async {
     try {
-      final response = await _dio.get(
-        '/api/v1/mentees/$menteeId/materials/$materialId'
-      );
+      final response =
+          await _dio.get('/api/v1/mentees/$menteeId/materials/$materialId');
       List<dynamic> data = response.data['data']['materials'];
-      List<Modules> result = data.map((e) => Materials.fromJson(e)).cast<Modules>().toList();
+      List<Modules> result =
+          data.map((e) => Materials.fromJson(e)).cast<Modules>().toList();
       return result;
     } catch (e) {
       rethrow;

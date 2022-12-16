@@ -2,8 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:edu_world/models/modules_model.dart';
 
 class ModulesAPI {
-  
-  static const baseURL = 'http://educatetheworld.tech/api/v1/modules/:moduleId';
+  static const baseURL =
+      'https://stagging.educatetheworld.tech/api/v1/modules/:moduleId';
   late Dio _dio;
 
   ModulesAPI() {
