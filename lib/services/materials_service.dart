@@ -21,12 +21,12 @@ class MaterialDioService {
         },
       ),
     );
-    // _dio.interceptors.add(
-    //   LogInterceptor(
-    //     responseBody: true,
-    //     requestBody: true,
-    //   ),
-    // );
+    _dio.interceptors.add(
+      LogInterceptor(
+        responseBody: true,
+        requestBody: true,
+      ),
+    );
   }
 
   Future<List<Modules>> getPreviewModulesMaterials(String courseId) async {
@@ -40,6 +40,22 @@ class MaterialDioService {
       return result;
     } catch (e) {
       rethrow;
+    }
+  }
+
+  Future getEnrolledModulesMaterials(String menteeId, String courseId) async {
+    try {
+      final response =
+          await _dio.get('/api/v1/mentees/$menteeId/courses/$courseId/details');
+
+      List<dynamic> data = response.data['data']['modules'];
+      List<Modules> result = data.map((e) => Modules.fromJson(e)).toList();
+      return result;
+    } on DioError catch (e) {
+      if (e.response!.statusCode == 502) {
+        return "502";
+      }
+      return [];
     }
   }
 
@@ -67,6 +83,22 @@ class MaterialDioService {
       List<Materials> result = data.map((e) => Materials.fromJson(e)).toList();
       return result;
     } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<String> submitProgress(
+      String menteeId, String courseId, String materialId) async {
+    try {
+      final response = await _dio.post('/api/v1/mentees/progress', data: {
+        "course_id": courseId,
+        "mentee_id": menteeId,
+        "material_id": materialId
+      });
+      // print('dijalankan');
+      return response.data["message"];
+    } catch (e) {
+      // print('errror');
       rethrow;
     }
   }
