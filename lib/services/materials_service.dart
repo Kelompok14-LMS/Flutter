@@ -43,14 +43,28 @@ class MaterialDioService {
     }
   }
 
-  Future<List<Modules>> getDetailMaterials(
+  // get material
+  Future<List<Materials>> getDetailMaterials(
       String menteeId, String materialId) async {
     try {
       final response =
           await _dio.get('/api/v1/mentees/$menteeId/materials/$materialId');
-      List<dynamic> data = response.data['data']['materials'];
-      List<Modules> result =
-          data.map((e) => Materials.fromJson(e)).cast<Modules>().toList();
+      List<dynamic> data = response.data['data']['modules']['materials'];
+      List<Materials> result = data.map((e) => Materials.fromJson(e)).toList();
+      return result;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  // get video material
+  Future<List<Materials>> getVideoMaterials(
+      String menteeId, String courseId) async {
+    try {
+      final response =
+          await _dio.get('/api/v1/mentees/$menteeId/courses/$courseId/details');
+      List<dynamic> data = response.data['data']['modules']['materials'];
+      List<Materials> result = data.map((e) => Materials.fromJson(e)).toList();
       return result;
     } catch (e) {
       rethrow;
