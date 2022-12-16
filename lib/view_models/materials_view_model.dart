@@ -22,11 +22,13 @@ class MaterialsViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> getDetailMaterials(String menteeId, String materialId) async {
-    try {
-      final result = await _dioService.getDetailMaterials(menteeId, materialId);
-    } catch (e) {
-      
-    }
-  }
+  // Future<void> getDetailMaterials(String menteeId, String materialId) async {
+  //   try {
+  //     final result = await _dioService.getDetailMaterials(menteeId, materialId);
+  //     moduls = result;
+  //   } catch (e) {
+  //     rethrow;
+  //   }
+  //   notifyListeners();
+  // }
 }
