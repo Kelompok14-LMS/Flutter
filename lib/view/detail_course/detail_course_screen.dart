@@ -206,7 +206,7 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
                                       width: 10,
                                     ),
                                     Text(
-                                      dataMaterials.moduls[index].title!,
+                                      dataMaterials.modulsPreview[index].title!,
                                       style: GoogleFonts.roboto(
                                         fontSize: 13,
                                         fontWeight: FontWeight.w500,
@@ -217,9 +217,9 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
                                 ),
                                 children: [
                                   Visibility(
-                                    visible:
-                                        dataMaterials.moduls[index].materials !=
-                                            null,
+                                    visible: dataMaterials
+                                            .modulsPreview[index].materials !=
+                                        null,
                                     child: ListTile(
                                       dense: true,
                                       leading: const Icon(
@@ -236,9 +236,9 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
                                     ),
                                   ),
                                   Visibility(
-                                    visible:
-                                        dataMaterials.moduls[index].materials !=
-                                            null,
+                                    visible: dataMaterials
+                                            .modulsPreview[index].materials !=
+                                        null,
                                     child: ListTile(
                                       dense: true,
                                       leading: const Icon(
@@ -260,7 +260,7 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
                           );
                         },
                         separatorBuilder: (context, index) => const SizedBox(),
-                        itemCount: dataMaterials.moduls.length),
+                        itemCount: dataMaterials.modulsPreview.length),
                   ],
                 ),
               ),

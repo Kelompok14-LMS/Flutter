@@ -49,7 +49,6 @@ class EnrollDioService {
       final response = await _dio.get(
         '/api/v1/mentees/$menteeId/courses/$courseId',
       );
-      print('apinya jalan');
       return response.data['data']['status_enrollment'];
     } catch (e) {
       rethrow;
