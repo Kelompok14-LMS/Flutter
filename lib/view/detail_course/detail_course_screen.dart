@@ -1,16 +1,15 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:edu_world/view/detail_course/modul_course_screen.dart';
+import 'package:edu_world/view_models/enroll_view_model.dart';
 import 'package:edu_world/view_models/materials_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import 'package:edu_world/models/course_model.dart';
-import 'package:edu_world/models/detail_course_model.dart';
 import 'package:edu_world/models/review_card_model.dart';
 import 'package:edu_world/utils/constant.dart';
 import 'package:edu_world/view/detail_course/components/review_card.dart';
-import 'package:edu_world/view_models/enroll_view_model.dart';
 
 class DetailCourseScreen extends StatefulWidget {
   const DetailCourseScreen({
@@ -308,14 +307,7 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
           child: Center(
             child: ElevatedButton(
               onPressed: () {
-                Provider.of<EnrollViewModel>(context, listen: false)
-                    .enrollCourse(widget.courseModel.id!, widget.mentee);
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                    builder: (context) => ModulCourseScreen(
-                        mentee: widget.mentee, courseModel: widget.courseModel),
-                  ),
-                );
+                showAlertDialogFunction();
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: MyColor.primaryLogo,
@@ -330,62 +322,83 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
         ));
   }
 
-  List<DetailCourseModel> detailCourse = [
-    DetailCourseModel(
-        image: 'https://i.ibb.co/ZcjM2m5/Rectangle-5-1.png',
-        title: 'Mastering UIX Design for Industry',
-        description:
-            'Kebutuhan UI/UX Designer terus meningkat hingga 20% dari tahun ke tahun. Sedangkan talenta yang ada belum dapat memenuhinya. UI/UX Designer juga salah satu karir yang akan terus dibutuhkan bahkan hingga 2028, disebut-sebut sebagai salah satu karir paling ‘hot’ di dunia teknologi saat ini.',
-        author: 'Yono Salim',
-        rating: '4.6',
-        jumlahRating: '(86)'),
-    DetailCourseModel(
-      image: 'https://i.ibb.co/rpYfcvH/Rectangle-5-2.png',
-      title: 'Becoming Full Stack Web Developer',
-      description:
-          'Kebutuhan UI/UX Designer terus meningkat hingga 20% dari tahun ke tahun. Sedangkan talenta yang ada belum dapat memenuhinya. UI/UX Designer juga salah satu karir yang akan terus dibutuhkan bahkan hingga 2028, disebut-sebut sebagai salah satu karir paling ‘hot’ di dunia teknologi saat ini.',
-      author: 'Yono Salim',
-    )
-  ];
-
-  // List<TitleCourseModel> dummyTitle = [
-  //   TitleCourseModel(
-  //     titleSection: 'Introduction',
-  //     section: 'Section 1',
-  //     videoPertama: "Hello! Let's learn UI/UX",
-  //     videoKedua: 'What to Prepare?',
-  //   ),
-  //   TitleCourseModel(
-  //     titleSection: 'What is UI?',
-  //     section: 'Section 2',
-  //     videoPertama: "Let's learn UI",
-  //     videoKedua: 'What do you must know about UI',
-  //   ),
-  //   TitleCourseModel(
-  //     titleSection: 'What is UX?',
-  //     section: 'Section 3',
-  //     videoPertama: "Let's learn UI",
-  //     videoKedua: 'What do you must know about UI',
-  //   ),
-  //   TitleCourseModel(
-  //     titleSection: 'What are the Tools?',
-  //     section: 'Section 4',
-  //     videoPertama: "Let's learn UI",
-  //     videoKedua: 'What do you must know about UI',
-  //   ),
-  //   TitleCourseModel(
-  //     titleSection: 'Human-Centered Design',
-  //     section: 'Section 5',
-  //     videoPertama: "Let's learn UI",
-  //     videoKedua: 'What do you must know about UI',
-  //   ),
-  //   TitleCourseModel(
-  //     titleSection: 'Resume',
-  //     section: 'Assignment',
-  //     videoPertama: "Let's learn UI",
-  //     videoKedua: 'What do you must know about UI',
-  //   ),
-  // ];
+  void showAlertDialogFunction() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          contentPadding: EdgeInsets.zero,
+          titlePadding:
+              const EdgeInsets.symmetric(horizontal: 59, vertical: 20),
+          // backgroundColor: Colors.red,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(17)),
+          title: const Text(
+            'Apakah kamu yakin ingin mengambil kursus ini?',
+            textAlign: TextAlign.center,
+            style: TextStyle(color: MyColor.primary, fontSize: 17),
+          ),
+          content: SizedBox(
+            height: 50,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Expanded(
+                  child: SizedBox(
+                    height: double.maxFinite,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Provider.of<EnrollViewModel>(context, listen: false)
+                            .enrollCourse(
+                                widget.courseModel.id!, widget.mentee);
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (context) => ModulCourseScreen(
+                                mentee: widget.mentee,
+                                courseModel: widget.courseModel),
+                          ),
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(16),
+                            ),
+                          ),
+                          backgroundColor: MyColor.primaryLogo),
+                      child: const Text('Iya'),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: SizedBox(
+                    height: double.maxFinite,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                              bottomRight: Radius.circular(16)),
+                        ),
+                      ),
+                      child: const Text(
+                        'Tidak',
+                        style: TextStyle(color: MyColor.primaryLogo),
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
 
   List<ReviewCardModel> dummyCardReview = [
     ReviewCardModel(
