@@ -80,7 +80,7 @@ class _KelasCourseState extends State<KelasCourse> {
                           width: 4,
                         ),
                         Text(
-                          '3.6',
+                          widget.courseModel.rating!.toStringAsFixed(1),
                           style: GoogleFonts.roboto(
                               fontSize: widget.fontSize - 2,
                               color: MyColor.primary,
@@ -90,7 +90,7 @@ class _KelasCourseState extends State<KelasCourse> {
                           width: 4,
                         ),
                         Text(
-                          '(85)',
+                          ('(${widget.courseModel.totalReviews!.toString()})'),
                           style: GoogleFonts.roboto(
                               fontSize: widget.fontSize - 2,
                               color: MyColor.primary,

@@ -46,6 +46,10 @@ class _CustomTabBarButtonState extends State<CustomTabBarButton> {
     return Expanded(
       child: Column(
         children: [
+          const SizedBox(
+            height: 12,
+          ),
+
           /// CUSTOM TABBAR
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -116,6 +120,22 @@ class _CustomTabBarButtonState extends State<CustomTabBarButton> {
                     );
                   }),
             ),
+          ),
+          const SizedBox(
+            height: 12,
+          ),
+          Container(
+            decoration: BoxDecoration(
+                border:
+                    Border.all(color: Colors.grey.withOpacity(0.3), width: 0.5),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.6),
+                    spreadRadius: 0.8,
+                    blurRadius: 10,
+                    offset: const Offset(0, 4), // changes position of shadow
+                  ),
+                ]),
           ),
           icons[current]
         ],

@@ -6,7 +6,7 @@ class CourseModel {
   String? title;
   String? description;
   int? totalReviews;
-  dynamic? rating;
+  double? rating;
   String? thumbnail;
   String? createdAt;
   String? updateAt;
@@ -31,7 +31,7 @@ class CourseModel {
         description = json['description'],
         thumbnail = json['thumbnail'],
         totalReviews = json['total_reviews'],
-        rating = json['rating'],
+        rating = json["rating"] is int ? (json['rating'] as int).toDouble() : json['rating'],
         createdAt = json['created_at'],
         updateAt = json['update_at'];
 
