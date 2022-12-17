@@ -21,12 +21,12 @@ class CourseDioService {
         },
       ),
     );
-    _dio.interceptors.add(
-      LogInterceptor(
-        responseBody: true,
-        requestBody: true,
-      ),
-    );
+    // _dio.interceptors.add(
+    //   LogInterceptor(
+    //     responseBody: true,
+    //     requestBody: true,
+    //   ),
+    // );
   }
 
   Future<List<CourseModel>> getAllCourse() async {
@@ -91,7 +91,7 @@ class CourseDioService {
       List<dynamic> data = response.data['data'];
       List<CourseModel> result =
           data.map((e) => CourseModel.fromJson(e)).toList();
-          print(result);
+          // print(result);
       return result;
     } catch (e) {
       rethrow;

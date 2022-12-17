@@ -96,91 +96,117 @@ class _ModulCourseScreenState extends State<ModulCourseScreen> {
                     width: double.maxFinite,
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 10),
+                    padding: const EdgeInsets.only(top: 10,),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        Row(
                           children: [
-                            SizedBox(
-                              width: 300,
-                              child: Text(
-                                widget.courseModel.title!,
-                                style: GoogleFonts.roboto(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w700,
-                                  color: const Color(0xff112D4E),
-                                ),
-                                maxLines: 1,
-                                overflow: TextOverflow.clip,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 7,
-                            ),
-                            Row(
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  'by ',
-                                  style: GoogleFonts.roboto(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w400,
-                                    color: const Color(0xff112D4E),
-                                  ),
-                                ),
-                                Text(
-                                  widget.courseModel.mentorName!,
-                                  style: GoogleFonts.roboto(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w400,
-                                    color: const Color(0xff112D4E),
+                                SizedBox(
+                                  width: 300,
+                                  child: Text(
+                                    widget.courseModel.title!,
+                                    style: GoogleFonts.roboto(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w700,
+                                      color: const Color(0xff112D4E),
+                                    ),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.clip,
                                   ),
                                 ),
                                 const SizedBox(
-                                  width: 7,
+                                  height: 7,
                                 ),
-                                const Icon(
-                                  Icons.star,
-                                  color: Color(0xFFE4B548),
-                                  size: 20,
-                                ),
-                                Text(
-                                  detailCourse[0].rating!,
-                                  style: GoogleFonts.roboto(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    color: const Color(0xff112D4E),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 3,
-                                ),
-                                Text(
-                                  detailCourse[0].jumlahRating!,
-                                  style: GoogleFonts.roboto(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    color: const Color(0xFFB8C0CA),
-                                  ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      'by ',
+                                      style: GoogleFonts.roboto(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w400,
+                                        color: const Color(0xff112D4E),
+                                      ),
+                                    ),
+                                    Text(
+                                      widget.courseModel.mentorName!,
+                                      style: GoogleFonts.roboto(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w400,
+                                        color: const Color(0xff112D4E),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      width: 7,
+                                    ),
+                                    const Icon(
+                                      Icons.star,
+                                      color: Color(0xFFE4B548),
+                                      size: 20,
+                                    ),
+                                    Text(
+                                      detailCourse[0].rating!,
+                                      style: GoogleFonts.roboto(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500,
+                                        color: const Color(0xff112D4E),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      width: 3,
+                                    ),
+                                    Text(
+                                      detailCourse[0].jumlahRating!,
+                                      style: GoogleFonts.roboto(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500,
+                                        color: const Color(0xFFB8C0CA),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                CircularPercentIndicator(
+                                  radius: 24.0,
+                                  lineWidth: 7.0,
+                                  percent: 0.9,
+                                  animation: true,
+                                  animationDuration: 1000,
+                                  center: const Text(
+                                    "90%",
+                                    style: TextStyle(color: MyColor.primary),
+                                  ),
+                                  progressColor: MyColor.primaryLogo,
+                                  circularStrokeCap: CircularStrokeCap.round,
+                                ),
+                              ],
+                            )
                           ],
                         ),
-                        CircularPercentIndicator(
-                          radius: 24.0,
-                          lineWidth: 7.0,
-                          percent: 0.9,
-                          animation: true,
-                          animationDuration: 1000,
-                          center: const Text(
-                            "90%",
-                            style: TextStyle(color: MyColor.primary),
-                          ),
-                          progressColor: MyColor.primaryLogo,
-                          circularStrokeCap: CircularStrokeCap.round,
-                        )
+                        // Padding(
+                        //   padding: const EdgeInsets.only(right: 0),
+                        //   child: CircularPercentIndicator(
+                        //     radius: 24.0,
+                        //     lineWidth: 7.0,
+                        //     percent: 0.9,
+                        //     animation: true,
+                        //     animationDuration: 1000,
+                        //     center: const Text(
+                        //       "90%",
+                        //       style: TextStyle(color: MyColor.primary),
+                        //     ),
+                        //     progressColor: MyColor.primaryLogo,
+                        //     circularStrokeCap: CircularStrokeCap.round,
+                        //   ),
+                        // )
                       ],
                     ),
                   ),

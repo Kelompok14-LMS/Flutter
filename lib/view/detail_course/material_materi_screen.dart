@@ -87,60 +87,80 @@ class _VideoMateriScreenState extends State<VideoMateriScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
-                height: 200,
-                width: 500,
-                child: Stack(
-                  children: <Widget>[
-                    FutureBuilder(
-                        future: futureController,
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.done) {
-                            return AspectRatio(
-                              aspectRatio: controller.value.aspectRatio,
-                              child: VideoPlayer(controller),
-                            );
-                          } else {
-                            return const Center(
-                                child: CircularProgressIndicator());
-                          }
-                        }),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Center(
-                          child: ElevatedButton(
-                            style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all(
-                                    Colors.transparent),
-                                shadowColor: MaterialStateProperty.all(
-                                    Colors.transparent)),
-                            onPressed: () {
-                              setState(() {
-                                controller.value.isPlaying
-                                    ? controller.pause()
-                                    : controller.play();
-                              });
-                            },
-                            child: Icon(
-                              controller.value.isPlaying
-                                  ? Icons.pause
-                                  : Icons.play_arrow,
+              Stack(
+                children: <Widget> [
+                  FutureBuilder(
+                    future: futureController,
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        return AspectRatio(
+                          aspectRatio: controller.value.aspectRatio,
+                          child: VideoPlayer(controller),
+                        );
+                      } else {
+                        return const Center(
+                          child: CircularProgressIndicator()
+                        );
+                      }
+                    }
+                  ),
+                  Column(
+                    children: [
+                      // Center(
+                      //   child: ElevatedButton(
+                      //     style: ButtonStyle(
+                      //       backgroundColor: MaterialStateProperty.all(Colors.transparent),
+                      //       shadowColor: MaterialStateProperty.all(Colors.transparent)
+                      //     ),
+                      //     onPressed: () {
+                      //       setState(() {
+                      //         controller.value.isPlaying
+                      //             ? controller.pause()
+                      //             : controller.play();
+                      //       });
+                      //     },
+                      //     child: Column(
+                      //       children: [
+                      //         const SizedBox(
+                      //           height: 130,
+                      //         ),
+                      //         Icon(
+                      //           controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
+                      //         ),
+                      //       ],
+                      //     ),
+                      //   ),
+                      // ),
+                      const SizedBox(
+                        height: 157,
+                      ),
+                      // ControlMaterialVideo(controller: controller),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            InkWell(
+                              child: Icon(
+                                controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
+                                color: Colors.white,
+                              ),
+                              onTap: () {
+                                setState(() {
+                                  controller.value.isPlaying
+                                      ? controller.pause()
+                                      : controller.play();
+                                });
+                              },
                             ),
-                          ),
+                            ControlMaterialVideo(controller: controller)
+                          ],
                         ),
-                        ControlMaterialVideo(controller: controller),
-                        VideoProgressIndicator(controller,
-                            allowScrubbing: true),
-                      ],
-                    )
-                  ],
-                ),
+                      ),
+                      VideoProgressIndicator(controller, allowScrubbing: true),
+                    ],
+                  )
+                ],
               ),
               const Divider(
                 color: Colors.transparent,
@@ -166,10 +186,6 @@ class _VideoMateriScreenState extends State<VideoMateriScreen> {
                   height: 1.5,
                 ),
               ),
-              // const Divider(
-              //   color: Colors.transparent,
-              //   height: 300,
-              // ),
               Center(
                 child: ElevatedButton(
                   onPressed: () async {
