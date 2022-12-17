@@ -87,26 +87,25 @@ class _VideoMateriScreenState extends State<VideoMateriScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
+              SizedBox(
                 height: 200,
                 width: 500,
                 child: Stack(
-                  children: <Widget> [
+                  children: <Widget>[
                     FutureBuilder(
-                      future: futureController,
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.done) {
-                          return AspectRatio(
-                            aspectRatio: controller.value.aspectRatio,
-                            child: VideoPlayer(controller),
-                          );
-                        } else {
-                          return const Center(
-                            child: CircularProgressIndicator()
-                          );
-                        }
-                      }
-                    ),
+                        future: futureController,
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.done) {
+                            return AspectRatio(
+                              aspectRatio: controller.value.aspectRatio,
+                              child: VideoPlayer(controller),
+                            );
+                          } else {
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          }
+                        }),
                     const SizedBox(
                       height: 10,
                     ),
@@ -117,9 +116,10 @@ class _VideoMateriScreenState extends State<VideoMateriScreen> {
                         Center(
                           child: ElevatedButton(
                             style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(Colors.transparent),
-                              shadowColor: MaterialStateProperty.all(Colors.transparent)
-                            ),
+                                backgroundColor: MaterialStateProperty.all(
+                                    Colors.transparent),
+                                shadowColor: MaterialStateProperty.all(
+                                    Colors.transparent)),
                             onPressed: () {
                               setState(() {
                                 controller.value.isPlaying
@@ -128,12 +128,15 @@ class _VideoMateriScreenState extends State<VideoMateriScreen> {
                               });
                             },
                             child: Icon(
-                              controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
+                              controller.value.isPlaying
+                                  ? Icons.pause
+                                  : Icons.play_arrow,
                             ),
                           ),
                         ),
                         ControlMaterialVideo(controller: controller),
-                        VideoProgressIndicator(controller, allowScrubbing: true),
+                        VideoProgressIndicator(controller,
+                            allowScrubbing: true),
                       ],
                     )
                   ],

@@ -50,11 +50,11 @@ class ControlMaterialVideo extends StatelessWidget {
                   ),
                 ),
         ),
-        GestureDetector(
-          onTap: () {
-            controller.value.isPlaying ? controller.pause() : controller.play();
-          },
-        ),
+        // GestureDetector(
+        //   onTap: () {
+        //     controller.value.isPlaying ? controller.pause() : controller.play();
+        //   },
+        // ),
         Align(
           alignment: Alignment.topLeft,
           child: PopupMenuButton<Duration>(
