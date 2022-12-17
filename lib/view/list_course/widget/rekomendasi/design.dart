@@ -77,7 +77,7 @@ class _DesignState extends State<Design> {
                   width: 4,
                 ),
                 Text(
-                  widget.courseModel.rating!.toString(),
+                  widget.courseModel.rating!.toStringAsFixed(1),
                   style: GoogleFonts.roboto(
                       fontSize: 12,
                       color: MyColor.primary,
