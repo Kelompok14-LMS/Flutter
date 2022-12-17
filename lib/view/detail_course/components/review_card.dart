@@ -1,16 +1,18 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:edu_world/models/review_model.dart';
 import 'package:edu_world/utils/constant.dart';
 import 'package:flutter/material.dart';
 
-import 'package:edu_world/models/review_card_model.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class ReviewCard extends StatelessWidget {
   const ReviewCard({
     Key? key,
-    required this.cardModel,
+    // required this.cardModel,
+    required this.data,
   }) : super(key: key);
-  final ReviewCardModel cardModel;
+  // final ReviewCardModel cardModel;
+  final ReviewModel data;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +34,10 @@ class ReviewCard extends StatelessWidget {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     image: DecorationImage(
-                        image: NetworkImage(cardModel.image!),
+                        image: data.profilePicture!.isNotEmpty
+                            ? NetworkImage(data.profilePicture!)
+                            : const NetworkImage(
+                                'https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg'),
                         fit: BoxFit.cover),
                   ),
                 ),
@@ -43,11 +48,11 @@ class ReviewCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      cardModel.name!,
+                      data.mentee!,
                       style: MyColor().subjudulCourse,
                     ),
                     RatingBarIndicator(
-                      rating: cardModel.rating!.toDouble(),
+                      rating: data.rating!.toDouble(),
                       itemBuilder: (context, index) => const Icon(
                         Icons.star,
                         color: Colors.amber,
@@ -63,7 +68,7 @@ class ReviewCard extends StatelessWidget {
               height: 8,
             ),
             Text(
-              cardModel.reviewText!,
+              data.description!,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: MyColor().subjudulCourse,

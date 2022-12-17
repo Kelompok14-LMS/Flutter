@@ -2,6 +2,7 @@
 import 'package:edu_world/view/detail_course/modul_course_screen.dart';
 import 'package:edu_world/view_models/enroll_view_model.dart';
 import 'package:edu_world/view_models/materials_view_model.dart';
+import 'package:edu_world/view_models/review_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -31,12 +32,16 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
     //     .checkEnrollmentCourse(widget.courseModel.id!, widget.mentee);
     Provider.of<MaterialsViewModel>(context, listen: false)
         .getPreviewMaterialsModules(widget.courseModel.id!);
+    context
+        .read<ReviewCourseViewModel>()
+        .getCourseReview(widget.courseModel.id!);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     final dataMaterials = Provider.of<MaterialsViewModel>(context);
+    final dataReview = context.watch<ReviewCourseViewModel>().reviewCourse;
     return Scaffold(
         appBar: AppBar(
           centerTitle: false,
@@ -45,6 +50,7 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
           leading: IconButton(
             onPressed: () {
               Navigator.pop(context);
+              dataReview.clear();
             },
             icon: const Icon(
               Icons.arrow_back_ios_new_sharp,
@@ -288,9 +294,9 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
                       ),
                       Column(
                         children: List.generate(
-                          dummyCardReview.length,
+                          dataReview.length,
                           (index) => ReviewCard(
-                            cardModel: dummyCardReview[index],
+                            data: dataReview[index],
                           ),
                         ),
                       )
