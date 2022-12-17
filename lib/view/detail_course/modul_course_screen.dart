@@ -113,7 +113,7 @@ class _ModulCourseScreenState extends State<ModulCourseScreen> {
                                   color: const Color(0xff112D4E),
                                 ),
                                 maxLines: 1,
-                                overflow: TextOverflow.clip,
+                                overflow: TextOverflow.ellipsis,
                               ),
                             ),
                             const SizedBox(
@@ -181,22 +181,6 @@ class _ModulCourseScreenState extends State<ModulCourseScreen> {
                           progressColor: MyColor.primaryLogo,
                           circularStrokeCap: CircularStrokeCap.round,
                         ),
-                        // Padding(
-                        //   padding: const EdgeInsets.only(right: 0),
-                        //   child: CircularPercentIndicator(
-                        //     radius: 24.0,
-                        //     lineWidth: 7.0,
-                        //     percent: 0.9,
-                        //     animation: true,
-                        //     animationDuration: 1000,
-                        //     center: const Text(
-                        //       "90%",
-                        //       style: TextStyle(color: MyColor.primary),
-                        //     ),
-                        //     progressColor: MyColor.primaryLogo,
-                        //     circularStrokeCap: CircularStrokeCap.round,
-                        //   ),
-                        // )
                       ],
                     ),
                   ),
