@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:edu_world/view/detail_course/components/list_course_shimmer.dart';
 import 'package:edu_world/view/detail_course/modul_course_screen.dart';
 import 'package:edu_world/view_models/enroll_view_model.dart';
 import 'package:edu_world/view_models/materials_view_model.dart';
@@ -42,6 +43,8 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
   Widget build(BuildContext context) {
     final dataMaterials = Provider.of<MaterialsViewModel>(context);
     final dataReview = context.watch<ReviewCourseViewModel>().reviewCourse;
+    final courseMaterialsState = dataMaterials.courseMaterialsState;
+
     return Scaffold(
         appBar: AppBar(
           centerTitle: false,
@@ -169,107 +172,125 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
                     const SizedBox(
                       height: 10,
                     ),
-                    ListView.separated(
-                        padding: EdgeInsets.zero,
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
-                        itemBuilder: (context, index) {
-                          return Card(
-                            clipBehavior: Clip.antiAliasWithSaveLayer,
-                            elevation: 2,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16),
-                            ),
-                            child: Theme(
-                              data: Theme.of(context)
-                                  .copyWith(dividerColor: Colors.transparent),
-                              child: ExpansionTile(
-                                title: Row(
-                                  children: [
-                                    Container(
-                                      margin: const EdgeInsets.all(8),
-                                      height: 20,
-                                      // width: 70,
-                                      decoration: BoxDecoration(
-                                          color: const Color(0xFFF9F7F7),
-                                          borderRadius:
-                                              BorderRadius.circular(16)),
-                                      child: Center(
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 8),
-                                          child: Text(
-                                            "Section",
-                                            style: GoogleFonts.roboto(
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.w500,
-                                              color: const Color(0xFFE4B548),
+                    courseMaterialsState == CourseMaterialsState.loading
+                        ? const ListCourseShimmer()
+                        : courseMaterialsState == CourseMaterialsState.error
+                            ? const Text('Error Mengambil data')
+                            : ListView.separated(
+                                padding: EdgeInsets.zero,
+                                physics: const NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                scrollDirection: Axis.vertical,
+                                itemBuilder: (context, index) {
+                                  return Card(
+                                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                                    elevation: 2,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(16),
+                                    ),
+                                    child: Theme(
+                                      data: Theme.of(context).copyWith(
+                                          dividerColor: Colors.transparent),
+                                      child: ExpansionTile(
+                                        title: Row(
+                                          children: [
+                                            Container(
+                                              margin: const EdgeInsets.all(8),
+                                              height: 20,
+                                              // width: 70,
+                                              decoration: BoxDecoration(
+                                                  color:
+                                                      const Color(0xFFF9F7F7),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          16)),
+                                              child: Center(
+                                                child: Padding(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(horizontal: 8),
+                                                  child: Text(
+                                                    "Section",
+                                                    style: GoogleFonts.roboto(
+                                                      fontSize: 13,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      color: const Color(
+                                                          0xFFE4B548),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              width: 10,
+                                            ),
+                                            Text(
+                                              dataMaterials.modulsPreview
+                                                  .modules![index].title!,
+                                              style: GoogleFonts.roboto(
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.w500,
+                                                color: const Color(0xff112D4E),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        children: [
+                                          Visibility(
+                                            visible: dataMaterials
+                                                    .modulsPreview
+                                                    .modules![index]
+                                                    .materials !=
+                                                null,
+                                            child: ListTile(
+                                              dense: true,
+                                              leading: const Icon(
+                                                Icons
+                                                    .play_circle_filled_outlined,
+                                                size: 25,
+                                                color: Color(0xff112D4E),
+                                              ),
+                                              title: Text("Dummy",
+                                                  style: GoogleFonts.roboto(
+                                                    fontSize: 13,
+                                                    fontWeight: FontWeight.w500,
+                                                    color:
+                                                        const Color(0xff112D4E),
+                                                  )),
                                             ),
                                           ),
-                                        ),
+                                          Visibility(
+                                            visible: dataMaterials
+                                                    .modulsPreview
+                                                    .modules![index]
+                                                    .materials !=
+                                                null,
+                                            child: ListTile(
+                                              dense: true,
+                                              leading: const Icon(
+                                                Icons
+                                                    .play_circle_filled_outlined,
+                                                size: 25,
+                                                color: Color(0xff112D4E),
+                                              ),
+                                              title: Text("Dummy",
+                                                  style: GoogleFonts.roboto(
+                                                    fontSize: 13,
+                                                    fontWeight: FontWeight.w500,
+                                                    color:
+                                                        const Color(0xff112D4E),
+                                                  )),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    Text(
-                                      dataMaterials
-                                          .modulsPreview.modules![index].title!,
-                                      style: GoogleFonts.roboto(
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w500,
-                                        color: const Color(0xff112D4E),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                children: [
-                                  Visibility(
-                                    visible: dataMaterials.modulsPreview
-                                            .modules![index].materials !=
-                                        null,
-                                    child: ListTile(
-                                      dense: true,
-                                      leading: const Icon(
-                                        Icons.play_circle_filled_outlined,
-                                        size: 25,
-                                        color: Color(0xff112D4E),
-                                      ),
-                                      title: Text("Dummy",
-                                          style: GoogleFonts.roboto(
-                                            fontSize: 13,
-                                            fontWeight: FontWeight.w500,
-                                            color: const Color(0xff112D4E),
-                                          )),
-                                    ),
-                                  ),
-                                  Visibility(
-                                    visible: dataMaterials.modulsPreview
-                                            .modules![index].materials !=
-                                        null,
-                                    child: ListTile(
-                                      dense: true,
-                                      leading: const Icon(
-                                        Icons.play_circle_filled_outlined,
-                                        size: 25,
-                                        color: Color(0xff112D4E),
-                                      ),
-                                      title: Text("Dummy",
-                                          style: GoogleFonts.roboto(
-                                            fontSize: 13,
-                                            fontWeight: FontWeight.w500,
-                                            color: const Color(0xff112D4E),
-                                          )),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
-                        },
-                        separatorBuilder: (context, index) => const SizedBox(),
-                        itemCount: dataMaterials.modulsPreview.modules!.length),
+                                  );
+                                },
+                                separatorBuilder: (context, index) =>
+                                    const SizedBox(),
+                                itemCount: dataMaterials
+                                    .modulsPreview.modules!.length),
                   ],
                 ),
               ),
