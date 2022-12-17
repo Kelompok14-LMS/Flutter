@@ -69,7 +69,7 @@ class _DesignState extends State<Design> {
                   width: 12,
                 ),
                 const Icon(
-                  Icons.favorite,
+                  Icons.star,
                   size: 16,
                   color: MyColor.primaryLogo,
                 ),
@@ -77,10 +77,20 @@ class _DesignState extends State<Design> {
                   width: 4,
                 ),
                 Text(
-                  '(100)',
+                  widget.courseModel.rating!.toString(),
                   style: GoogleFonts.roboto(
                       fontSize: 12,
                       color: MyColor.primary,
+                      fontWeight: FontWeight.w700),
+                ),
+                const SizedBox(
+                  width: 3,
+                ),
+                Text(
+                  ('(${widget.courseModel.totalReviews!.toString()})'),
+                  style: GoogleFonts.roboto(
+                      fontSize: 12,
+                      color: const Color(0xFF8896A6),
                       fontWeight: FontWeight.w400),
                 ),
               ],

@@ -8,7 +8,7 @@ class MaterialsViewModel with ChangeNotifier {
   List<Modules> modulsPreview = [];
   List<Modules> modulsEnrolled = [];
   String messageSubmit = '';
-  // bool? isCompleted;
+  bool? isCompleted;
   String? errorMessage = '';
 
   // List<MaterialsModel> get modules {
@@ -51,16 +51,21 @@ class MaterialsViewModel with ChangeNotifier {
       final result =
           await _dioService.submitProgress(menteeId, courseId, materialId);
       messageSubmit = result;
+      // print('berhasil menambahkan data $result');
+      if (result == "Success add progress") {
+        // print('berhasil');
+        isCompleted = true;
+      }
     } catch (e) {
       rethrow;
     }
     notifyListeners();
   }
 
-  // void changeIsCompleted(bool isCourseCompleted) {
-  //   isCompleted = isCourseCompleted;
-  //   notifyListeners();
-  // }
+  void changeIsCompleted(bool isCourseCompleted) {
+    isCompleted = isCourseCompleted;
+    notifyListeners();
+  }
 
   // Future<void> getDetailMaterials(String menteeId, String materialId) async {
   //   try {

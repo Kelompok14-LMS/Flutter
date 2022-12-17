@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:edu_world/view/detail_course/components/fitur_playback_material.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -25,6 +26,7 @@ class VideoMateriScreen extends StatefulWidget {
 
 class _VideoMateriScreenState extends State<VideoMateriScreen> {
   late VideoPlayerController controller;
+  late Future<void> futureController;
   // late bool isCourseCompleted = widget.materials.completed!;
 
   @override
@@ -34,6 +36,12 @@ class _VideoMateriScreenState extends State<VideoMateriScreen> {
       ..addListener(() => setState(() {}))
       ..setLooping(false)
       ..initialize().then((_) => controller.play());
+    controller.setLooping(true);
+    futureController = controller.initialize();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      Provider.of<MaterialsViewModel>(context, listen: false)
+          .changeIsCompleted(widget.materials.completed!);
+    });
 
     // Provider.of<MaterialsViewModel>(context, listen: false)
     //     .getPreviewMaterialsModules(widget.courseModel.id!);
@@ -48,6 +56,7 @@ class _VideoMateriScreenState extends State<VideoMateriScreen> {
   @override
   Widget build(BuildContext context) {
     final dataMaterials = Provider.of<MaterialsViewModel>(context);
+    print('datanya komplit ${dataMaterials.isCompleted}');
 
     return Scaffold(
       appBar: AppBar(
@@ -79,12 +88,60 @@ class _VideoMateriScreenState extends State<VideoMateriScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                  // decoration: BoxDecoration(
-                  //   borderRadius: BorderRadius.circular(100),
-                  // ),
-                  height: 200,
-                  width: 500,
-                  child: VideoPlayer(controller)),
+                height: 200,
+                width: 500,
+                child: Stack(
+                  children: <Widget>[
+                    FutureBuilder(
+                        future: futureController,
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.done) {
+                            return AspectRatio(
+                              aspectRatio: controller.value.aspectRatio,
+                              child: VideoPlayer(controller),
+                            );
+                          } else {
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          }
+                        }),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Center(
+                          child: ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all(
+                                    Colors.transparent),
+                                shadowColor: MaterialStateProperty.all(
+                                    Colors.transparent)),
+                            onPressed: () {
+                              setState(() {
+                                controller.value.isPlaying
+                                    ? controller.pause()
+                                    : controller.play();
+                              });
+                            },
+                            child: Icon(
+                              controller.value.isPlaying
+                                  ? Icons.pause
+                                  : Icons.play_arrow,
+                            ),
+                          ),
+                        ),
+                        ControlMaterialVideo(controller: controller),
+                        VideoProgressIndicator(controller,
+                            allowScrubbing: true),
+                      ],
+                    )
+                  ],
+                ),
+              ),
               const Divider(
                 color: Colors.transparent,
                 height: 20,
@@ -115,11 +172,16 @@ class _VideoMateriScreenState extends State<VideoMateriScreen> {
               // ),
               Center(
                 child: ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     if (!widget.materials.completed!) {
-                      Provider.of<MaterialsViewModel>(context, listen: false)
+                      await Provider.of<MaterialsViewModel>(context,
+                              listen: false)
                           .submitProgress(widget.mentee, widget.courseModel.id!,
                               widget.materials.materialId!);
+                      if (!mounted) return;
+                      Provider.of<MaterialsViewModel>(context, listen: false)
+                          .getEnrolledMaterialsModules(
+                              widget.mentee, widget.courseModel.id!);
                       // Provider.of<MaterialsViewModel>(context)
                       //     .changeIsCompleted(true);
                       print('aneh');
@@ -132,44 +194,47 @@ class _VideoMateriScreenState extends State<VideoMateriScreen> {
                           Color(0xFFE4B548)),
                       maximumSize:
                           MaterialStateProperty.all(const Size(150, 40))),
-                  child: Center(
-                      child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      !widget.materials.completed!
-                          ? const Icon(
-                              Icons.circle_outlined,
-                              color: Color(0xff112D4E),
-                            )
-                          : Stack(
-                              alignment: Alignment.center,
-                              children: const [
-                                Positioned(
-                                  child: Icon(
-                                    Icons.circle_outlined,
-                                    color: Color(0xff112D4E),
-                                    size: 20,
+                  child: Consumer<MaterialsViewModel>(
+                      builder: (context, value, _) {
+                    return Center(
+                        child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        !value.isCompleted!
+                            ? const Icon(
+                                Icons.circle_outlined,
+                                color: Color(0xff112D4E),
+                              )
+                            : Stack(
+                                alignment: Alignment.center,
+                                children: const [
+                                  Positioned(
+                                    child: Icon(
+                                      Icons.circle_outlined,
+                                      color: Color(0xff112D4E),
+                                      size: 20,
+                                    ),
                                   ),
-                                ),
-                                Icon(
-                                  Icons.circle,
-                                  color: Color(0xff112D4E),
-                                  size: 11,
-                                ),
-                              ],
-                            ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      const Text(
-                        'Complete',
-                        style: TextStyle(
-                            fontFamily: 'Roboto',
-                            color: Color(0xff112D4E),
-                            fontSize: 14),
-                      ),
-                    ],
-                  )),
+                                  Icon(
+                                    Icons.circle,
+                                    color: Color(0xff112D4E),
+                                    size: 11,
+                                  ),
+                                ],
+                              ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        const Text(
+                          'Complete',
+                          style: TextStyle(
+                              fontFamily: 'Roboto',
+                              color: Color(0xff112D4E),
+                              fontSize: 14),
+                        ),
+                      ],
+                    ));
+                  }),
                 ),
               ),
             ],
@@ -178,14 +243,4 @@ class _VideoMateriScreenState extends State<VideoMateriScreen> {
       ),
     );
   }
-
-  // List<VideoMateriModel> detailVideo = [
-  //   VideoMateriModel(
-  //     material_id: 'Latar Belakang Tugas',
-  //     description:
-  //         'Menjadi seorang UI/UX, perlu mengetahui dasar daripada UI dan UX dan fungsi seorang UI/UX agar intern paham akan role mereka di perusahaan.',
-  //     url:
-  //         'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
-  //   )
-  // ];
 }
