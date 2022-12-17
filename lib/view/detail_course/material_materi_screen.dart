@@ -88,22 +88,20 @@ class _VideoMateriScreenState extends State<VideoMateriScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Stack(
-                children: <Widget> [
+                children: <Widget>[
                   FutureBuilder(
-                    future: futureController,
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.done) {
-                        return AspectRatio(
-                          aspectRatio: controller.value.aspectRatio,
-                          child: VideoPlayer(controller),
-                        );
-                      } else {
-                        return const Center(
-                          child: CircularProgressIndicator()
-                        );
-                      }
-                    }
-                  ),
+                      future: futureController,
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.done) {
+                          return AspectRatio(
+                            aspectRatio: controller.value.aspectRatio,
+                            child: VideoPlayer(controller),
+                          );
+                        } else {
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        }
+                      }),
                   Column(
                     children: [
                       // Center(
@@ -136,13 +134,16 @@ class _VideoMateriScreenState extends State<VideoMateriScreen> {
                       ),
                       // ControlMaterialVideo(controller: controller),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 7),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             InkWell(
                               child: Icon(
-                                controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
+                                controller.value.isPlaying
+                                    ? Icons.pause
+                                    : Icons.play_arrow,
                                 color: Colors.white,
                               ),
                               onTap: () {
@@ -189,7 +190,7 @@ class _VideoMateriScreenState extends State<VideoMateriScreen> {
               Center(
                 child: ElevatedButton(
                   onPressed: () async {
-                    if (!widget.materials.completed!) {
+                    if (!dataMaterials.isCompleted!) {
                       await Provider.of<MaterialsViewModel>(context,
                               listen: false)
                           .submitProgress(widget.mentee, widget.courseModel.id!,
