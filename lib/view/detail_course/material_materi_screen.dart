@@ -127,7 +127,7 @@ class _VideoMateriScreenState extends State<VideoMateriScreen> {
                             ),
                           ),
                         ),
-                        // ControlMaterialVideo(controller: controller),
+                        ControlMaterialVideo(controller: controller),
                         VideoProgressIndicator(controller, allowScrubbing: true),
                       ],
                     )
