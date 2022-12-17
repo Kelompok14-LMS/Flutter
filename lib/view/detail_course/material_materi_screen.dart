@@ -34,6 +34,10 @@ class _VideoMateriScreenState extends State<VideoMateriScreen> {
       ..addListener(() => setState(() {}))
       ..setLooping(false)
       ..initialize().then((_) => controller.play());
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      Provider.of<MaterialsViewModel>(context, listen: false)
+          .changeIsCompleted(widget.materials.completed!);
+    });
 
     // Provider.of<MaterialsViewModel>(context, listen: false)
     //     .getPreviewMaterialsModules(widget.courseModel.id!);
@@ -48,6 +52,7 @@ class _VideoMateriScreenState extends State<VideoMateriScreen> {
   @override
   Widget build(BuildContext context) {
     final dataMaterials = Provider.of<MaterialsViewModel>(context);
+    print('datanya komplit ${dataMaterials.isCompleted}');
 
     return Scaffold(
       appBar: AppBar(
@@ -115,11 +120,16 @@ class _VideoMateriScreenState extends State<VideoMateriScreen> {
               // ),
               Center(
                 child: ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     if (!widget.materials.completed!) {
-                      Provider.of<MaterialsViewModel>(context, listen: false)
+                      await Provider.of<MaterialsViewModel>(context,
+                              listen: false)
                           .submitProgress(widget.mentee, widget.courseModel.id!,
                               widget.materials.materialId!);
+                      if (!mounted) return;
+                      Provider.of<MaterialsViewModel>(context, listen: false)
+                          .getEnrolledMaterialsModules(
+                              widget.mentee, widget.courseModel.id!);
                       // Provider.of<MaterialsViewModel>(context)
                       //     .changeIsCompleted(true);
                       print('aneh');
@@ -132,44 +142,47 @@ class _VideoMateriScreenState extends State<VideoMateriScreen> {
                           Color(0xFFE4B548)),
                       maximumSize:
                           MaterialStateProperty.all(const Size(150, 40))),
-                  child: Center(
-                      child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      !widget.materials.completed!
-                          ? const Icon(
-                              Icons.circle_outlined,
-                              color: Color(0xff112D4E),
-                            )
-                          : Stack(
-                              alignment: Alignment.center,
-                              children: const [
-                                Positioned(
-                                  child: Icon(
-                                    Icons.circle_outlined,
-                                    color: Color(0xff112D4E),
-                                    size: 20,
+                  child: Consumer<MaterialsViewModel>(
+                      builder: (context, value, _) {
+                    return Center(
+                        child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        !value.isCompleted!
+                            ? const Icon(
+                                Icons.circle_outlined,
+                                color: Color(0xff112D4E),
+                              )
+                            : Stack(
+                                alignment: Alignment.center,
+                                children: const [
+                                  Positioned(
+                                    child: Icon(
+                                      Icons.circle_outlined,
+                                      color: Color(0xff112D4E),
+                                      size: 20,
+                                    ),
                                   ),
-                                ),
-                                Icon(
-                                  Icons.circle,
-                                  color: Color(0xff112D4E),
-                                  size: 11,
-                                ),
-                              ],
-                            ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      const Text(
-                        'Complete',
-                        style: TextStyle(
-                            fontFamily: 'Roboto',
-                            color: Color(0xff112D4E),
-                            fontSize: 14),
-                      ),
-                    ],
-                  )),
+                                  Icon(
+                                    Icons.circle,
+                                    color: Color(0xff112D4E),
+                                    size: 11,
+                                  ),
+                                ],
+                              ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        const Text(
+                          'Complete',
+                          style: TextStyle(
+                              fontFamily: 'Roboto',
+                              color: Color(0xff112D4E),
+                              fontSize: 14),
+                        ),
+                      ],
+                    ));
+                  }),
                 ),
               ),
             ],

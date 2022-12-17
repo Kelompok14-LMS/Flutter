@@ -4,9 +4,12 @@ import 'package:edu_world/models/materials_model.dart';
 import 'package:edu_world/models/review_card_model.dart';
 import 'package:edu_world/utils/constant.dart';
 import 'package:edu_world/view/detail_course/material_materi_screen.dart';
+import 'package:edu_world/view/main_view.dart';
+import 'package:edu_world/view_models/main_view_model.dart';
 import 'package:edu_world/view_models/materials_view_model.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 import 'package:provider/provider.dart';
 
 class ModulCourseScreen extends StatefulWidget {
@@ -26,7 +29,7 @@ class _ModulCourseScreenState extends State<ModulCourseScreen> {
   double topBarOpacity = 0.0;
 
   bool isExpansionTrailing = false;
-  bool isComplate = false;
+  // bool isComplate = false;
 
   @override
   void initState() {
@@ -46,8 +49,16 @@ class _ModulCourseScreenState extends State<ModulCourseScreen> {
         elevation: 0.0,
         backgroundColor: Colors.white,
         leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
+          onPressed: () async {
+            // Navigator.pop(context);
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const MainScreen(),
+                ),
+                (route) => false);
+            Provider.of<MainViewModel>(context, listen: false)
+                .selectedDestination(1);
           },
           icon: const Icon(
             Icons.arrow_back_ios_new_sharp,
@@ -82,68 +93,96 @@ class _ModulCourseScreenState extends State<ModulCourseScreen> {
                           fit: BoxFit.cover),
                     ),
                     height: 166,
-                    width: 388,
+                    width: double.maxFinite,
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 10),
-                    child: Text(
-                      widget.courseModel.title!,
-                      style: GoogleFonts.roboto(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700,
-                        color: const Color(0xff112D4E),
-                      ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              width: 300,
+                              child: Text(
+                                widget.courseModel.title!,
+                                style: GoogleFonts.roboto(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w700,
+                                  color: const Color(0xff112D4E),
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.clip,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 7,
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  'by ',
+                                  style: GoogleFonts.roboto(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w400,
+                                    color: const Color(0xff112D4E),
+                                  ),
+                                ),
+                                Text(
+                                  widget.courseModel.mentorName!,
+                                  style: GoogleFonts.roboto(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w400,
+                                    color: const Color(0xff112D4E),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 7,
+                                ),
+                                const Icon(
+                                  Icons.star,
+                                  color: Color(0xFFE4B548),
+                                  size: 20,
+                                ),
+                                Text(
+                                  detailCourse[0].rating!,
+                                  style: GoogleFonts.roboto(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                    color: const Color(0xff112D4E),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 3,
+                                ),
+                                Text(
+                                  detailCourse[0].jumlahRating!,
+                                  style: GoogleFonts.roboto(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                    color: const Color(0xFFB8C0CA),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        CircularPercentIndicator(
+                          radius: 24.0,
+                          lineWidth: 7.0,
+                          percent: 0.9,
+                          animation: true,
+                          animationDuration: 1000,
+                          center: const Text(
+                            "90%",
+                            style: TextStyle(color: MyColor.primary),
+                          ),
+                          progressColor: MyColor.primaryLogo,
+                          circularStrokeCap: CircularStrokeCap.round,
+                        )
+                      ],
                     ),
-                  ),
-                  const SizedBox(
-                    height: 7,
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        'by ',
-                        style: GoogleFonts.roboto(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
-                          color: const Color(0xff112D4E),
-                        ),
-                      ),
-                      Text(
-                        widget.courseModel.mentorName!,
-                        style: GoogleFonts.roboto(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
-                          color: const Color(0xff112D4E),
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 7,
-                      ),
-                      const Icon(
-                        Icons.star,
-                        color: Color(0xFFE4B548),
-                        size: 20,
-                      ),
-                      Text(
-                        detailCourse[0].rating!,
-                        style: GoogleFonts.roboto(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          color: const Color(0xff112D4E),
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 3,
-                      ),
-                      Text(
-                        detailCourse[0].jumlahRating!,
-                        style: GoogleFonts.roboto(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          color: const Color(0xFFB8C0CA),
-                        ),
-                      ),
-                    ],
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 8),
@@ -164,7 +203,6 @@ class _ModulCourseScreenState extends State<ModulCourseScreen> {
                     height: 10,
                   ),
                   Consumer<MaterialsViewModel>(builder: (context, data, _) {
-                    print(data.errorMessage);
                     if (data.errorMessage == "502") {
                       return const Center(
                           child: Text(
@@ -189,7 +227,8 @@ class _ModulCourseScreenState extends State<ModulCourseScreen> {
                                   data: Theme.of(context).copyWith(
                                       dividerColor: Colors.transparent),
                                   child: buildExpansionTile(
-                                      dataMaterials.modulsEnrolled[index])),
+                                      dataMaterials.modulsEnrolled[index],
+                                      index)),
                             );
                           },
                           separatorBuilder: (context, index) =>
@@ -210,11 +249,16 @@ class _ModulCourseScreenState extends State<ModulCourseScreen> {
     );
   }
 
-  Widget buildExpansionTile(Modules a) {
+  Widget buildExpansionTile(Modules a, int index) {
     return ExpansionTile(
+        expandedCrossAxisAlignment: CrossAxisAlignment.start,
         onExpansionChanged: (value) {
           setState(() {
-            isExpansionTrailing = value;
+            // print(index + 1);
+            // isExpansionTrailing = value;
+            // print(isExpansionTrailing);
+            // a.materials;
+            // print(a.materials!.length);
           });
         },
         title: Row(
@@ -230,7 +274,7 @@ class _ModulCourseScreenState extends State<ModulCourseScreen> {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8),
                   child: Text(
-                    "Section",
+                    "Section ${index + 1}",
                     style: GoogleFonts.roboto(
                       fontSize: 13,
                       fontWeight: FontWeight.w500,
@@ -254,16 +298,23 @@ class _ModulCourseScreenState extends State<ModulCourseScreen> {
                 ),
               ),
             ),
-            Visibility(
-              visible: isExpansionTrailing,
-              child: const Icon(
-                Icons.check_circle,
-                color: Color(0xFFB0B9C4),
-              ),
-            ),
+            // Visibility(
+            //   visible: index == index,
+            //   child: const Icon(
+            //     Icons.check_circle,
+            //     color: Color(0xFFB0B9C4),
+            //   ),
+            // ),
           ],
         ),
         children: [
+          Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Text(
+                a.description!,
+                style: MyColor().reviewCourseSubTextStyle,
+                textAlign: TextAlign.justify,
+              )),
           a.materials != null
               ? Column(
                   children: List.generate(
@@ -271,9 +322,9 @@ class _ModulCourseScreenState extends State<ModulCourseScreen> {
                   (index) => ListTile(
                     dense: true,
                     leading: const Icon(
-                      Icons.play_circle_filled_outlined,
+                      Icons.video_collection,
                       size: 25,
-                      color: Color(0xff112D4E),
+                      color: MyColor.primaryLogo,
                     ),
                     title: Text(
                       a.materials![index].title!,
@@ -283,10 +334,13 @@ class _ModulCourseScreenState extends State<ModulCourseScreen> {
                         color: const Color(0xff112D4E),
                       ),
                     ),
-                    trailing: const Icon(
-                      Icons.check_circle,
-                      color: Color(0xFFB0B9C4),
-                    ),
+                    trailing: a.materials![index].completed!
+                        ? const Icon(Icons.check_circle,
+                            color: MyColor.primaryLogo)
+                        : const Icon(
+                            Icons.check_circle,
+                            color: Color(0xFFB0B9C4),
+                          ),
                     onTap: () {
                       Navigator.push(
                         context,
