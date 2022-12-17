@@ -9,6 +9,7 @@ import 'package:edu_world/view_models/materials_view_model.dart';
 import 'package:edu_world/view_models/modules_view_model.dart';
 import 'package:edu_world/view_models/onboarding_view_model.dart';
 import 'package:edu_world/view_models/popular_view_modal.dart';
+import 'package:edu_world/view_models/review_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'view_models/assignment_view_model.dart';
@@ -53,6 +54,9 @@ void main() {
     ),
     ChangeNotifierProvider(
       create: (context) => EnrollViewModel(),
+    ),
+    ChangeNotifierProvider(
+      create: (context) => ReviewCourseViewModel(),
     ),
   ], child: const MyApp()));
 }
