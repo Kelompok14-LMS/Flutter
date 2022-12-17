@@ -34,8 +34,10 @@ class Data {
   String? title;
   String? description;
   String? thumbnail;
+  int? totalReviews;
+  double? rating;
   List<Modules>? modules;
-  List<Assignment>? assignment;
+  Assignment? assignment;
   String? createdAt;
   String? updatedAt;
 
@@ -48,6 +50,8 @@ class Data {
       this.title,
       this.description,
       this.thumbnail,
+      this.totalReviews,
+      this.rating,
       this.modules,
       this.assignment,
       this.createdAt,
@@ -62,18 +66,19 @@ class Data {
     title = json['title'];
     description = json['description'];
     thumbnail = json['thumbnail'];
+    totalReviews = json['total_reviews'];
+    rating = json["rating"] is int
+        ? (json['rating'] as int).toDouble()
+        : json['rating'];
     if (json['modules'] != null) {
       modules = <Modules>[];
       json['modules'].forEach((v) {
         modules!.add(Modules.fromJson(v));
       });
     }
-    if (json['assignment'] != null) {
-      assignment = <Assignment>[];
-      json['assignment'].forEach((v) {
-        assignment!.add(Assignment.fromJson(v));
-      });
-    }
+    assignment = json['assignment'] != null
+        ? Assignment.fromJson(json['assignment'])
+        : null;
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
   }
@@ -88,11 +93,13 @@ class Data {
     data['title'] = title;
     data['description'] = description;
     data['thumbnail'] = thumbnail;
+    data['total_reviews'] = totalReviews;
+    data['rating'] = rating;
     if (modules != null) {
       data['modules'] = modules!.map((v) => v.toJson()).toList();
     }
     if (assignment != null) {
-      data['assignment'] = assignment!.map((v) => v.toJson()).toList();
+      data['assignment'] = assignment!.toJson();
     }
     data['created_at'] = createdAt;
     data['updated_at'] = updatedAt;
