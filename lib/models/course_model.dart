@@ -6,7 +6,7 @@ class CourseModel {
   String? title;
   String? description;
   int? totalReviews;
-  double? rating;
+  dynamic? rating;
   String? thumbnail;
   String? createdAt;
   String? updateAt;

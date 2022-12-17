@@ -5,18 +5,7 @@ class ControlMaterialVideo extends StatelessWidget {
   const ControlMaterialVideo({Key? key, required this.controller})
       : super(key: key);
 
-  static const List<Duration> _exampleCaptionOffsets = <Duration>[
-    Duration(seconds: -10),
-    Duration(seconds: -3),
-    Duration(seconds: -1, milliseconds: -500),
-    Duration(milliseconds: -250),
-    Duration.zero,
-    Duration(milliseconds: 250),
-    Duration(seconds: 1, milliseconds: 500),
-    Duration(seconds: 3),
-    Duration(seconds: 10),
-  ];
-  static const List<double> _examplePlaybackRates = <double>[
+  static const List<double> kecepatanVideo = <double>[
     0.25,
     0.5,
     1.0,
@@ -33,54 +22,6 @@ class ControlMaterialVideo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        AnimatedSwitcher(
-          duration: const Duration(milliseconds: 50),
-          reverseDuration: const Duration(milliseconds: 200),
-          child: controller.value.isPlaying
-              ? const SizedBox.shrink()
-              : Container(
-                  color: Colors.black26,
-                  child: const Center(
-                    child: Icon(
-                      Icons.play_arrow,
-                      color: Colors.white,
-                      size: 100.0,
-                      semanticLabel: 'Play',
-                    ),
-                  ),
-                ),
-        ),
-        GestureDetector(
-          onTap: () {
-            controller.value.isPlaying ? controller.pause() : controller.play();
-          },
-        ),
-        Align(
-          alignment: Alignment.topLeft,
-          child: PopupMenuButton<Duration>(
-            initialValue: controller.value.captionOffset,
-            tooltip: 'Caption Offset',
-            onSelected: (Duration delay) {
-              controller.setCaptionOffset(delay);
-            },
-            itemBuilder: (BuildContext context) {
-              return <PopupMenuItem<Duration>>[
-                for (final Duration offsetDuration in _exampleCaptionOffsets)
-                  PopupMenuItem<Duration>(
-                    value: offsetDuration,
-                    child: Text('${offsetDuration.inMilliseconds}ms'),
-                  )
-              ];
-            },
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: 12,
-                horizontal: 16,
-              ),
-              child: Text('${controller.value.captionOffset.inMilliseconds}ms'),
-            ),
-          ),
-        ),
         Align(
           alignment: Alignment.topRight,
           child: PopupMenuButton<double>(
@@ -91,7 +32,7 @@ class ControlMaterialVideo extends StatelessWidget {
             },
             itemBuilder: (BuildContext context) {
               return <PopupMenuItem<double>>[
-                for (final double speed in _examplePlaybackRates)
+                for (final double speed in kecepatanVideo)
                   PopupMenuItem<double>(
                     value: speed,
                     child: Text('${speed}x'),
@@ -100,10 +41,26 @@ class ControlMaterialVideo extends StatelessWidget {
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(
-                vertical: 12,
-                horizontal: 16,
+                // vertical: 12,
+                horizontal: 10,
               ),
-              child: Text('${controller.value.playbackSpeed}x'),
+              child: Container(
+                height: 20,
+                width: 40,
+                decoration: BoxDecoration(
+                  color: const Color(0xFFB0B9C4),
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: Center(
+                  child: Text(
+                    '${controller.value.playbackSpeed}x',
+                    style: const TextStyle(
+                      fontFamily: 'Roboto',
+                      fontWeight: FontWeight.w500
+                    ),
+                  ),
+                ),
+              ),
             ),
           ),
         ),
