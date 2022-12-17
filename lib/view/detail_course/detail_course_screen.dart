@@ -208,7 +208,8 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
                                       width: 10,
                                     ),
                                     Text(
-                                      dataMaterials.modulsPreview[index].title!,
+                                      dataMaterials
+                                          .modulsPreview.modules![index].title!,
                                       style: GoogleFonts.roboto(
                                         fontSize: 13,
                                         fontWeight: FontWeight.w500,
@@ -219,8 +220,8 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
                                 ),
                                 children: [
                                   Visibility(
-                                    visible: dataMaterials
-                                            .modulsPreview[index].materials !=
+                                    visible: dataMaterials.modulsPreview
+                                            .modules![index].materials !=
                                         null,
                                     child: ListTile(
                                       dense: true,
@@ -238,8 +239,8 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
                                     ),
                                   ),
                                   Visibility(
-                                    visible: dataMaterials
-                                            .modulsPreview[index].materials !=
+                                    visible: dataMaterials.modulsPreview
+                                            .modules![index].materials !=
                                         null,
                                     child: ListTile(
                                       dense: true,
@@ -262,7 +263,7 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
                           );
                         },
                         separatorBuilder: (context, index) => const SizedBox(),
-                        itemCount: dataMaterials.modulsPreview.length),
+                        itemCount: dataMaterials.modulsPreview.modules!.length),
                   ],
                 ),
               ),

@@ -29,14 +29,14 @@ class MaterialDioService {
     );
   }
 
-  Future<List<Modules>> getPreviewModulesMaterials(String courseId) async {
+  Future<Data> getPreviewModulesMaterials(String courseId) async {
     try {
       final response = await _dio.get(
         '/api/v1/courses/$courseId/details',
       );
 
-      List<dynamic> data = response.data['data']['modules'];
-      List<Modules> result = data.map((e) => Modules.fromJson(e)).toList();
+      final data = response.data['data'];
+      Data result = Data.fromJson(data);
       return result;
     } catch (e) {
       rethrow;
@@ -48,8 +48,8 @@ class MaterialDioService {
       final response =
           await _dio.get('/api/v1/mentees/$menteeId/courses/$courseId/details');
 
-      List<dynamic> data = response.data['data']['modules'];
-      List<Modules> result = data.map((e) => Modules.fromJson(e)).toList();
+      final data = response.data['data'];
+      Data result = Data.fromJson(data);
       return result;
     } on DioError catch (e) {
       if (e.response!.statusCode == 502) {

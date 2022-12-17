@@ -3,6 +3,7 @@ import 'package:edu_world/models/detail_course_model.dart';
 import 'package:edu_world/models/materials_model.dart';
 import 'package:edu_world/models/review_card_model.dart';
 import 'package:edu_world/utils/constant.dart';
+import 'package:edu_world/view/detail_course/components/assignment_expansion_tile.dart';
 import 'package:edu_world/view/detail_course/material_materi_screen.dart';
 import 'package:edu_world/view/main_view.dart';
 import 'package:edu_world/view_models/main_view_model.dart';
@@ -210,7 +211,7 @@ class _ModulCourseScreenState extends State<ModulCourseScreen> {
                         style: TextStyle(color: MyColor.primary),
                       ));
                     }
-                    if (data.modulsEnrolled.isNotEmpty) {
+                    if (data.modulsEnrolled.modules!.isNotEmpty) {
                       return ListView.separated(
                           padding: EdgeInsets.zero,
                           physics: const NeverScrollableScrollPhysics(),
@@ -227,16 +228,21 @@ class _ModulCourseScreenState extends State<ModulCourseScreen> {
                                   data: Theme.of(context).copyWith(
                                       dividerColor: Colors.transparent),
                                   child: buildExpansionTile(
-                                      dataMaterials.modulsEnrolled[index],
+                                      dataMaterials
+                                          .modulsEnrolled.modules![index],
                                       index)),
                             );
                           },
                           separatorBuilder: (context, index) =>
                               const SizedBox(),
-                          itemCount: dataMaterials.modulsEnrolled.length);
+                          itemCount:
+                              dataMaterials.modulsEnrolled.modules!.length);
                     }
                     return const Center(child: Text('Tidak ada kursus'));
                   }),
+                  dataMaterials.modulsEnrolled.assignment != null
+                      ? const AssignmentExpansionTile()
+                      : Container()
                 ],
               ),
             ),

@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 class MaterialsViewModel with ChangeNotifier {
   final _dioService = MaterialDioService();
 
-  List<Modules> modulsPreview = [];
-  List<Modules> modulsEnrolled = [];
+  Data modulsPreview = Data();
+  Data modulsEnrolled = Data();
   String messageSubmit = '';
   bool? isCompleted;
   String? errorMessage = '';
@@ -31,7 +31,7 @@ class MaterialsViewModel with ChangeNotifier {
     try {
       final result =
           await _dioService.getEnrolledModulesMaterials(menteeId, courseId);
-      modulsEnrolled.clear();
+      modulsEnrolled = Data();
       errorMessage = '';
       if (result == "502") {
         errorMessage = result;
