@@ -5,6 +5,8 @@ class CourseModel {
   String? category;
   String? title;
   String? description;
+  int? totalReviews;
+  double? rating;
   String? thumbnail;
   String? createdAt;
   String? updateAt;
@@ -15,6 +17,8 @@ class CourseModel {
     this.title,
     this.description,
     this.thumbnail,
+    this.totalReviews,
+    this.rating,
     this.createdAt,
     this.updateAt,
   });
@@ -26,6 +30,8 @@ class CourseModel {
         title = json['title'],
         description = json['description'],
         thumbnail = json['thumbnail'],
+        totalReviews = json['total_reviews'],
+        rating = json['rating'],
         createdAt = json['created_at'],
         updateAt = json['update_at'];
 
@@ -41,6 +47,8 @@ class CourseModel {
       'thumbnail': thumbnail,
       'created_at': createdAt,
       'update_at': updateAt,
+      'total_reviews': totalReviews,
+      'rating': rating,
     };
   }
 }

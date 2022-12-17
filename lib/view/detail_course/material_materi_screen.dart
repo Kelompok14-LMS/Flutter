@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:edu_world/view/detail_course/components/fitur_playback_material.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -25,6 +26,7 @@ class VideoMateriScreen extends StatefulWidget {
 
 class _VideoMateriScreenState extends State<VideoMateriScreen> {
   late VideoPlayerController controller;
+  late Future<void> futureController;
   // late bool isCourseCompleted = widget.materials.completed!;
 
   @override
@@ -34,6 +36,8 @@ class _VideoMateriScreenState extends State<VideoMateriScreen> {
       ..addListener(() => setState(() {}))
       ..setLooping(false)
       ..initialize().then((_) => controller.play());
+    controller.setLooping(true);
+    futureController = controller.initialize();
 
     // Provider.of<MaterialsViewModel>(context, listen: false)
     //     .getPreviewMaterialsModules(widget.courseModel.id!);
@@ -47,7 +51,7 @@ class _VideoMateriScreenState extends State<VideoMateriScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final dataMaterials = Provider.of<MaterialsViewModel>(context);
+    // final dataMaterials = Provider.of<MaterialsViewModel>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -78,13 +82,58 @@ class _VideoMateriScreenState extends State<VideoMateriScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
-                  // decoration: BoxDecoration(
-                  //   borderRadius: BorderRadius.circular(100),
-                  // ),
-                  height: 200,
-                  width: 500,
-                  child: VideoPlayer(controller)),
+              Container(
+                height: 200,
+                width: 500,
+                child: Stack(
+                  children: <Widget> [
+                    FutureBuilder(
+                      future: futureController,
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.done) {
+                          return AspectRatio(
+                            aspectRatio: controller.value.aspectRatio,
+                            child: VideoPlayer(controller),
+                          );
+                        } else {
+                          return const Center(
+                            child: CircularProgressIndicator()
+                          );
+                        }
+                      }
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Center(
+                          child: ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(Colors.transparent),
+                              shadowColor: MaterialStateProperty.all(Colors.transparent)
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                controller.value.isPlaying
+                                    ? controller.pause()
+                                    : controller.play();
+                              });
+                            },
+                            child: Icon(
+                              controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
+                            ),
+                          ),
+                        ),
+                        // ControlMaterialVideo(controller: controller),
+                        VideoProgressIndicator(controller, allowScrubbing: true),
+                      ],
+                    )
+                  ],
+                ),
+              ),
               const Divider(
                 color: Colors.transparent,
                 height: 20,
@@ -178,14 +227,4 @@ class _VideoMateriScreenState extends State<VideoMateriScreen> {
       ),
     );
   }
-
-  // List<VideoMateriModel> detailVideo = [
-  //   VideoMateriModel(
-  //     material_id: 'Latar Belakang Tugas',
-  //     description:
-  //         'Menjadi seorang UI/UX, perlu mengetahui dasar daripada UI dan UX dan fungsi seorang UI/UX agar intern paham akan role mereka di perusahaan.',
-  //     url:
-  //         'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
-  //   )
-  // ];
 }

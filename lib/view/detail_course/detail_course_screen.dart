@@ -122,11 +122,14 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
                           color: Color(0xFFE4B548),
                           size: 20,
                         ),
+                        const SizedBox(
+                          width: 2,
+                        ),
                         Text(
-                          detailCourse[0].rating!,
+                          widget.courseModel.rating!.toString(),
                           style: GoogleFonts.roboto(
                             fontSize: 14,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.w700,
                             color: const Color(0xff112D4E),
                           ),
                         ),
@@ -134,11 +137,11 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
                           width: 3,
                         ),
                         Text(
-                          detailCourse[0].jumlahRating!,
+                          ('(${widget.courseModel.totalReviews!.toString()})'),
                           style: GoogleFonts.roboto(
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
-                            color: const Color(0xFFB8C0CA),
+                            color: const Color(0xFF8896A6),
                           ),
                         ),
                       ],
