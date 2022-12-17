@@ -348,17 +348,8 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
                   child: SizedBox(
                     height: double.maxFinite,
                     child: ElevatedButton(
-                      onPressed: () {
-                        Provider.of<EnrollViewModel>(context, listen: false)
-                            .enrollCourse(
-                                widget.courseModel.id!, widget.mentee);
-                        Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(
-                            builder: (context) => ModulCourseScreen(
-                                mentee: widget.mentee,
-                                courseModel: widget.courseModel),
-                          ),
-                        );
+                      onPressed: () async {
+                        await showSuccessAddCourse();
                       },
                       style: ElevatedButton.styleFrom(
                           shape: const RoundedRectangleBorder(
@@ -397,6 +388,39 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
           ),
         );
       },
+    );
+  }
+
+  Future<void> showSuccessAddCourse() async {
+    Navigator.pop(context);
+    Provider.of<EnrollViewModel>(context, listen: false)
+        .enrollCourse(widget.courseModel.id!, widget.mentee);
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          title: const Icon(
+            Icons.check_circle,
+            color: MyColor.primaryLogo,
+            size: 56,
+          ),
+          content: const Text(
+            'Dimasukkan ke Kursusku',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
+          ),
+        );
+      },
+    );
+    await Future.delayed(const Duration(seconds: 2));
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => ModulCourseScreen(
+            mentee: widget.mentee, courseModel: widget.courseModel),
+      ),
     );
   }
 
