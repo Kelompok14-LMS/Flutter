@@ -43,8 +43,9 @@ dependencies:
   provider: ^6.0.4
   shared_preferences: ^2.0.15
   shimmer: ^2.0.0
-  syncfusion_flutter_pdfviewer: ^20.3.59
   video_player: ^2.4.8
+  intl: ^0.18.0
+  cached_network_image: ^3.2.3
 
 dev_dependencies:
   flutter_lints: ^2.0.0

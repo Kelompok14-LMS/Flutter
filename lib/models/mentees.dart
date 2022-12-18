@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class Mentees {
   final String id;
   final String userId;
@@ -27,54 +25,81 @@ class Mentees {
 }
 
 class MenteesModel {
-  MenteesModel({
-    required this.id,
-    this.userId = '',
-    this.menteeId = '',
-    this.email = '',
-    required this.fullname,
-    required this.phone,
-    required this.birthDate,
-    this.profilePicture = '',
-    this.addrees = '',
-  });
+  int? code;
+  String? status;
+  String? message;
+  Data? data;
 
-  final String id;
-  final String userId;
-  final String menteeId;
-  final String email;
-  final String fullname;
-  final String phone;
-  final String birthDate;
-  final String profilePicture;
-  final String addrees;
+  MenteesModel({this.code, this.status, this.message, this.data});
 
-  factory MenteesModel.fromJson(Map<String, dynamic> json) => MenteesModel(
-        id: json["id"],
-        userId: json["userId"],
-        menteeId: json["role"],
-        email: json["email"],
-        fullname: json["fullname"],
-        phone: json["phone"],
-        birthDate: json["birthDate"],
-        profilePicture: json["profilePicture"],
-        addrees: json["addrees"],
-      );
+  MenteesModel.fromJson(Map<String, dynamic> json) {
+    code = json['code'];
+    status = json['status'];
+    message = json['message'];
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
+  }
 
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "userId": userId,
-        "role": menteeId,
-        "email": email,
-        "fullname": fullname,
-        "phone": phone,
-        "birthDate": birthDate,
-        "profilePicture": profilePicture,
-        "addrees": addrees,
-      };
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['code'] = code;
+    data['status'] = status;
+    data['message'] = message;
+    if (this.data != null) {
+      data['data'] = this.data!.toJson();
+    }
+    return data;
+  }
 }
 
-MenteesModel menteesFromJson(String str) =>
-    MenteesModel.fromJson(json.decode(str));
+class Data {
+  String? id;
+  String? userId;
+  String? fullname;
+  String? phone;
+  String? role;
+  String? birthDate;
+  String? profilePicture;
+  String? email;
+  String? createdAt;
+  String? updatedAt;
 
-String menteesToJson(MenteesModel data) => json.encode(data.toJson());
+  Data(
+      {this.id,
+      this.userId,
+      this.fullname,
+      this.phone,
+      this.role,
+      this.birthDate,
+      this.profilePicture,
+      this.email,
+      this.createdAt,
+      this.updatedAt});
+
+  Data.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    userId = json['user_id'];
+    fullname = json['fullname'];
+    phone = json['phone'];
+    role = json['role'];
+    birthDate = json['birth_date'];
+    profilePicture = json['profile_picture'];
+    email = json['email'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['user_id'] = userId;
+    data['fullname'] = fullname;
+    data['phone'] = phone;
+    data['role'] = role;
+    data['birth_date'] = birthDate;
+    data['profile_picture'] = profilePicture;
+    data['email'] = email;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    return data;
+  }
+}
