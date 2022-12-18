@@ -17,6 +17,7 @@ class CourseViewModel with ChangeNotifier {
   List<CourseModel> uiUx = [];
   List<CourseModel> frontEnd = [];
   List<CourseModel> backEnd = [];
+  List<CourseModel> keywordCourse = [];
   final String _token = '';
   String get tokenUser => _token;
   bool _isOngoing = true;
@@ -31,6 +32,16 @@ class CourseViewModel with ChangeNotifier {
       allCourse = result;
     } catch (e) {
       courseState = CourseState.error;
+    }
+    notifyListeners();
+  }
+
+  void getAllCourseByKeyword(String keyword) async {
+    try {
+      final result = await _dioService.getAllCourseByKeyword(keyword);
+      keywordCourse = result;
+    } catch (e) {
+      rethrow;
     }
     notifyListeners();
   }

@@ -1,4 +1,5 @@
 import 'package:edu_world/utils/constant.dart';
+import 'package:edu_world/view/components/skeleton.dart';
 import 'package:edu_world/view/detail_course/detail_course_screen.dart';
 import 'package:edu_world/view/detail_course/modul_course_screen.dart';
 import 'package:edu_world/view/list_course/list_course.dart';
@@ -11,9 +12,8 @@ import 'package:edu_world/view_models/list_course_view_model.dart';
 import 'package:edu_world/view_models/popular_view_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:jwt_decode/jwt_decode.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shimmer/shimmer.dart';
 
 class HomeCourse extends StatefulWidget {
   const HomeCourse({
@@ -30,20 +30,22 @@ class HomeCourse extends StatefulWidget {
 }
 
 class _HomeCourseState extends State<HomeCourse> {
-  String? mentee;
-  @override
-  void initState() {
-    checkLogin();
+  // String? mentee;
+  // @override
+  // void initState() {
+  //   checkLogin();
 
-    super.initState();
-  }
+  //   super.initState();
+  // }
 
-  void checkLogin() async {
-    final share = await SharedPreferences.getInstance();
-    final token = share.getString('token');
-    Map<String, dynamic> payload = Jwt.parseJwt(token!);
-    mentee = (payload['mentee_id']);
-  }
+  // void checkLogin() async {
+  //   final share = await SharedPreferences.getInstance();
+  //   final token = share.getString('token');
+  //   Map<String, dynamic> payload = Jwt.parseJwt(token!);
+  //   mentee = (payload['mentee_id']);
+  //   if (!mounted) return;
+  //   Provider.of<EnrollViewModel>(context, listen: false).saveMenteeId(mentee!);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +77,9 @@ class _HomeCourseState extends State<HomeCourse> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const Course(),
+                            builder: (context) => Course(
+                              mentee: dataProvider.mentee!,
+                            ),
                           ),
                         );
                       },
@@ -107,11 +111,30 @@ class _HomeCourseState extends State<HomeCourse> {
                       widget.courseClassViewModel.allCourse.length <= 3
                           ? widget.courseClassViewModel.allCourse.length
                           : 3, (index) {
-                    return KelasCourse(
-                      height: 90,
-                      fontSize: 14,
-                      courseModel: widget.courseClassViewModel.allCourse[index],
-                    );
+                    return dataProvider.mentee != null
+                        ? KelasCourse(
+                            height: 90,
+                            fontSize: 14,
+                            courseModel:
+                                widget.courseClassViewModel.allCourse[index],
+                            mentee: dataProvider.mentee!,
+                          )
+                        : Shimmer.fromColors(
+                            baseColor: Colors.grey.shade300,
+                            highlightColor: Colors.grey.shade500,
+                            loop: 3,
+                            child: Row(
+                              children: const [
+                                Skeleton(
+                                  height: 100,
+                                  width: 100,
+                                ),
+                                SizedBox(
+                                  width: 15,
+                                )
+                              ],
+                            ),
+                          );
                   }),
                 ),
               ),
@@ -137,7 +160,9 @@ class _HomeCourseState extends State<HomeCourse> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const Rekomendasi(),
+                            builder: (context) => Rekomendasi(
+                              mentee: dataProvider.mentee!,
+                            ),
                           ),
                         );
                       },
@@ -185,17 +210,17 @@ class _HomeCourseState extends State<HomeCourse> {
                                     listen: false)
                                 .checkEnrollmentCourse(
                                     popularCourse.popularCourse[index].id!,
-                                    mentee!);
+                                    dataProvider.mentee!);
                             if (!mounted) return;
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (context) => !dataProvider.isEnrolled!
                                     ? DetailCourseScreen(
-                                        mentee: mentee!,
+                                        mentee: dataProvider.mentee!,
                                         courseModel:
                                             popularCourse.popularCourse[index])
                                     : ModulCourseScreen(
-                                        mentee: mentee!,
+                                        mentee: dataProvider.mentee!,
                                         courseModel:
                                             popularCourse.popularCourse[index]),
                               ),

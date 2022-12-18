@@ -21,6 +21,7 @@ class SearchBarUserCourse extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(24, 8, 24, 16),
       child: TextFormField(
+        autocorrect: false,
         controller: searchKeyword,
         onFieldSubmitted: (value) async {
           final share = await SharedPreferences.getInstance();

@@ -45,7 +45,6 @@ class _ModulCourseScreenState extends State<ModulCourseScreen> {
   @override
   Widget build(BuildContext context) {
     final dataMaterials = Provider.of<MaterialsViewModel>(context);
-    final courseMaterialsState = dataMaterials.courseMaterialsState;
 
     return Scaffold(
       appBar: AppBar(

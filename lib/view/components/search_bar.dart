@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:edu_world/view/home/home_search_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:edu_world/utils/constant.dart';
@@ -15,10 +16,19 @@ class SearchBar extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(24, 8, 24, 4),
       child: TextFormField(
+        onTap: () {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => HomeSearchScreen(),
+          ));
+        },
+        showCursor: false,
         decoration: InputDecoration(
-          filled: true,
-          fillColor: Colors.white,
-          border: OutlineInputBorder(
+          hoverColor: Colors.red,
+          filled: false,
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(100),
+          ),
+          focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(100),
           ),
           prefixIcon: const Icon(

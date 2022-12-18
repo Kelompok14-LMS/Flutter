@@ -45,6 +45,22 @@ class CourseDioService {
     }
   }
 
+  Future<List<CourseModel>> getAllCourseByKeyword(String keyword) async {
+    try {
+      final response = await _dio.get(
+        '/api/v1/courses',
+        queryParameters: {"keyword": keyword},
+      );
+
+      List<dynamic> data = response.data['data'];
+      List<CourseModel> result =
+          data.map((e) => CourseModel.fromJson(e)).toList();
+      return result;
+    } catch (e) {
+      return [];
+    }
+  }
+
   Future<List<CourseModel>> getCoursebyCategory(String category) async {
     try {
       final response = await _dio.get(
@@ -91,7 +107,7 @@ class CourseDioService {
       List<dynamic> data = response.data['data'];
       List<CourseModel> result =
           data.map((e) => CourseModel.fromJson(e)).toList();
-          // print(result);
+      // print(result);
       return result;
     } catch (e) {
       rethrow;

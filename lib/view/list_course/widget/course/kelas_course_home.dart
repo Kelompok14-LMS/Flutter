@@ -1,8 +1,12 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:edu_world/view/detail_course/detail_course_screen.dart';
+import 'package:edu_world/view/detail_course/modul_course_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+
 import 'package:edu_world/models/course_model.dart';
 import 'package:edu_world/utils/constant.dart';
+import 'package:edu_world/view_models/enroll_view_model.dart';
 
 class KelasCourse extends StatefulWidget {
   const KelasCourse({
@@ -10,10 +14,12 @@ class KelasCourse extends StatefulWidget {
     required this.courseModel,
     required this.fontSize,
     required this.height,
+    required this.mentee,
   }) : super(key: key);
   final CourseModel courseModel;
   final double fontSize;
   final double height;
+  final String mentee;
 
   @override
   State<KelasCourse> createState() => _KelasCourseState();
@@ -22,13 +28,28 @@ class KelasCourse extends StatefulWidget {
 class _KelasCourseState extends State<KelasCourse> {
   @override
   Widget build(BuildContext context) {
+    final dataProvider = Provider.of<EnrollViewModel>(context);
+
     return SizedBox(
       height: 196,
       width: 160,
       child: Card(
         clipBehavior: Clip.antiAliasWithSaveLayer,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        child: SafeArea(
+        child: InkWell(
+          onTap: () async {
+            await Provider.of<EnrollViewModel>(context, listen: false)
+                .checkEnrollmentCourse(widget.courseModel.id!, widget.mentee);
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => !dataProvider.isEnrolled!
+                    ? DetailCourseScreen(
+                        mentee: widget.mentee, courseModel: widget.courseModel)
+                    : ModulCourseScreen(
+                        mentee: widget.mentee, courseModel: widget.courseModel),
+              ),
+            );
+          },
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
