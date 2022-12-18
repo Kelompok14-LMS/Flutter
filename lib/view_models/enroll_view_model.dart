@@ -6,7 +6,13 @@ enum EnrollState { none, loading, error }
 class EnrollViewModel extends ChangeNotifier {
   bool? isEnrolled;
   EnrollState enrollState = EnrollState.none;
+  String? mentee;
   final _dioService = EnrollDioService();
+
+  void saveMenteeId(String menteeId) {
+    mentee = menteeId;
+  }
+
   Future<void> enrollCourse(String courseId, String menteeId) async {
     try {
       final result = await _dioService.enrollCourse(courseId, menteeId);

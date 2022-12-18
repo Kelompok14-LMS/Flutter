@@ -1,12 +1,17 @@
-import 'package:edu_world/utils/constant.dart';
-import 'package:edu_world/view/list_course/widget/course/kelas_course_home.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'package:edu_world/utils/constant.dart';
+import 'package:edu_world/view/list_course/widget/course/kelas_course_home.dart';
 
 import '../../view_models/couse_view_model.dart';
 
 class Course extends StatefulWidget {
-  const Course({super.key});
+  const Course({
+    Key? key,
+    required this.mentee,
+  }) : super(key: key);
+  final String mentee;
 
   @override
   State<Course> createState() => _CourseState();
@@ -52,9 +57,11 @@ class _CourseState extends State<Course> {
                   ),
                   itemBuilder: (context, index) {
                     return KelasCourse(
-                        courseModel: courseClassViewModel.allCourse[index],
-                        fontSize: 16,
-                        height: 104);
+                      courseModel: courseClassViewModel.allCourse[index],
+                      fontSize: 16,
+                      height: 104,
+                      mentee: widget.mentee,
+                    );
                   }),
             ))
           ],

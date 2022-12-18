@@ -51,75 +51,92 @@ class _CustomTabBarButtonState extends State<CustomTabBarButton> {
           ),
 
           /// CUSTOM TABBAR
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: SizedBox(
-              width: double.infinity,
-              height: 50,
-              child: ListView.builder(
-                  physics: const BouncingScrollPhysics(),
-                  itemCount: items.length,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (ctx, index) {
-                    return GestureDetector(
-                      onTap: () async {
-                        setState(() {
-                          current = index;
-                        });
-                        if (index == 1) {
-                          buttonCounterUiUx++;
-                          if (buttonCounterUiUx <= 1) {
-                            Provider.of<CourseViewModel>(context, listen: false)
-                                .getCoursebyCategory("UI/UX");
-                          }
-                        }
-                        if (index == 2) {
-                          buttonCounterFrontEnd++;
-                          if (buttonCounterFrontEnd <= 1) {
-                            Provider.of<CourseViewModel>(context, listen: false)
-                                .getCoursebyCategory("Front End");
-                          }
-                        }
-                        if (index == 3) {
-                          buttonCounterBackEnd++;
-                          if (buttonCounterBackEnd <= 1) {
-                            Provider.of<CourseViewModel>(context, listen: false)
-                                .getCoursebyCategory("Back End");
-                          }
-                        }
-                      },
-                      child: AnimatedContainer(
-                        duration: const Duration(milliseconds: 300),
-                        margin: const EdgeInsets.all(5),
-                        // width: 80,
-                        // height: 45,
-                        decoration: BoxDecoration(
-                          color: current == index
-                              ? MyColor.primaryLogo
-                              : Colors.white54,
-                          borderRadius: current == index
-                              ? BorderRadius.circular(16)
-                              : BorderRadius.circular(16),
-                          border: current == index
-                              ? Border.all(color: MyColor.primaryLogo, width: 2)
-                              : Border.all(color: MyColor.primary),
+          SizedBox(
+            width: double.infinity,
+            height: 50,
+            child: ListView.builder(
+                physics: const BouncingScrollPhysics(),
+                itemCount: items.length,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (ctx, index) {
+                  return Row(
+                    children: [
+                      Visibility(
+                        visible: index == 0,
+                        child: const SizedBox(
+                          width: 24,
                         ),
-                        child: Center(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 24, vertical: 8),
-                            child: Text(
-                              items[index],
-                              style: GoogleFonts.roboto(
-                                  fontWeight: FontWeight.w500,
-                                  color: MyColor.primary),
+                      ),
+                      GestureDetector(
+                        onTap: () async {
+                          setState(() {
+                            current = index;
+                          });
+                          if (index == 1) {
+                            buttonCounterUiUx++;
+                            if (buttonCounterUiUx <= 1) {
+                              Provider.of<CourseViewModel>(context,
+                                      listen: false)
+                                  .getCoursebyCategory("UI/UX");
+                            }
+                          }
+                          if (index == 2) {
+                            buttonCounterFrontEnd++;
+                            if (buttonCounterFrontEnd <= 1) {
+                              Provider.of<CourseViewModel>(context,
+                                      listen: false)
+                                  .getCoursebyCategory("Front End");
+                            }
+                          }
+                          if (index == 3) {
+                            buttonCounterBackEnd++;
+                            if (buttonCounterBackEnd <= 1) {
+                              Provider.of<CourseViewModel>(context,
+                                      listen: false)
+                                  .getCoursebyCategory("Back End");
+                            }
+                          }
+                        },
+                        child: AnimatedContainer(
+                          duration: const Duration(milliseconds: 300),
+                          margin: const EdgeInsets.all(5),
+                          // width: 80,
+                          // height: 45,
+                          decoration: BoxDecoration(
+                            color: current == index
+                                ? MyColor.primaryLogo
+                                : Colors.white54,
+                            borderRadius: current == index
+                                ? BorderRadius.circular(16)
+                                : BorderRadius.circular(16),
+                            border: current == index
+                                ? Border.all(
+                                    color: MyColor.primaryLogo, width: 2)
+                                : Border.all(color: MyColor.primary),
+                          ),
+                          child: Center(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 24, vertical: 8),
+                              child: Text(
+                                items[index],
+                                style: GoogleFonts.roboto(
+                                    fontWeight: FontWeight.w500,
+                                    color: MyColor.primary),
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    );
-                  }),
-            ),
+                      Visibility(
+                        visible: index == 3,
+                        child: const SizedBox(
+                          width: 24,
+                        ),
+                      ),
+                    ],
+                  );
+                }),
           ),
           const SizedBox(
             height: 12,

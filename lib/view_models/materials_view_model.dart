@@ -2,8 +2,11 @@ import 'package:edu_world/models/materials_model.dart';
 import 'package:edu_world/services/materials_service.dart';
 import 'package:flutter/material.dart';
 
+enum CourseMaterialsState { none, loading, error }
+
 class MaterialsViewModel with ChangeNotifier {
   final _dioService = MaterialDioService();
+  CourseMaterialsState courseMaterialsState = CourseMaterialsState.none;
 
   Data modulsPreview = Data();
   Data modulsEnrolled = Data();
@@ -16,11 +19,16 @@ class MaterialsViewModel with ChangeNotifier {
   // }
 
   Future<void> getPreviewMaterialsModules(String courseId) async {
+    courseMaterialsState = CourseMaterialsState.loading;
+    await Future.delayed(const Duration(seconds: 1));
     try {
       final result = await _dioService.getPreviewModulesMaterials(courseId);
       modulsPreview = result;
       // print(moduls[0].materials!);
+      courseMaterialsState = CourseMaterialsState.none;
     } catch (e) {
+      courseMaterialsState = CourseMaterialsState.error;
+
       rethrow;
     }
     notifyListeners();
@@ -28,6 +36,7 @@ class MaterialsViewModel with ChangeNotifier {
 
   Future<void> getEnrolledMaterialsModules(
       String menteeId, String courseId) async {
+    courseMaterialsState = CourseMaterialsState.loading;
     try {
       final result =
           await _dioService.getEnrolledModulesMaterials(menteeId, courseId);
@@ -39,7 +48,9 @@ class MaterialsViewModel with ChangeNotifier {
         errorMessage = '';
         modulsEnrolled = result;
       }
+      courseMaterialsState = CourseMaterialsState.none;
     } catch (e) {
+      courseMaterialsState = CourseMaterialsState.error;
       rethrow;
     }
     notifyListeners();

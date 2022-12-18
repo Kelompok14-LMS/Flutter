@@ -1,11 +1,16 @@
-import 'package:edu_world/utils/constant.dart';
-import 'package:edu_world/view/list_course/widget/course/kelas_course_home.dart';
-import 'package:edu_world/view_models/popular_view_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'package:edu_world/utils/constant.dart';
+import 'package:edu_world/view/list_course/widget/course/kelas_course_home.dart';
+import 'package:edu_world/view_models/popular_view_modal.dart';
+
 class Rekomendasi extends StatefulWidget {
-  const Rekomendasi({super.key});
+  const Rekomendasi({
+    Key? key,
+    required this.mentee,
+  }) : super(key: key);
+  final String mentee;
 
   @override
   State<Rekomendasi> createState() => _RekomendasiState();
@@ -50,6 +55,7 @@ class _RekomendasiState extends State<Rekomendasi> {
                   ),
                   itemBuilder: (context, index) {
                     return KelasCourse(
+                        mentee: widget.mentee,
                         courseModel: dataPopularCourse.popularCourse[index],
                         fontSize: 16,
                         height: 104);

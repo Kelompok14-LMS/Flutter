@@ -4,6 +4,7 @@ import 'package:edu_world/models/materials_model.dart';
 import 'package:edu_world/models/review_card_model.dart';
 import 'package:edu_world/utils/constant.dart';
 import 'package:edu_world/view/detail_course/components/assignment_expansion_tile.dart';
+import 'package:edu_world/view/detail_course/components/list_course_shimmer.dart';
 import 'package:edu_world/view/detail_course/material_materi_screen.dart';
 import 'package:edu_world/view/main_view.dart';
 import 'package:edu_world/view_models/main_view_model.dart';
@@ -44,6 +45,7 @@ class _ModulCourseScreenState extends State<ModulCourseScreen> {
   @override
   Widget build(BuildContext context) {
     final dataMaterials = Provider.of<MaterialsViewModel>(context);
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
@@ -204,41 +206,50 @@ class _ModulCourseScreenState extends State<ModulCourseScreen> {
                     height: 10,
                   ),
                   Consumer<MaterialsViewModel>(builder: (context, data, _) {
-                    if (data.errorMessage == "502") {
-                      return const Center(
-                          child: Text(
-                        'Error 502, gagal memuat data',
-                        style: TextStyle(color: MyColor.primary),
-                      ));
+                    if (data.courseMaterialsState ==
+                        CourseMaterialsState.loading) {
+                      return const ListCourseShimmer();
                     }
-                    if (data.modulsEnrolled.modules!.isNotEmpty) {
-                      return ListView.separated(
-                          padding: EdgeInsets.zero,
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          scrollDirection: Axis.vertical,
-                          itemBuilder: (context, index) {
-                            return Card(
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              elevation: 2,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                              child: Theme(
-                                  data: Theme.of(context).copyWith(
-                                      dividerColor: Colors.transparent),
-                                  child: buildExpansionTile(
-                                      dataMaterials
-                                          .modulsEnrolled.modules![index],
-                                      index)),
-                            );
-                          },
-                          separatorBuilder: (context, index) =>
-                              const SizedBox(),
-                          itemCount:
-                              dataMaterials.modulsEnrolled.modules!.length);
+                    if (data.courseMaterialsState ==
+                        CourseMaterialsState.error) {
+                      return const Text('Gagal mengambil data');
+                    } else {
+                      if (data.errorMessage == "502") {
+                        return const Center(
+                            child: Text(
+                          'Error 502, gagal memuat data',
+                          style: TextStyle(color: MyColor.primary),
+                        ));
+                      }
+                      if (data.modulsEnrolled.modules!.isNotEmpty) {
+                        return ListView.separated(
+                            padding: EdgeInsets.zero,
+                            physics: const NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            scrollDirection: Axis.vertical,
+                            itemBuilder: (context, index) {
+                              return Card(
+                                clipBehavior: Clip.antiAliasWithSaveLayer,
+                                elevation: 2,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(16),
+                                ),
+                                child: Theme(
+                                    data: Theme.of(context).copyWith(
+                                        dividerColor: Colors.transparent),
+                                    child: buildExpansionTile(
+                                        dataMaterials
+                                            .modulsEnrolled.modules![index],
+                                        index)),
+                              );
+                            },
+                            separatorBuilder: (context, index) =>
+                                const SizedBox(),
+                            itemCount:
+                                dataMaterials.modulsEnrolled.modules!.length);
+                      }
+                      return const Center(child: Text('Tidak ada kursus'));
                     }
-                    return const Center(child: Text('Tidak ada kursus'));
                   }),
                   dataMaterials.modulsEnrolled.assignment != null
                       ? const AssignmentExpansionTile()

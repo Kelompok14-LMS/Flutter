@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:edu_world/view/home/components/grid_course_shimmer.dart';
+import 'package:edu_world/view_models/enroll_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -18,17 +19,11 @@ class CategoryCard extends StatefulWidget {
 }
 
 class _CategoryCardState extends State<CategoryCard> {
-  // @override
-  // void initState() {
-  //   Provider.of<CourseViewModel>(context, listen: false)
-  //       .getCoursebyCategory(widget.category);
-  //   print(widget.category);
-  //   super.initState();
-  // }
-
   @override
   Widget build(BuildContext context) {
+    // print('data $mentee');
     final courseClassViewModel = Provider.of<CourseViewModel>(context);
+    final dataMentee = Provider.of<EnrollViewModel>(context);
     final courseState = courseClassViewModel.courseState;
     return courseState == CourseState.loading
         ? const Expanded(child: GridCourseShimmer())
@@ -53,15 +48,18 @@ class _CategoryCardState extends State<CategoryCard> {
                     mainAxisExtent: 224,
                   ),
                   itemBuilder: (context, index) {
-                    return KelasCourse(
-                      height: 104,
-                      fontSize: 16,
-                      courseModel: widget.category == "UI/UX"
-                          ? courseClassViewModel.uiUx[index]
-                          : widget.category == "Front End"
-                              ? courseClassViewModel.frontEnd[index]
-                              : courseClassViewModel.backEnd[index],
-                    );
+                    return dataMentee.mentee != null
+                        ? KelasCourse(
+                            mentee: dataMentee.mentee!,
+                            height: 104,
+                            fontSize: 16,
+                            courseModel: widget.category == "UI/UX"
+                                ? courseClassViewModel.uiUx[index]
+                                : widget.category == "Front End"
+                                    ? courseClassViewModel.frontEnd[index]
+                                    : courseClassViewModel.backEnd[index],
+                          )
+                        : const CircularProgressIndicator();
                   },
                 ),
               );
