@@ -5,12 +5,10 @@ import 'package:edu_world/models/mentee_assignment_model.dart';
 import 'package:edu_world/services/assignment_service.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 class AssignmentViewModel with ChangeNotifier {
   final AssignmentAPI assigntmentApi = AssignmentAPI();
   List<MenteeAssignmentModel> menteeAssignmentModel = [];
-  final PdfViewerController pdfViewerController = PdfViewerController();
 
   PlatformFile? pickedFile;
   late FilePickerResult result;

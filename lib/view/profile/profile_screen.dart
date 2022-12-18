@@ -1,13 +1,13 @@
 import 'package:edu_world/utils/constant.dart';
-import 'package:edu_world/view/profile/edit_profile_screen.dart';
+import 'package:edu_world/view/profile/widget/body_profile.dart';
 import 'package:edu_world/view_models/profile_view_model.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import '../../view_models/auth_view_model.dart';
 import '../login/login_screen.dart';
+import 'widget/empty_widget.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({
@@ -20,9 +20,14 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
-  void initState() {
-    Provider.of<ProfileViewModel>(context, listen: false).getProfile(context);
-    super.initState();
+  void didChangeDependencies() {
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        Provider.of<ProfileViewModel>(context, listen: false)
+            .getProfile(context);
+      },
+    );
+    super.didChangeDependencies();
   }
 
   @override
@@ -75,276 +80,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ],
       ),
       body: Consumer<ProfileViewModel>(
-        builder: (context, value, child) => ListView.builder(
-          itemCount: value.mentees.isEmpty ? 0 : value.mentees.length,
-          itemBuilder: (BuildContext context, int index) {
-            return Column(
-              children: [
-                value.mentees != null
-                    ? Container(
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            scale: 1.1,
-                            image: NetworkImage(
-                                value.mentees[index].profilePicture),
-                          ),
-                          shape: BoxShape.circle,
-                        ),
-                        height: 210,
-                        width: double.infinity,
-                        child: Stack(
-                          children: [
-                            Positioned(
-                              left: 157,
-                              top: 165,
-                              right: 157,
-                              child: InkWell(
-                                child: Container(
-                                  height: 40,
-                                  width: 118,
-                                  decoration: BoxDecoration(
-                                    color: MyColor.primaryLogo,
-                                    borderRadius: BorderRadius.circular(16),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      'Ganti Foto',
-                                      style: GoogleFonts.roboto(
-                                          color: MyColor.primary,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                  ),
-                                ),
-                                onTap: () {
-                                  Provider.of<ProfileViewModel>(context,
-                                          listen: false)
-                                      .ambilFoto(
-                                          context, value.mentees[index].id);
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                      )
-                    : Container(
-                        decoration: const BoxDecoration(
-                          image: DecorationImage(
-                            scale: 1.1,
-                            image:
-                                ExactAssetImage('assets/images/Ellipse 6.png'),
-                          ),
-                          shape: BoxShape.circle,
-                        ),
-                        height: 210,
-                        width: double.infinity,
-                        child: Stack(
-                          children: [
-                            Positioned(
-                              left: 157,
-                              top: 165,
-                              right: 157,
-                              child: InkWell(
-                                child: Container(
-                                  height: 40,
-                                  width: 118,
-                                  decoration: BoxDecoration(
-                                    color: MyColor.primaryLogo,
-                                    borderRadius: BorderRadius.circular(16),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      'Ganti Foto',
-                                      style: GoogleFonts.roboto(
-                                          color: MyColor.primary,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                  ),
-                                ),
-                                onTap: () {
-                                  Provider.of<ProfileViewModel>(context,
-                                          listen: false)
-                                      .ambilFoto(
-                                          context, value.mentees[index].id);
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                Column(
-                  children: <Widget>[
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Container(
-                      height: 48,
-                      width: 300,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(8),
-                          shape: BoxShape.rectangle,
-                          boxShadow: const [
-                            BoxShadow(
-                              color: MyColor.primaryLogo,
-                              spreadRadius: 1,
-                            )
-                          ]),
-                      child: Center(
-                        child: Text(
-                          value.mentees[index].email,
-                          style: GoogleFonts.roboto(
-                              fontSize: 18, color: Colors.black38),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 25,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 60, left: 60),
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 10),
-                            child: Align(
-                              alignment: Alignment.topLeft,
-                              child: Text(
-                                'Nama Lengkap',
-                                style: GoogleFonts.roboto(
-                                    fontSize: 20,
-                                    color: MyColor.primary,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            height: 48,
-                            width: 300,
-                            decoration: BoxDecoration(
-                              color: Colors.transparent,
-                              borderRadius: BorderRadius.circular(8),
-                              shape: BoxShape.rectangle,
-                            ),
-                            child: Row(
-                              children: [
-                                Text(
-                                  value.mentees[index].fullname,
-                                  style: GoogleFonts.roboto(
-                                      fontSize: 16, color: MyColor.primary),
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 10),
-                            child: Align(
-                              alignment: Alignment.topLeft,
-                              child: Text(
-                                'Nomor Ponsel',
-                                style: GoogleFonts.roboto(
-                                    fontSize: 20,
-                                    color: MyColor.primary,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            height: 48,
-                            width: 300,
-                            decoration: BoxDecoration(
-                              color: Colors.transparent,
-                              borderRadius: BorderRadius.circular(8),
-                              shape: BoxShape.rectangle,
-                            ),
-                            child: Row(
-                              children: [
-                                Text(
-                                  value.mentees[index].phone,
-                                  style: GoogleFonts.roboto(
-                                      fontSize: 16, color: MyColor.primary),
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 10),
-                            child: Align(
-                              alignment: Alignment.topLeft,
-                              child: Text(
-                                'Tanggal Lahir',
-                                style: GoogleFonts.roboto(
-                                    fontSize: 20,
-                                    color: MyColor.primary,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            height: 48,
-                            width: 300,
-                            decoration: BoxDecoration(
-                              color: Colors.transparent,
-                              borderRadius: BorderRadius.circular(8),
-                              shape: BoxShape.rectangle,
-                            ),
-                            child: Row(
-                              children: [
-                                Text(
-                                  value.mentees[index].birthDate,
-                                  style: GoogleFonts.roboto(
-                                      fontSize: 16, color: MyColor.primary),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 35,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          CupertinoPageRoute(
-                            builder: (context) => EditProfileScreen(
-                              index: index,
-                            ),
-                          ),
-                        );
-                      },
-                      child: Container(
-                        height: 48,
-                        width: 300,
-                        decoration: BoxDecoration(
-                          color: MyColor.primaryLogo,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Center(
-                          child: Text(
-                            'Ubah',
-                            style: GoogleFonts.roboto(
-                                color: MyColor.primary,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+        builder: (context, value, child) {
+          if (value.profileState == ProfileState.loading) {
+            return const Center(
+              child: CircularProgressIndicator(
+                backgroundColor: MyColor.primaryLogo,
+                color: Colors.white,
+              ),
             );
-          },
-        ),
+          } else if (value.profileState == ProfileState.loaded) {
+            return buildProfilePage(context);
+          } else if (value.profileState == ProfileState.error) {
+            return showAtEmptyData();
+          } else {
+            return showAtEmptyData();
+          }
+        },
       ),
     );
   }

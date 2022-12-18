@@ -1,11 +1,8 @@
 import 'package:edu_world/utils/constant.dart';
-import 'package:edu_world/view/assignment_course/question_screen.dart';
-import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 import '../../view_models/assignment_view_model.dart';
 
@@ -205,13 +202,7 @@ class TugasScreen extends StatelessWidget {
                     ),
                   )),
             ),
-            onTap: () {
-              Navigator.push(
-                  context,
-                  CupertinoPageRoute(
-                    builder: (context) => const SoalScreen(),
-                  ));
-            },
+            onTap: () {},
           ),
           SizedBox(
             height: media.height * 0.05,
@@ -226,7 +217,7 @@ class TugasScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(8)),
                       height: 162,
                       width: 380,
-                      child: SfPdfViewer.file(value.file),
+                      //child: SfPdfViewer.file(value.file),
                     ),
                   )
                 : InkWell(
