@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:edu_world/models/materials_model.dart';
 import 'package:edu_world/services/materials_service.dart';
 import 'package:flutter/material.dart';
+import 'package:video_player/video_player.dart';
 
 enum CourseMaterialsState { none, loading, error }
 
@@ -14,9 +17,23 @@ class MaterialsViewModel with ChangeNotifier {
   bool? isCompleted;
   String? errorMessage = '';
 
+  VideoPlayerController? controller;
+  Future<void>? futureController;
+
   // List<MaterialsModel> get modules {
   //   return [..._materials];
   // }
+
+  Future<void> playOrNot() async {
+    controller!.value.isPlaying ? controller!.pause() : controller!.play();
+    notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    controller!.dispose();
+  }
 
   Future<void> getPreviewMaterialsModules(String courseId) async {
     courseMaterialsState = CourseMaterialsState.loading;

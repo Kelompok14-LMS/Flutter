@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:edu_world/view/detail_course/modul_course_screen.dart';
 import 'package:edu_world/view_models/enroll_view_model.dart';
 import 'package:edu_world/view_models/materials_view_model.dart';
@@ -8,7 +7,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import 'package:edu_world/models/course_model.dart';
-import 'package:edu_world/models/review_card_model.dart';
 import 'package:edu_world/utils/constant.dart';
 import 'package:edu_world/view/detail_course/components/review_card.dart';
 
@@ -30,8 +28,7 @@ class DetailCourseScreen extends StatefulWidget {
 class _DetailCourseScreenState extends State<DetailCourseScreen> {
   @override
   void initState() {
-    // Provider.of<EnrollViewModel>(context, listen: false)
-    //     .checkEnrollmentCourse(widget.courseModel.id!, widget.mentee);
+    context.read<ReviewCourseViewModel>().reviewCourse.clear();
     Provider.of<MaterialsViewModel>(context, listen: false)
         .getPreviewMaterialsModules(widget.courseModel.id!);
     context
@@ -42,10 +39,9 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final dataMaterials = Provider.of<MaterialsViewModel>(context);
-    final dataReview = context.watch<ReviewCourseViewModel>().reviewCourse;
-    final courseMaterialsState = dataMaterials.courseMaterialsState;
-
+    final dataMaterials =
+        Provider.of<MaterialsViewModel>(context, listen: false);
+    final dataReview = context.read<ReviewCourseViewModel>().reviewCourse;
     return Scaffold(
         appBar: AppBar(
           centerTitle: false,
@@ -54,7 +50,6 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
           leading: IconButton(
             onPressed: () {
               Navigator.pop(context);
-              dataReview.clear();
             },
             icon: const Icon(
               Icons.arrow_back_ios_new_sharp,
@@ -173,11 +168,6 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
                     const SizedBox(
                       height: 10,
                     ),
-                    // courseMaterialsState == CourseMaterialsState.loading
-                    //     ? const ListCourseShimmer()
-                    //     : courseMaterialsState == CourseMaterialsState.error
-                    //         ? const Text('Error Mengambil data')
-                    //         :
                     Consumer<MaterialsViewModel>(builder: (context, data, _) {
                       if (data.courseMaterialsState ==
                           CourseMaterialsState.loading) {
@@ -373,7 +363,6 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
           contentPadding: EdgeInsets.zero,
           titlePadding:
               const EdgeInsets.symmetric(horizontal: 59, vertical: 20),
-          // backgroundColor: Colors.red,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(17)),
           title: const Text(
@@ -466,28 +455,4 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
       ),
     );
   }
-
-  List<ReviewCardModel> dummyCardReview = [
-    ReviewCardModel(
-      image:
-          'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80',
-      name: 'Gilang Dirga',
-      rating: 4,
-      reviewText: 'Kursus ini sangat bagus untuk pemula',
-    ),
-    ReviewCardModel(
-      image:
-          'https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80',
-      name: 'Bintang Bulan',
-      rating: 5,
-      reviewText: 'Saya sangat terbantu dengan adanya kursus ini',
-    ),
-    ReviewCardModel(
-      image:
-          'https://images.unsplash.com/photo-1540569014015-19a7be504e3a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
-      name: 'Yudi Sembako',
-      rating: 5,
-      reviewText: 'Terima kasih banyak Christine, kursusmu sangat membantuku',
-    ),
-  ];
 }

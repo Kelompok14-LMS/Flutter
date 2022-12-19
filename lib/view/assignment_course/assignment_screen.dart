@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
+import '../../utils/finite_state.dart';
 import '../../view_models/assignment_view_model.dart';
 
 class TugasScreen extends StatelessWidget {
-  const TugasScreen({super.key});
+  final String assignmentId;
+  const TugasScreen({super.key, required this.assignmentId});
 
   @override
   Widget build(BuildContext context) {
@@ -17,10 +19,14 @@ class TugasScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        titleSpacing: 0,
         backgroundColor: Colors.white,
         title: Text(
-          'Tugas',
-          style: GoogleFonts.roboto(color: MyColor.primary),
+          'Kembali',
+          style: GoogleFonts.roboto(
+              color: MyColor.primary,
+              fontSize: 14,
+              fontWeight: FontWeight.bold),
         ),
         elevation: 0,
         leading: Row(
@@ -39,226 +45,282 @@ class TugasScreen extends StatelessWidget {
           ],
         ),
       ),
-      body: Column(
-        children: <Widget>[
-          Container(
-            padding: const EdgeInsets.all(22.5),
-            child: Text(
-              'Di akhir minggu pertama, teman teman telah mempelajari terkait apa itu Design Thinking, dimana ini merupakan framework yang paling sering digunakan dalam menerapkan konsep UI UX. Nah untuk meningkatkan dan melatih pemahaman teman - teman terkait Design Thinking',
-              textAlign: TextAlign.justify,
-              style: GoogleFonts.roboto(fontSize: 14, color: MyColor.primary),
-              overflow: TextOverflow.ellipsis,
-              maxLines: 17,
-            ),
-          ),
-          SizedBox(
-            height: media.height * 0.01,
-          ),
-          Flexible(
-            child: Padding(
+      body: Padding(
+        padding: const EdgeInsets.only(left: 25, right: 25),
+        child: Column(
+          children: <Widget>[
+            Container(
+              alignment: Alignment.topLeft,
+              decoration: BoxDecoration(
+                color: const Color(0x00f9f7f7),
+                borderRadius: BorderRadius.circular(16),
+              ),
               padding: EdgeInsets.only(
-                left: media.width * 0.01,
-                right: media.width * 0.45,
+                left: media.width * 0.07,
+                right: media.width * 0.5,
               ),
               child: Text(
-                'Kerjakan Soal Berikut',
+                'Assignment',
                 style: GoogleFonts.roboto(
-                    fontSize: 22,
-                    fontWeight: FontWeight.w500,
-                    color: MyColor.primary),
+                    fontSize: 14,
+                    color: MyColor.primaryLogo,
+                    fontWeight: FontWeight.bold),
               ),
             ),
-          ),
-          SizedBox(
-            height: media.height * 0.01,
-          ),
-          Flexible(
-            child: Padding(
-              padding: EdgeInsets.only(
-                left: media.width * 0.06,
-                right: media.width * 0.48,
-              ),
-              child: Row(
-                children: <Widget>[
-                  Text(
-                    'Jumlah Soal',
-                    style: GoogleFonts.roboto(
-                        color: MyColor.primary, fontSize: 14),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 5),
-                    child: Text(
-                      ': 5 Essay ',
-                      style: GoogleFonts.roboto(
-                          fontWeight: FontWeight.bold,
-                          color: MyColor.primary,
-                          fontSize: 14),
-                    ),
-                  ),
-                ],
-              ),
+            SizedBox(
+              height: media.height * 0.02,
             ),
-          ),
-          Flexible(
-            child: Padding(
-              padding: EdgeInsets.only(
-                left: media.width * 0.06,
-                right: media.width * 0.48,
-                top: media.height * 0.006,
-              ),
-              child: Row(
-                children: <Widget>[
-                  Text(
-                    'Tipe Soal',
-                    style: GoogleFonts.roboto(
-                        color: MyColor.primary, fontSize: 14),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 22),
-                    child: Text(
-                      ': Essay',
-                      style: GoogleFonts.roboto(
-                          fontWeight: FontWeight.bold,
-                          color: MyColor.primary,
-                          fontSize: 14),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Flexible(
-            child: Padding(
-              padding: EdgeInsets.only(
-                left: media.width * 0.06,
-                right: media.width * 0.48,
-                top: media.height * 0.006,
-              ),
-              child: Row(
-                children: <Widget>[
-                  Text(
-                    'Status',
-                    style: GoogleFonts.roboto(
-                        color: MyColor.primary, fontSize: 14),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 38),
-                    child: Text(
-                      ': Belum Dinilai ',
-                      style: GoogleFonts.roboto(
-                          fontWeight: FontWeight.bold,
-                          color: MyColor.primary,
-                          fontSize: 14),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Flexible(
-            child: Padding(
-              padding: EdgeInsets.only(
-                left: media.width * 0.06,
-                right: media.width * 0.48,
-                top: media.height * 0.006,
-              ),
-              child: Row(
-                children: <Widget>[
-                  Text(
-                    'Nilai ',
-                    style: GoogleFonts.roboto(
-                        color: MyColor.primary, fontSize: 14),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 45),
-                    child: Text(
-                      ': 0',
-                      style: GoogleFonts.roboto(
-                          fontWeight: FontWeight.bold,
-                          color: MyColor.primary,
-                          fontSize: 14),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          SizedBox(
-            height: media.height * 0.03,
-          ),
-          InkWell(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 22.5, right: 22.5),
-              child: Container(
-                  decoration: BoxDecoration(
-                      color: const Color(0xFFB8C0CA),
-                      borderRadius: BorderRadius.circular(8)),
-                  height: 70,
-                  width: 380,
-                  child: Center(
-                    child: Text(
-                      'Lihat Soal',
-                      style: GoogleFonts.roboto(color: MyColor.primary),
-                    ),
-                  )),
-            ),
-            onTap: () {},
-          ),
-          SizedBox(
-            height: media.height * 0.05,
-          ),
-          Consumer<AssignmentViewModel>(
-            builder: (context, value, child) => value.pickedFile != null
-                ? Padding(
-                    padding: const EdgeInsets.only(left: 22.5, right: 22.5),
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: const Color(0xFFB8C0CA),
-                          borderRadius: BorderRadius.circular(8)),
-                      height: 162,
-                      width: 380,
-                      //child: SfPdfViewer.file(value.file),
-                    ),
-                  )
-                : InkWell(
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 22.5, right: 22.5),
-                      child: Container(
-                          decoration: BoxDecoration(
-                              color: const Color(0xFFB8C0CA),
-                              borderRadius: BorderRadius.circular(8)),
-                          height: 162,
-                          width: 380,
-                          child: const Center(child: Icon(Icons.upload))),
-                    ),
-                    onTap: () {
-                      assignmentViewModel.ambilFile(context);
-                    },
-                  ),
-          ),
-          SizedBox(
-            height: media.height * 0.1,
-          ),
-          InkWell(
-            child: Container(
-              width: 373,
-              height: 40,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: MyColor.primary,
-              ),
-              child: const Center(
+            Flexible(
+              child: Padding(
+                padding: EdgeInsets.only(
+                  left: media.width * 0.06,
+                  right: media.width * 0.65,
+                ),
                 child: Text(
-                  'Unggah',
-                  style: TextStyle(color: Colors.white),
+                  'Resume',
+                  style: GoogleFonts.roboto(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: MyColor.primary),
                 ),
               ),
             ),
-            onTap: () {
-              assignmentViewModel.uploadTugasPDF(context);
-            },
-          ),
-        ],
+            SizedBox(
+              height: media.height * 0.025,
+            ),
+            Padding(
+              padding: EdgeInsets.only(
+                left: media.width * 0.07,
+                right: media.width * 0.01,
+              ),
+              child: Text(
+                'Sebagai syarat kelulusan kursus, kamu diminta untuk membuat resume singkat materi dari seluruh section.',
+                style: GoogleFonts.roboto(
+                    color: MyColor.primary,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 4,
+              ),
+            ),
+            SizedBox(
+              height: media.height * 0.035,
+            ),
+            Padding(
+              padding: EdgeInsets.only(
+                left: media.height * 0.03,
+                right: media.height * 0.045,
+              ),
+              child: Container(
+                decoration: BoxDecoration(boxShadow: const [
+                  BoxShadow(
+                    color: MyColor.primaryLogo,
+                    spreadRadius: 1,
+                  )
+                ], color: Colors.white, borderRadius: BorderRadius.circular(8)),
+                height: 182,
+                width: 356,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    Consumer<AssignmentViewModel>(
+                      builder: (context, value, child) => value.file != null
+                          ? InkWell(
+                              child: Container(
+                                padding: const EdgeInsets.only(left: 5),
+                                alignment: Alignment.centerLeft,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(8),
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      color: MyColor.primary,
+                                      spreadRadius: 1,
+                                    )
+                                  ],
+                                ),
+                                height: 35,
+                                width: 270,
+                                child: Center(
+                                  child: Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: ElevatedButton.icon(
+                                        icon: const Icon(
+                                          Icons.insert_drive_file,
+                                          color: MyColor.primaryLogo,
+                                        ),
+                                        label: Text(
+                                          value.fileName,
+                                          style: GoogleFonts.roboto(
+                                              fontSize: 16,
+                                              color: MyColor.primary),
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                        onPressed: () async {
+                                          await value.ambilFile(context);
+                                        },
+                                        style: ButtonStyle(
+                                          elevation:
+                                              MaterialStateProperty.all(0),
+                                          backgroundColor:
+                                              MaterialStateProperty.all(
+                                            Colors.transparent,
+                                          ),
+                                        ),
+                                      )),
+                                ),
+                              ),
+                              onTap: () async {
+                                await value.ambilFile(context);
+                              },
+                            )
+                          : InkWell(
+                              child: Container(
+                                padding: const EdgeInsets.only(left: 5),
+                                alignment: Alignment.centerLeft,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(8),
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      color: MyColor.primary,
+                                      spreadRadius: 1,
+                                    )
+                                  ],
+                                ),
+                                height: 35,
+                                width: 270,
+                                child: Center(
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: ElevatedButton.icon(
+                                      icon: const Icon(
+                                        Icons.upload,
+                                        color: MyColor.primaryLogo,
+                                      ),
+                                      label: Text(
+                                        'Unggah',
+                                        style: GoogleFonts.roboto(
+                                            fontSize: 16,
+                                            color: Colors.black38),
+                                      ),
+                                      onPressed: () async {
+                                        await value.ambilFile(context);
+                                      },
+                                      style: ButtonStyle(
+                                        elevation: MaterialStateProperty.all(0),
+                                        backgroundColor:
+                                            MaterialStateProperty.all(
+                                          Colors.transparent,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              onTap: () async {
+                                await value.ambilFile(context);
+                              },
+                            ),
+                    ),
+                    const SizedBox(height: 1),
+                    Consumer<AssignmentViewModel>(
+                      builder: (context, value, child) {
+                        if (value.viewState == ViewState.loading) {
+                          return Column(
+                            children: <Widget>[
+                              const Center(
+                                child: CircularProgressIndicator(
+                                  backgroundColor: MyColor.primaryLogo,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              const SizedBox(height: 30),
+                              Text(
+                                'Sedang Mengupload Tugas',
+                                style: GoogleFonts.roboto(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                    color: MyColor.primary),
+                              ),
+                            ],
+                          );
+                        }
+                        return Padding(
+                          padding: const EdgeInsets.only(right: 18, top: 18),
+                          child: Align(
+                            alignment: Alignment.bottomRight,
+                            child: InkWell(
+                              child: Container(
+                                height: 40,
+                                width: 82,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  color: MyColor.primaryLogo,
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    'Kirim',
+                                    style: GoogleFonts.roboto(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14,
+                                        color: MyColor.primary),
+                                  ),
+                                ),
+                              ),
+                              onTap: () async {
+                                await assignmentViewModel.uploadTugasPDF(
+                                    context,
+                                    assignmentId: assignmentId);
+                              },
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(
+              height: media.height * 0.35,
+            ),
+            Consumer<AssignmentViewModel>(
+              builder: (context, value, child) =>
+                  value.viewState == ViewState.loaded
+                      ? InkWell(
+                          child: Container(
+                            width: 178,
+                            height: 48,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              color: MyColor.primaryLogo,
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Selesai',
+                                  style: GoogleFonts.roboto(
+                                      color: MyColor.primary,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                const Icon(Icons.check_circle),
+                              ],
+                            ),
+                          ),
+                          onTap: () {
+                            Navigator.of(context).pop();
+                          },
+                        )
+                      : const SizedBox.shrink(),
+            )
+          ],
+        ),
       ),
     );
   }
