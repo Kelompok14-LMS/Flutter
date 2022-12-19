@@ -1,7 +1,5 @@
 import 'package:edu_world/models/course_model.dart';
-import 'package:edu_world/models/detail_course_model.dart';
 import 'package:edu_world/models/materials_model.dart';
-import 'package:edu_world/models/review_card_model.dart';
 import 'package:edu_world/utils/constant.dart';
 import 'package:edu_world/view/detail_course/components/assignment_expansion_tile.dart';
 import 'package:edu_world/view/detail_course/components/list_course_shimmer.dart';
@@ -31,12 +29,9 @@ class _ModulCourseScreenState extends State<ModulCourseScreen> {
   double topBarOpacity = 0.0;
 
   bool isExpansionTrailing = false;
-  // bool isComplate = false;
 
   @override
   void initState() {
-    // Provider.of<MaterialsViewModel>(context, listen: false)
-    //     .getPreviewMaterialsModules(widget.courseModel.id!);
     Provider.of<MaterialsViewModel>(context, listen: false)
         .getEnrolledMaterialsModules(widget.mentee, widget.courseModel.id!);
     super.initState();
@@ -44,8 +39,8 @@ class _ModulCourseScreenState extends State<ModulCourseScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final dataMaterials = Provider.of<MaterialsViewModel>(context);
-
+    final dataMaterials =
+        Provider.of<MaterialsViewModel>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
@@ -148,25 +143,25 @@ class _ModulCourseScreenState extends State<ModulCourseScreen> {
                                   color: Color(0xFFE4B548),
                                   size: 20,
                                 ),
-                                Text(
-                                  detailCourse[0].rating!,
-                                  style: GoogleFonts.roboto(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    color: const Color(0xff112D4E),
-                                  ),
-                                ),
+                                // Text(
+                                //   widget.courseModel.rating!.toString(),
+                                //   style: GoogleFonts.roboto(
+                                //     fontSize: 14,
+                                //     fontWeight: FontWeight.w500,
+                                //     color: const Color(0xff112D4E),
+                                //   ),
+                                // ),
                                 const SizedBox(
                                   width: 3,
                                 ),
-                                Text(
-                                  detailCourse[0].jumlahRating!,
-                                  style: GoogleFonts.roboto(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    color: const Color(0xFFB8C0CA),
-                                  ),
-                                ),
+                                // Text(
+                                //   widget.courseModel.totalReviews!.toString(),
+                                //   style: GoogleFonts.roboto(
+                                //     fontSize: 14,
+                                //     fontWeight: FontWeight.w500,
+                                //     color: const Color(0xFFB8C0CA),
+                                //   ),
+                                // ),
                               ],
                             ),
                           ],
@@ -205,55 +200,60 @@ class _ModulCourseScreenState extends State<ModulCourseScreen> {
                   const SizedBox(
                     height: 10,
                   ),
-                  Consumer<MaterialsViewModel>(builder: (context, data, _) {
-                    if (data.courseMaterialsState ==
-                        CourseMaterialsState.loading) {
-                      return const ListCourseShimmer();
-                    }
-                    if (data.courseMaterialsState ==
-                        CourseMaterialsState.error) {
-                      return const Text('Gagal mengambil data');
-                    } else {
-                      if (data.errorMessage == "502") {
-                        return const Center(
-                            child: Text(
-                          'Error 502, gagal memuat data',
-                          style: TextStyle(color: MyColor.primary),
-                        ));
+                  Consumer<MaterialsViewModel>(
+                    builder: (context, data, _) {
+                      if (data.courseMaterialsState ==
+                          CourseMaterialsState.loading) {
+                        return const ListCourseShimmer();
                       }
-                      if (data.modulsEnrolled.modules!.isNotEmpty) {
-                        return ListView.separated(
-                            padding: EdgeInsets.zero,
-                            physics: const NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            scrollDirection: Axis.vertical,
-                            itemBuilder: (context, index) {
-                              return Card(
-                                clipBehavior: Clip.antiAliasWithSaveLayer,
-                                elevation: 2,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                                child: Theme(
-                                    data: Theme.of(context).copyWith(
-                                        dividerColor: Colors.transparent),
-                                    child: buildExpansionTile(
-                                        dataMaterials
-                                            .modulsEnrolled.modules![index],
-                                        index)),
-                              );
-                            },
-                            separatorBuilder: (context, index) =>
-                                const SizedBox(),
-                            itemCount:
-                                dataMaterials.modulsEnrolled.modules!.length);
+                      if (data.courseMaterialsState ==
+                          CourseMaterialsState.error) {
+                        return const Text('Gagal mengambil data');
+                      } else {
+                        if (data.errorMessage == "502") {
+                          return const Center(
+                              child: Text(
+                            'Error 502, gagal memuat data',
+                            style: TextStyle(color: MyColor.primary),
+                          ));
+                        }
+                        if (data.modulsEnrolled.modules!.isNotEmpty) {
+                          return ListView.separated(
+                              padding: EdgeInsets.zero,
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              scrollDirection: Axis.vertical,
+                              itemBuilder: (context, index) {
+                                return Card(
+                                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                                  elevation: 2,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(16),
+                                  ),
+                                  child: Theme(
+                                      data: Theme.of(context).copyWith(
+                                          dividerColor: Colors.transparent),
+                                      child: buildExpansionTile(
+                                          dataMaterials
+                                              .modulsEnrolled.modules![index],
+                                          index)),
+                                );
+                              },
+                              separatorBuilder: (context, index) =>
+                                  const SizedBox(),
+                              itemCount:
+                                  dataMaterials.modulsEnrolled.modules!.length);
+                        }
+                        return const Center(child: Text('Tidak ada kursus'));
                       }
-                      return const Center(child: Text('Tidak ada kursus'));
-                    }
-                  }),
-                  dataMaterials.modulsEnrolled.assignment != null
-                      ? const AssignmentExpansionTile()
-                      : Container()
+                    },
+                  ),
+                  Consumer<MaterialsViewModel>(
+                    builder: (context, value, child) =>
+                        dataMaterials.modulsEnrolled.assignment != null
+                            ? const AssignmentExpansionTile()
+                            : Container(),
+                  )
                 ],
               ),
             ),
@@ -269,15 +269,7 @@ class _ModulCourseScreenState extends State<ModulCourseScreen> {
   Widget buildExpansionTile(Modules a, int index) {
     return ExpansionTile(
         expandedCrossAxisAlignment: CrossAxisAlignment.start,
-        onExpansionChanged: (value) {
-          setState(() {
-            // print(index + 1);
-            // isExpansionTrailing = value;
-            // print(isExpansionTrailing);
-            // a.materials;
-            // print(a.materials!.length);
-          });
-        },
+        onExpansionChanged: (value) {},
         title: Row(
           children: [
             Container(
@@ -315,13 +307,6 @@ class _ModulCourseScreenState extends State<ModulCourseScreen> {
                 ),
               ),
             ),
-            // Visibility(
-            //   visible: index == index,
-            //   child: const Icon(
-            //     Icons.check_circle,
-            //     color: Color(0xFFB0B9C4),
-            //   ),
-            // ),
           ],
         ),
         children: [
@@ -375,46 +360,4 @@ class _ModulCourseScreenState extends State<ModulCourseScreen> {
               : Container()
         ]);
   }
-
-  List<DetailCourseModel> detailCourse = [
-    DetailCourseModel(
-        image: 'https://i.ibb.co/ZcjM2m5/Rectangle-5-1.png',
-        title: 'Mastering UIX Design for Industry',
-        description:
-            'Kebutuhan UI/UX Designer terus meningkat hingga 20% dari tahun ke tahun. Sedangkan talenta yang ada belum dapat memenuhinya. UI/UX Designer juga salah satu karir yang akan terus dibutuhkan bahkan hingga 2028, disebut-sebut sebagai salah satu karir paling ‘hot’ di dunia teknologi saat ini.',
-        author: 'Yono Salim',
-        rating: '4.6',
-        jumlahRating: '(86)'),
-    DetailCourseModel(
-      image: 'https://i.ibb.co/rpYfcvH/Rectangle-5-2.png',
-      title: 'Becoming Full Stack Web Developer',
-      description:
-          'Kebutuhan UI/UX Designer terus meningkat hingga 20% dari tahun ke tahun. Sedangkan talenta yang ada belum dapat memenuhinya. UI/UX Designer juga salah satu karir yang akan terus dibutuhkan bahkan hingga 2028, disebut-sebut sebagai salah satu karir paling ‘hot’ di dunia teknologi saat ini.',
-      author: 'Yono Salim',
-    )
-  ];
-
-  List<ReviewCardModel> dummyCardReview = [
-    ReviewCardModel(
-      image:
-          'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80',
-      name: 'Gilang Dirga',
-      rating: 4,
-      reviewText: 'Kursus ini sangat bagus untuk pemula',
-    ),
-    ReviewCardModel(
-      image:
-          'https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80',
-      name: 'Bintang Bulan',
-      rating: 5,
-      reviewText: 'Saya sangat terbantu dengan adanya kursus ini',
-    ),
-    ReviewCardModel(
-      image:
-          'https://images.unsplash.com/photo-1540569014015-19a7be504e3a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
-      name: 'Yudi Sembako',
-      rating: 5,
-      reviewText: 'Terima kasih banyak Christine, kursusmu sangat membantuku',
-    ),
-  ];
 }

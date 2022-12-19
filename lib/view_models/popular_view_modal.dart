@@ -1,5 +1,7 @@
-import 'package:edu_world/core.dart';
 import 'package:flutter/material.dart';
+
+import '../models/course_model.dart';
+import '../services/course_service.dart';
 
 class PopularViewModel extends ChangeNotifier {
   final _dioService = CourseDioService();

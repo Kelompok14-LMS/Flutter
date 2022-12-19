@@ -1,8 +1,13 @@
+import 'package:edu_world/view/assignment_course/assignment_screen.dart';
+import 'package:edu_world/view_models/assignment_view_model.dart';
 import 'package:edu_world/view_models/materials_view_model.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+
+import '../../../utils/constant.dart';
 
 class AssignmentExpansionTile extends StatefulWidget {
   const AssignmentExpansionTile({
@@ -17,8 +22,8 @@ class AssignmentExpansionTile extends StatefulWidget {
 class _AssignmentExpansionTileState extends State<AssignmentExpansionTile> {
   @override
   Widget build(BuildContext context) {
-    final dataMaterials = Provider.of<MaterialsViewModel>(context);
-
+    final dataMaterials =
+        Provider.of<MaterialsViewModel>(context, listen: false);
     return Visibility(
       visible: dataMaterials.modulsEnrolled.assignment!.assignmentId != "",
       child: Card(
@@ -32,15 +37,26 @@ class _AssignmentExpansionTileState extends State<AssignmentExpansionTile> {
           child: ExpansionTile(
             expandedCrossAxisAlignment: CrossAxisAlignment.start,
             onExpansionChanged: (value) {
-              // TODO Navigasi ke assignment
+              Navigator.of(context).push(CupertinoPageRoute(
+                builder: (context) => TugasScreen(
+                  assignmentId:
+                      dataMaterials.modulsEnrolled.assignment!.assignmentId!,
+                ),
+              ));
             },
-            trailing: const Text(''),
+            trailing: Consumer<AssignmentViewModel>(
+                builder: (context, value, child) =>
+                    Provider.of<AssignmentViewModel>(context, listen: false)
+                            .percent
+                            .isNotEmpty
+                        ? const Icon(Icons.check_circle,
+                            color: MyColor.primaryLogo)
+                        : const SizedBox.shrink()),
             title: Row(
               children: [
                 Container(
                   margin: const EdgeInsets.all(8),
                   height: 20,
-                  // width: 70,
                   decoration: BoxDecoration(
                       color: const Color(0xFFF9F7F7),
                       borderRadius: BorderRadius.circular(16)),

@@ -1,22 +1,39 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AssignmentAPI {
   final Dio dio = Dio(BaseOptions(
-    connectTimeout: 10000,
-    receiveTimeout: 10000,
+    baseUrl: 'https://stagging.educatetheworld.tech/api/v1',
     contentType: 'application/json',
     responseType: ResponseType.plain,
   ));
 
+  AssignmentAPI() {
+    dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: (options, handler) async {
+          final share = await SharedPreferences.getInstance();
+          final token = share.getString('token');
+          options.headers['Authorization'] = 'Bearer $token';
+          return handler.next(options);
+        },
+      ),
+    );
+  }
+
   ///Upload PDF
-  Future<void> uploadTugas({required FormData formData}) async {
+  Future uploadTugas(
+      {required FormData formData,
+      required Function(int, int)? onSendProgress}) async {
     try {
-      final response = await dio.post(
-        'http://192.168.141.239/api/assignment/upload.php',
+      final Response response = await dio.post(
+        '/mentee-assignments',
+        onReceiveProgress: onSendProgress,
         data: formData,
       );
-      debugPrint(response.data);
+      debugPrint(response.data.toString());
+      return response.data;
     } on DioError catch (e) {
       return debugPrint(e.message);
     }

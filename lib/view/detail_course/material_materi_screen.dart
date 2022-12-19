@@ -9,6 +9,8 @@ import 'package:edu_world/models/course_model.dart';
 import 'package:edu_world/models/materials_model.dart';
 import 'package:edu_world/view_models/materials_view_model.dart';
 
+import '../../utils/constant.dart';
+
 class VideoMateriScreen extends StatefulWidget {
   const VideoMateriScreen({
     Key? key,
@@ -25,19 +27,15 @@ class VideoMateriScreen extends StatefulWidget {
 }
 
 class _VideoMateriScreenState extends State<VideoMateriScreen> {
-  late VideoPlayerController controller;
-  late Future<void> futureController;
   // late bool isCourseCompleted = widget.materials.completed!;
 
   @override
   void initState() {
     super.initState();
-    controller = VideoPlayerController.network(widget.materials.url!)
-      ..addListener(() => setState(() {}))
-      ..setLooping(false)
-      ..initialize().then((_) => controller.play());
-    controller.setLooping(true);
-    futureController = controller.initialize();
+    final material = Provider.of<MaterialsViewModel>(context, listen: false);
+    material.controller = VideoPlayerController.network(widget.materials.url!)
+      ..setLooping(true);
+    material.futureController = material.controller!.initialize();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       Provider.of<MaterialsViewModel>(context, listen: false)
           .changeIsCompleted(widget.materials.completed!);
@@ -48,16 +46,9 @@ class _VideoMateriScreenState extends State<VideoMateriScreen> {
   }
 
   @override
-  void dispose() {
-    super.dispose();
-    controller.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final dataMaterials = Provider.of<MaterialsViewModel>(context);
-    print('datanya komplit ${dataMaterials.isCompleted}');
-
+    debugPrint('datanya komplit ${dataMaterials.isCompleted}');
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
@@ -90,76 +81,65 @@ class _VideoMateriScreenState extends State<VideoMateriScreen> {
               Stack(
                 children: <Widget>[
                   FutureBuilder(
-                      future: futureController,
+                      future: dataMaterials.futureController,
                       builder: (context, snapshot) {
                         if (snapshot.connectionState == ConnectionState.done) {
                           return AspectRatio(
-                            aspectRatio: controller.value.aspectRatio,
-                            child: VideoPlayer(controller),
+                            aspectRatio:
+                                dataMaterials.controller!.value.aspectRatio,
+                            child: VideoPlayer(dataMaterials.controller!),
                           );
                         } else {
                           return const Center(
-                              child: CircularProgressIndicator());
+                            child: CircularProgressIndicator(
+                              backgroundColor: MyColor.primaryLogo,
+                              color: Colors.white,
+                            ),
+                          );
                         }
                       }),
-                  Column(
-                    children: [
-                      // Center(
-                      //   child: ElevatedButton(
-                      //     style: ButtonStyle(
-                      //       backgroundColor: MaterialStateProperty.all(Colors.transparent),
-                      //       shadowColor: MaterialStateProperty.all(Colors.transparent)
-                      //     ),
-                      //     onPressed: () {
-                      //       setState(() {
-                      //         controller.value.isPlaying
-                      //             ? controller.pause()
-                      //             : controller.play();
-                      //       });
-                      //     },
-                      //     child: Column(
-                      //       children: [
-                      //         const SizedBox(
-                      //           height: 130,
-                      //         ),
-                      //         Icon(
-                      //           controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
-                      //         ),
-                      //       ],
-                      //     ),
-                      //   ),
-                      // ),
-                      const SizedBox(
-                        height: 157,
-                      ),
-                      // ControlMaterialVideo(controller: controller),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 7),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            InkWell(
-                              child: Icon(
-                                controller.value.isPlaying
-                                    ? Icons.pause
-                                    : Icons.play_arrow,
-                                color: Colors.white,
+                  Positioned(
+                    left: 5,
+                    top: 310,
+                    right: 5,
+                    child: Consumer<MaterialsViewModel>(
+                      builder: (context, value, child) => Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Stack(
+                                children: [
+                                  IconButton(
+                                    onPressed: () async {
+                                      await dataMaterials.playOrNot();
+                                    },
+                                    icon: Icon(
+                                      dataMaterials.controller!.value.isPlaying
+                                          ? Icons.pause
+                                          : Icons.play_circle_filled,
+                                      color: Colors.white,
+                                      size: 40,
+                                    ),
+                                  ),
+                                ],
                               ),
-                              onTap: () {
-                                setState(() {
-                                  controller.value.isPlaying
-                                      ? controller.pause()
-                                      : controller.play();
-                                });
-                              },
-                            ),
-                            ControlMaterialVideo(controller: controller)
-                          ],
-                        ),
+                              ControlMaterialVideo(
+                                  controller: dataMaterials.controller!)
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          VideoProgressIndicator(
+                            dataMaterials.controller!,
+                            allowScrubbing: true,
+                            colors: const VideoProgressColors(
+                                playedColor: MyColor.primaryLogo),
+                          ),
+                        ],
                       ),
-                      VideoProgressIndicator(controller, allowScrubbing: true),
-                    ],
+                    ),
                   )
                 ],
               ),
@@ -187,23 +167,23 @@ class _VideoMateriScreenState extends State<VideoMateriScreen> {
                   height: 1.5,
                 ),
               ),
+              const SizedBox(
+                height: 50,
+              ),
               Center(
                 child: ElevatedButton(
                   onPressed: () async {
                     if (!dataMaterials.isCompleted!) {
-                      await Provider.of<MaterialsViewModel>(context,
-                              listen: false)
-                          .submitProgress(widget.mentee, widget.courseModel.id!,
-                              widget.materials.materialId!);
+                      await dataMaterials.submitProgress(widget.mentee,
+                          widget.courseModel.id!, widget.materials.materialId!);
                       if (!mounted) return;
-                      Provider.of<MaterialsViewModel>(context, listen: false)
-                          .getEnrolledMaterialsModules(
-                              widget.mentee, widget.courseModel.id!);
+                      dataMaterials.getEnrolledMaterialsModules(
+                          widget.mentee, widget.courseModel.id!);
                       // Provider.of<MaterialsViewModel>(context)
                       //     .changeIsCompleted(true);
-                      print('aneh');
+                      debugPrint('aneh');
                     } else {
-                      print('gagal');
+                      debugPrint('gagal');
                     }
                   },
                   style: ButtonStyle(

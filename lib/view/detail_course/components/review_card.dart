@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:edu_world/models/review_model.dart';
 import 'package:edu_world/utils/constant.dart';
 import 'package:flutter/material.dart';
@@ -8,10 +7,8 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 class ReviewCard extends StatelessWidget {
   const ReviewCard({
     Key? key,
-    // required this.cardModel,
     required this.data,
   }) : super(key: key);
-  // final ReviewCardModel cardModel;
   final ReviewModel data;
 
   @override
