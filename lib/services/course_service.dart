@@ -113,4 +113,17 @@ class CourseDioService {
       rethrow;
     }
   }
+
+  Future<String> submitCompleteCourse(String menteeId, String courseId) async {
+    try {
+      final response = await _dio.put(
+        '/api/v1/mentees/$menteeId/courses/$courseId/complete',
+      );
+
+      final data = response.data["message"];
+      return data;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

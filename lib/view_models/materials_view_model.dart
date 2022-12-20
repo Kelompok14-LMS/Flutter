@@ -16,13 +16,10 @@ class MaterialsViewModel with ChangeNotifier {
   String messageSubmit = '';
   bool? isCompleted;
   String? errorMessage = '';
+  // String? courseId = '';
 
   VideoPlayerController? controller;
   Future<void>? futureController;
-
-  // List<MaterialsModel> get modules {
-  //   return [..._materials];
-  // }
 
   Future<void> playOrNot() async {
     controller!.value.isPlaying ? controller!.pause() : controller!.play();
@@ -37,7 +34,7 @@ class MaterialsViewModel with ChangeNotifier {
 
   Future<void> getPreviewMaterialsModules(String courseId) async {
     courseMaterialsState = CourseMaterialsState.loading;
-    await Future.delayed(const Duration(seconds: 1));
+    // await Future.delayed(const Duration(seconds: 1)); //TODO Hapus
     try {
       final result = await _dioService.getPreviewModulesMaterials(courseId);
       modulsPreview = result;
@@ -54,10 +51,11 @@ class MaterialsViewModel with ChangeNotifier {
   Future<void> getEnrolledMaterialsModules(
       String menteeId, String courseId) async {
     courseMaterialsState = CourseMaterialsState.loading;
+    modulsEnrolled = Data();
+    // await Future.delayed(const Duration(seconds: 4)); //TODO Hapus
     try {
       final result =
           await _dioService.getEnrolledModulesMaterials(menteeId, courseId);
-      modulsEnrolled = Data();
       errorMessage = '';
       if (result == "502") {
         errorMessage = result;
@@ -90,10 +88,17 @@ class MaterialsViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  void changeIsCompleted(bool isCourseCompleted) {
+  void changeIsCompleted(bool isCourseCompleted) async {
+    // courseMaterialsState = CourseMaterialsState.loading;
     isCompleted = isCourseCompleted;
+    // courseMaterialsState = CourseMaterialsState.none;
     notifyListeners();
   }
+
+  // void addCourseId(String newCourseId) {
+  //   courseId == newCourseId;
+  //   notifyListeners();
+  // }
 
   // Future<void> getDetailMaterials(String menteeId, String materialId) async {
   //   try {

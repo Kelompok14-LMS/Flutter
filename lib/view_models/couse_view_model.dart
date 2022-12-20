@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 import 'package:edu_world/services/course_service.dart';
@@ -52,20 +53,20 @@ class CourseViewModel with ChangeNotifier {
     try {
       if (category == "UI/UX") {
         final result = await _dioService
-            .getCoursebyCategory("1b911bd0-d19a-4691-b250-691601800aab");
+            .getCoursebyCategory("c22a71f9-0b9c-42f5-b9ff-f0f02c5d214b");
         uiUx = result;
         await Future.delayed(const Duration(seconds: 1));
       }
       if (category == "Front End") {
         final result = await _dioService
-            .getCoursebyCategory("5ac5a7cd-b39f-473b-bfb9-c28f90b70229");
+            .getCoursebyCategory("6bad9c9c-c089-47dc-8a5f-f902658fdab2");
 
         frontEnd = result;
         await Future.delayed(const Duration(seconds: 1));
       }
       if (category == "Back End") {
         final result = await _dioService
-            .getCoursebyCategory("fd31982e-75ad-4bb1-8d9a-786353a7ae6f");
+            .getCoursebyCategory("bc3c3908-7650-4efa-bb55-2cb45c870524");
         backEnd = result;
         await Future.delayed(const Duration(seconds: 1));
       }
@@ -78,7 +79,7 @@ class CourseViewModel with ChangeNotifier {
 
   void getEnrolledCourseMentee(
       String menteeId, String keyword, String status) async {
-    // courseState = CourseState.loading;
+    courseState = CourseState.loading;
 
     try {
       final result =
@@ -89,9 +90,9 @@ class CourseViewModel with ChangeNotifier {
       } else {
         endCourseCardModel = result;
       }
-      // courseState = CourseState.none;
+      courseState = CourseState.none;
 
-      courseCardModel = result;
+      // courseCardModel = result;
     } catch (e) {
       // courseState = CourseState.error;
     }
@@ -101,5 +102,21 @@ class CourseViewModel with ChangeNotifier {
   void changeCourseToogle() {
     _isOngoing = !_isOngoing;
     notifyListeners();
+  }
+
+  Future<String> submitCompleteCourse(String menteeId, String courseId) async {
+    try {
+      final result = await _dioService.submitCompleteCourse(menteeId, courseId);
+      print(result);
+
+      notifyListeners();
+      return result;
+    } catch (e) {
+      if (e is DioError) {
+        print('error dio');
+      }
+      notifyListeners();
+      return '';
+    }
   }
 }

@@ -2,7 +2,7 @@ import 'package:edu_world/view/home/home_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../view/user_course/user_course_screen.dart';
-import '../view/favorite/favorite_screen.dart';
+import '../view/review/review_screen.dart';
 import '../view/profile/profile_screen.dart';
 
 class MainViewModel with ChangeNotifier {
@@ -17,7 +17,7 @@ class MainViewModel with ChangeNotifier {
     //const HomeScreen(),
     const HomeScreen(),
     const CourseScreen(),
-    const FavoriteScreen(),
+    const ReviewScreen(),
     const ProfileScreen()
   ];
 

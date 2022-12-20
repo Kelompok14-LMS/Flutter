@@ -2,11 +2,9 @@ import 'package:edu_world/utils/constant.dart';
 import 'package:edu_world/view/splash/splash_screen.dart';
 import 'package:edu_world/view_models/auth_view_model.dart';
 import 'package:edu_world/view_models/enroll_view_model.dart';
-import 'package:edu_world/view_models/favorite_view_model.dart';
 import 'package:edu_world/view_models/list_course_view_model.dart';
 import 'package:edu_world/view_models/main_view_model.dart';
 import 'package:edu_world/view_models/materials_view_model.dart';
-import 'package:edu_world/view_models/modules_view_model.dart';
 import 'package:edu_world/view_models/onboarding_view_model.dart';
 import 'package:edu_world/view_models/popular_view_modal.dart';
 import 'package:edu_world/view_models/review_view_model.dart';
@@ -29,9 +27,6 @@ void main() {
       create: (context) => ProfileViewModel(),
     ),
     ChangeNotifierProvider(
-      create: (context) => FavoriteViewModel(),
-    ),
-    ChangeNotifierProvider(
       create: (context) => AuthViewModel(),
     ),
     ChangeNotifierProvider(
@@ -45,9 +40,6 @@ void main() {
     ),
     ChangeNotifierProvider(
       create: (context) => AssignmentViewModel(),
-    ),
-    ChangeNotifierProvider(
-      create: (context) => ModulesViewModel(),
     ),
     ChangeNotifierProvider(
       create: (context) => MaterialsViewModel(),

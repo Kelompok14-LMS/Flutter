@@ -48,7 +48,7 @@ class _CourseScreenState extends State<CourseScreen>
                     isOngoing: true,
                   ),
                   UserListCourse(
-                    status: 'selesai',
+                    status: 'completed',
                     isOngoing: false,
                   ),
                 ],

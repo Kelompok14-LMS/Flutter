@@ -34,6 +34,8 @@ class Data {
   String? title;
   String? description;
   String? thumbnail;
+  int? totalMaterials;
+  int? progress;
   int? totalReviews;
   double? rating;
   List<Modules>? modules;
@@ -50,6 +52,8 @@ class Data {
       this.title,
       this.description,
       this.thumbnail,
+      this.totalMaterials,
+      this.progress,
       this.totalReviews,
       this.rating,
       this.modules,
@@ -66,6 +70,8 @@ class Data {
     title = json['title'];
     description = json['description'];
     thumbnail = json['thumbnail'];
+    totalMaterials = json['total_materials'];
+    progress = json['progress'];
     totalReviews = json['total_reviews'];
     rating = json["rating"] is int
         ? (json['rating'] as int).toDouble()
@@ -93,6 +99,8 @@ class Data {
     data['title'] = title;
     data['description'] = description;
     data['thumbnail'] = thumbnail;
+    data['total_materials'] = totalMaterials;
+    data['progress'] = progress;
     data['total_reviews'] = totalReviews;
     data['rating'] = rating;
     if (modules != null) {
@@ -205,6 +213,7 @@ class Assignment {
   String? courseId;
   String? title;
   String? description;
+  bool? completed;
   String? createdAt;
   String? updatedAt;
 
@@ -213,6 +222,7 @@ class Assignment {
       this.courseId,
       this.title,
       this.description,
+      this.completed,
       this.createdAt,
       this.updatedAt});
 
@@ -221,6 +231,7 @@ class Assignment {
     courseId = json['course_id'];
     title = json['title'];
     description = json['description'];
+    completed = json['completed'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
   }
@@ -231,6 +242,7 @@ class Assignment {
     data['course_id'] = courseId;
     data['title'] = title;
     data['description'] = description;
+    data['completed'] = completed;
     data['created_at'] = createdAt;
     data['updated_at'] = updatedAt;
     return data;

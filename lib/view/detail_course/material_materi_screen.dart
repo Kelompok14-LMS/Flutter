@@ -1,8 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:edu_world/view/components/skeleton.dart';
 import 'package:edu_world/view/detail_course/components/fitur_playback_material.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:video_player/video_player.dart';
 
 import 'package:edu_world/models/course_model.dart';
@@ -48,7 +50,7 @@ class _VideoMateriScreenState extends State<VideoMateriScreen> {
   @override
   Widget build(BuildContext context) {
     final dataMaterials = Provider.of<MaterialsViewModel>(context);
-    debugPrint('datanya komplit ${dataMaterials.isCompleted}');
+    // debugPrint('datanya komplit ${dataMaterials.isCompleted}');
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
@@ -170,70 +172,92 @@ class _VideoMateriScreenState extends State<VideoMateriScreen> {
               const SizedBox(
                 height: 50,
               ),
-              Center(
-                child: ElevatedButton(
-                  onPressed: () async {
-                    if (!dataMaterials.isCompleted!) {
-                      await dataMaterials.submitProgress(widget.mentee,
-                          widget.courseModel.id!, widget.materials.materialId!);
-                      if (!mounted) return;
-                      dataMaterials.getEnrolledMaterialsModules(
-                          widget.mentee, widget.courseModel.id!);
-                      // Provider.of<MaterialsViewModel>(context)
-                      //     .changeIsCompleted(true);
-                      debugPrint('aneh');
-                    } else {
-                      debugPrint('gagal');
-                    }
-                  },
-                  style: ButtonStyle(
-                      backgroundColor: const MaterialStatePropertyAll<Color>(
-                          Color(0xFFE4B548)),
-                      maximumSize:
-                          MaterialStateProperty.all(const Size(150, 40))),
-                  child: Consumer<MaterialsViewModel>(
-                      builder: (context, value, _) {
+              Consumer<MaterialsViewModel>(builder: (context, value, _) {
+                if (value.courseMaterialsState ==
+                    CourseMaterialsState.loading) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                if (value.courseMaterialsState == CourseMaterialsState.none) {
+                  if (value.isCompleted == null) {
                     return Center(
-                        child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        !value.isCompleted!
-                            ? const Icon(
-                                Icons.circle_outlined,
-                                color: Color(0xff112D4E),
-                              )
-                            : Stack(
-                                alignment: Alignment.center,
-                                children: const [
-                                  Positioned(
-                                    child: Icon(
+                      child: Shimmer.fromColors(
+                        baseColor: Colors.grey.shade300,
+                        highlightColor: Colors.grey.shade500,
+                        loop: 3,
+                        child: const Skeleton(
+                          height: 50,
+                          width: 140,
+                        ),
+                      ),
+                    );
+                  }
+                  return Center(
+                    child: ElevatedButton(
+                        onPressed: () async {
+                          if (!value.isCompleted!) {
+                            await value.submitProgress(
+                                widget.mentee,
+                                widget.courseModel.id!,
+                                widget.materials.materialId!);
+                            if (!mounted) return;
+                            value.getEnrolledMaterialsModules(
+                                widget.mentee, widget.courseModel.id!);
+                            // Provider.of<MaterialsViewModel>(context)
+                            //     .changeIsCompleted(true);
+                          } else {
+                            debugPrint('gagal menambahkan data');
+                          }
+                        },
+                        style: ButtonStyle(
+                            backgroundColor:
+                                const MaterialStatePropertyAll<Color>(
+                                    Color(0xFFE4B548)),
+                            maximumSize:
+                                MaterialStateProperty.all(const Size(150, 40))),
+                        child: Center(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              !value.isCompleted!
+                                  ? const Icon(
                                       Icons.circle_outlined,
                                       color: Color(0xff112D4E),
-                                      size: 20,
+                                    )
+                                  : Stack(
+                                      alignment: Alignment.center,
+                                      children: const [
+                                        Positioned(
+                                          child: Icon(
+                                            Icons.circle_outlined,
+                                            color: Color(0xff112D4E),
+                                            size: 20,
+                                          ),
+                                        ),
+                                        Icon(
+                                          Icons.circle,
+                                          color: Color(0xff112D4E),
+                                          size: 11,
+                                        ),
+                                      ],
                                     ),
-                                  ),
-                                  Icon(
-                                    Icons.circle,
-                                    color: Color(0xff112D4E),
-                                    size: 11,
-                                  ),
-                                ],
+                              const SizedBox(
+                                width: 5,
                               ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        const Text(
-                          'Complete',
-                          style: TextStyle(
-                              fontFamily: 'Roboto',
-                              color: Color(0xff112D4E),
-                              fontSize: 14),
-                        ),
-                      ],
-                    ));
-                  }),
-                ),
-              ),
+                              const Text(
+                                'Complete',
+                                style: TextStyle(
+                                    fontFamily: 'Roboto',
+                                    color: Color(0xff112D4E),
+                                    fontSize: 14),
+                              ),
+                            ],
+                          ),
+                        )),
+                  );
+                } else {
+                  return const Text('tidak ada data');
+                }
+              }),
             ],
           ),
         ),

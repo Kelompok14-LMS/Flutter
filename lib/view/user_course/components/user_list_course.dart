@@ -62,11 +62,15 @@ class _UserListCourseState extends State<UserListCourse> {
                   ),
                   child: InkWell(
                     onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => ModulCourseScreen(
-                            mentee: mentee,
-                            courseModel: value.courseCardModel[index]),
-                      ));
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => ModulCourseScreen(
+                              mentee: mentee,
+                              courseModel: widget.isOngoing
+                                  ? value.courseCardModel[index]
+                                  : value.endCourseCardModel[index]),
+                        ),
+                      );
                     },
                     child: Container(
                       decoration: BoxDecoration(
@@ -127,29 +131,6 @@ class _UserListCourseState extends State<UserListCourse> {
                                         const SizedBox(
                                           width: 12,
                                         ),
-                                        const Icon(
-                                          Icons.star,
-                                          color: MyColor.primaryLogo,
-                                          size: 20,
-                                        ),
-                                        const SizedBox(
-                                          width: 4,
-                                        ),
-                                        const RobotoText(
-                                          text: '4.7',
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w700,
-                                          color: MyColor.primary,
-                                        ),
-                                        const SizedBox(
-                                          width: 4,
-                                        ),
-                                        const RobotoText(
-                                          text: '(63)',
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w400,
-                                          color: Color(0xFF8896A7),
-                                        )
                                       ],
                                     ),
                                   ],
@@ -162,12 +143,37 @@ class _UserListCourseState extends State<UserListCourse> {
                             child: LinearPercentIndicator(
                               padding: EdgeInsets.zero,
                               barRadius: const Radius.circular(16),
-                              percent: 0.8,
+                              percent: widget.isOngoing
+                                  ? (value.courseCardModel[index].progress! /
+                                                  value.courseCardModel[index]
+                                                      .totalMaterials!)
+                                              .toDouble() <=
+                                          1.0
+                                      ? (value.courseCardModel[index]
+                                                  .progress! /
+                                              value.courseCardModel[index]
+                                                  .totalMaterials!)
+                                          .toDouble()
+                                      : 1
+                                  : (value.endCourseCardModel[index].progress! /
+                                                  value
+                                                      .endCourseCardModel[index]
+                                                      .totalMaterials!)
+                                              .toDouble() <=
+                                          1.0
+                                      ? (value.endCourseCardModel[index]
+                                                  .progress! /
+                                              value.endCourseCardModel[index]
+                                                  .totalMaterials!)
+                                          .toDouble()
+                                      : 1,
                               lineHeight: 23,
                               progressColor: MyColor.primaryLogo,
                               backgroundColor: Colors.white,
-                              center: const RobotoText(
-                                text: '80%',
+                              center: RobotoText(
+                                text: widget.isOngoing
+                                    ? "${(value.courseCardModel[index].progress! / value.courseCardModel[index].totalMaterials! * 100).isNaN ? 0 : (value.courseCardModel[index].progress! / value.courseCardModel[index].totalMaterials! * 100).toInt()}%"
+                                    : "${(value.endCourseCardModel[index].progress! / value.endCourseCardModel[index].totalMaterials! * 100).isNaN ? 0 : (value.endCourseCardModel[index].progress! / value.endCourseCardModel[index].totalMaterials! * 100).toInt()}%",
                                 fontSize: 12,
                                 fontWeight: FontWeight.w700,
                               ),

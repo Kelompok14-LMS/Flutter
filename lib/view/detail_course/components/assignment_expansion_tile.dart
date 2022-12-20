@@ -1,3 +1,4 @@
+import 'package:edu_world/models/materials_model.dart';
 import 'package:edu_world/view/assignment_course/assignment_screen.dart';
 import 'package:edu_world/view_models/assignment_view_model.dart';
 import 'package:edu_world/view_models/materials_view_model.dart';
@@ -10,9 +11,9 @@ import 'package:provider/provider.dart';
 import '../../../utils/constant.dart';
 
 class AssignmentExpansionTile extends StatefulWidget {
-  const AssignmentExpansionTile({
-    Key? key,
-  }) : super(key: key);
+  const AssignmentExpansionTile({Key? key, required this.dataMaterials})
+      : super(key: key);
+  final Data dataMaterials;
 
   @override
   State<AssignmentExpansionTile> createState() =>
@@ -39,6 +40,7 @@ class _AssignmentExpansionTileState extends State<AssignmentExpansionTile> {
             onExpansionChanged: (value) {
               Navigator.of(context).push(CupertinoPageRoute(
                 builder: (context) => TugasScreen(
+                  dataMaterials: widget.dataMaterials,
                   assignmentId:
                       dataMaterials.modulsEnrolled.assignment!.assignmentId!,
                 ),
@@ -46,12 +48,16 @@ class _AssignmentExpansionTileState extends State<AssignmentExpansionTile> {
             },
             trailing: Consumer<AssignmentViewModel>(
                 builder: (context, value, child) =>
-                    Provider.of<AssignmentViewModel>(context, listen: false)
-                            .percent
-                            .isNotEmpty
+                    // Provider.of<AssignmentViewModel>(context, listen: false)
+                    //         .percent
+                    //         .isNotEmpty
+                    widget.dataMaterials.assignment!.completed!
                         ? const Icon(Icons.check_circle,
                             color: MyColor.primaryLogo)
-                        : const SizedBox.shrink()),
+                        : const Icon(
+                            Icons.check_circle,
+                            color: Color(0xFFB0B9C4),
+                          )),
             title: Row(
               children: [
                 Container(

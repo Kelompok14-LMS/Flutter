@@ -7,6 +7,9 @@ class CourseModel {
   String? description;
   int? totalReviews;
   double? rating;
+  int? totalMaterials;
+  int? progress;
+  String? status;
   String? thumbnail;
   String? createdAt;
   String? updateAt;
@@ -31,7 +34,12 @@ class CourseModel {
         description = json['description'],
         thumbnail = json['thumbnail'],
         totalReviews = json['total_reviews'],
-        rating = json["rating"] is int ? (json['rating'] as int).toDouble() : json['rating'],
+        rating = json["rating"] is int
+            ? (json['rating'] as int).toDouble()
+            : json['rating'],
+        totalMaterials = json['total_materials'],
+        progress = json['progress'],
+        status = json["status"],
         createdAt = json['created_at'],
         updateAt = json['update_at'];
 
@@ -49,6 +57,9 @@ class CourseModel {
       'update_at': updateAt,
       'total_reviews': totalReviews,
       'rating': rating,
+      'progress': progress,
+      'total_materials': totalMaterials,
+      'status': status
     };
   }
 }
