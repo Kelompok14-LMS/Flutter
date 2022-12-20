@@ -1,4 +1,7 @@
+import 'package:edu_world/models/materials_model.dart';
 import 'package:edu_world/utils/constant.dart';
+import 'package:edu_world/view_models/enroll_view_model.dart';
+import 'package:edu_world/view_models/materials_view_model.dart';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,13 +11,16 @@ import '../../utils/finite_state.dart';
 import '../../view_models/assignment_view_model.dart';
 
 class TugasScreen extends StatelessWidget {
-  final String assignmentId;
-  const TugasScreen({super.key, required this.assignmentId});
+  const TugasScreen(
+      {super.key, required this.assignmentId, required this.dataMaterials});
 
+  final String assignmentId;
+  final Data dataMaterials;
   @override
   Widget build(BuildContext context) {
     final assignmentViewModel =
         Provider.of<AssignmentViewModel>(context, listen: false);
+    final dataEnrolled = Provider.of<EnrollViewModel>(context, listen: false);
     final media = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
@@ -286,38 +292,41 @@ class TugasScreen extends StatelessWidget {
               height: media.height * 0.35,
             ),
             Consumer<AssignmentViewModel>(
-              builder: (context, value, child) =>
-                  value.viewState == ViewState.loaded
-                      ? InkWell(
-                          child: Container(
-                            width: 178,
-                            height: 48,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              color: MyColor.primaryLogo,
+              builder: (context, value, child) => value.viewState ==
+                      ViewState.loaded
+                  ? InkWell(
+                      child: Container(
+                        width: 178,
+                        height: 48,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: MyColor.primaryLogo,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Selesai',
+                              style: GoogleFonts.roboto(
+                                  color: MyColor.primary,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold),
                             ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'Selesai',
-                                  style: GoogleFonts.roboto(
-                                      color: MyColor.primary,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                const Icon(Icons.check_circle),
-                              ],
+                            const SizedBox(
+                              width: 10,
                             ),
-                          ),
-                          onTap: () {
-                            Navigator.of(context).pop();
-                          },
-                        )
-                      : const SizedBox.shrink(),
+                            const Icon(Icons.check_circle),
+                          ],
+                        ),
+                      ),
+                      onTap: () {
+                        Provider.of<MaterialsViewModel>(context, listen: false)
+                            .getEnrolledMaterialsModules(
+                                dataEnrolled.mentee!, dataMaterials.courseId!);
+                        Navigator.of(context).pop();
+                      },
+                    )
+                  : const SizedBox.shrink(),
             )
           ],
         ),

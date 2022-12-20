@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:edu_world/models/review_card_model.dart';
 import 'package:edu_world/models/review_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -21,12 +22,12 @@ class ReviewService {
         },
       ),
     );
-    // _dio.interceptors.add(
-    //   LogInterceptor(
-    //     responseBody: true,
-    //     requestBody: true,
-    //   ),
-    // );
+    _dio.interceptors.add(
+      LogInterceptor(
+        responseBody: true,
+        requestBody: true,
+      ),
+    );
   }
 
   Future<List<ReviewModel>> getCourseReview(String courseId) async {
@@ -47,55 +48,35 @@ class ReviewService {
     }
   }
 
-  // Future<List<ReviewModel>> getCoursebyCategory(String category) async {
-  //   try {
-  //     final response = await _dio.get(
-  //       '/api/v1/courses/categories/$category',
-  //       queryParameters: {"keyword": ""},
-  //     );
-  //     print("data ataaaa ${response.data["data"]}");
-  //     List<dynamic> data = response.data['data'];
-  //     List<ReviewModel> result =
-  //         data.map((e) => ReviewModel.fromJson(e)).toList();
-  //     print('dikembalikan');
-  //     return result;
-  //   } catch (e) {
-  //     rethrow;
-  //   }
-  // }
+  Future<String> submitReview(
+      String courseId, String menteeId, String description, int rating) async {
+    try {
+      final response = await _dio.post('/api/v1/reviews', data: {
+        "course_id": courseId,
+        "mentee_id": menteeId,
+        "description": description,
+        "rating": rating
+      });
+      String data = response.data['message'];
+      return data;
+    } catch (e) {
+      rethrow;
+    }
+  }
 
-  // Future getEnrolledCourseMentee(
-  //     String menteeId, String keyword, String status) async {
-  //   try {
-  //     final response = await _dio.get(
-  //       '/api/v1/mentees/$menteeId/courses',
-  //       queryParameters: {"status": status, "keyword": keyword},
-  //     );
-  //     if (response.data['data'] != null) {
-  //       List<dynamic> data = response.data['data'];
-  //       List<ReviewModel> result =
-  //           data.map((e) => ReviewModel.fromJson(e)).toList();
-  //       return result;
-  //     } else {
-  //       return null;
-  //     }
-  //   } catch (e) {
-  //     rethrow;
-  //   }
-  // }
-
-  // Future<List<ReviewModel>> getPopularCourse() async {
-  //   try {
-  //     final response = await _dio.get(
-  //       '/api/v1/courses/popular',
-  //     );
-
-  //     List<dynamic> data = response.data['data'];
-  //     List<ReviewModel> result =
-  //         data.map((e) => ReviewModel.fromJson(e)).toList();
-  //     return result;
-  //   } catch (e) {
-  //     rethrow;
-  //   }
-  // }
+  Future<ReviewCardModel> getReviewCourseWhenCompletedCourse(
+      String menteeId) async {
+    try {
+      final response = await _dio.get(
+        '/api/v1/mentees/$menteeId/reviews',
+      );
+      final data = response.data;
+      final result = ReviewCardModel.fromJson(data);
+      // List<ReviewCardModel> result =
+      //     data.map((e) => ReviewCardModel.fromJson(e)).toList();
+      return result;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

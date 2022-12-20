@@ -1,16 +1,19 @@
 import 'package:edu_world/models/course_model.dart';
 import 'package:edu_world/models/materials_model.dart';
 import 'package:edu_world/utils/constant.dart';
+import 'package:edu_world/view/components/skeleton.dart';
 import 'package:edu_world/view/detail_course/components/assignment_expansion_tile.dart';
 import 'package:edu_world/view/detail_course/components/list_course_shimmer.dart';
 import 'package:edu_world/view/detail_course/material_materi_screen.dart';
 import 'package:edu_world/view/main_view.dart';
+import 'package:edu_world/view_models/couse_view_model.dart';
 import 'package:edu_world/view_models/main_view_model.dart';
 import 'package:edu_world/view_models/materials_view_model.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 
 class ModulCourseScreen extends StatefulWidget {
   const ModulCourseScreen({
@@ -32,8 +35,13 @@ class _ModulCourseScreenState extends State<ModulCourseScreen> {
 
   @override
   void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // Provider.of<MaterialsViewModel>(context, listen: false)
+      //     .addCourseId(widget.courseModel.id!);
+    });
     Provider.of<MaterialsViewModel>(context, listen: false)
         .getEnrolledMaterialsModules(widget.mentee, widget.courseModel.id!);
+
     super.initState();
   }
 
@@ -41,6 +49,8 @@ class _ModulCourseScreenState extends State<ModulCourseScreen> {
   Widget build(BuildContext context) {
     final dataMaterials =
         Provider.of<MaterialsViewModel>(context, listen: false);
+    // print(
+    //     'ini id nya${dataMaterials.modulsEnrolled.assignment!.assignmentId!}');
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
@@ -138,47 +148,52 @@ class _ModulCourseScreenState extends State<ModulCourseScreen> {
                                 const SizedBox(
                                   width: 7,
                                 ),
-                                const Icon(
-                                  Icons.star,
-                                  color: Color(0xFFE4B548),
-                                  size: 20,
-                                ),
-                                // Text(
-                                //   widget.courseModel.rating!.toString(),
-                                //   style: GoogleFonts.roboto(
-                                //     fontSize: 14,
-                                //     fontWeight: FontWeight.w500,
-                                //     color: const Color(0xff112D4E),
-                                //   ),
-                                // ),
-                                const SizedBox(
-                                  width: 3,
-                                ),
-                                // Text(
-                                //   widget.courseModel.totalReviews!.toString(),
-                                //   style: GoogleFonts.roboto(
-                                //     fontSize: 14,
-                                //     fontWeight: FontWeight.w500,
-                                //     color: const Color(0xFFB8C0CA),
-                                //   ),
-                                // ),
                               ],
                             ),
                           ],
                         ),
-                        CircularPercentIndicator(
-                          radius: 24.0,
-                          lineWidth: 7.0,
-                          percent: 0.9,
-                          animation: true,
-                          animationDuration: 1000,
-                          center: const Text(
-                            "90%",
-                            style: TextStyle(color: MyColor.primary),
-                          ),
-                          progressColor: MyColor.primaryLogo,
-                          circularStrokeCap: CircularStrokeCap.round,
-                        ),
+                        Consumer<MaterialsViewModel>(
+                            builder: (context, data, _) {
+                          if (data.courseMaterialsState ==
+                              CourseMaterialsState.loading) {
+                            return Shimmer.fromColors(
+                                baseColor: Colors.grey.shade300,
+                                highlightColor: Colors.grey.shade500,
+                                loop: 3,
+                                child: const Skeleton(height: 50, width: 50));
+                          }
+                          if (data.courseMaterialsState ==
+                              CourseMaterialsState.error) {
+                            return const Text('Error');
+                          } else {
+                            if (data.modulsEnrolled.progress == null) {
+                              return const CircularProgressIndicator();
+                            } else {
+                              final percent = (data.modulsEnrolled.progress! /
+                                  data.modulsEnrolled.totalMaterials!);
+                              return CircularPercentIndicator(
+                                radius: 24.0,
+                                lineWidth: 7.0,
+                                percent: percent.isNaN
+                                    ? 0.0
+                                    : percent <= 1
+                                        ? percent
+                                        : 1,
+                                animation: true,
+                                animationDuration: 1000,
+                                center: Text(
+                                  percent.isNaN
+                                      ? "${(0.0 * 100)}%"
+                                      : "${((percent <= 1 ? percent : 1) * 100).toInt()}%",
+                                  style:
+                                      const TextStyle(color: MyColor.primary),
+                                ),
+                                progressColor: MyColor.primaryLogo,
+                                circularStrokeCap: CircularStrokeCap.round,
+                              );
+                            }
+                          }
+                        }),
                       ],
                     ),
                   ),
@@ -249,11 +264,33 @@ class _ModulCourseScreenState extends State<ModulCourseScreen> {
                     },
                   ),
                   Consumer<MaterialsViewModel>(
-                    builder: (context, value, child) =>
-                        dataMaterials.modulsEnrolled.assignment != null
-                            ? const AssignmentExpansionTile()
-                            : Container(),
-                  )
+                      builder: (context, value, child) {
+                    if (value.courseMaterialsState ==
+                        CourseMaterialsState.loading) {
+                      return Shimmer.fromColors(
+                        baseColor: Colors.grey.shade300,
+                        highlightColor: Colors.grey.shade500,
+                        loop: 3,
+                        child: Column(
+                          children: const [
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Skeleton(height: 50, width: double.maxFinite),
+                          ],
+                        ),
+                      );
+                    }
+                    if (value.courseMaterialsState ==
+                        CourseMaterialsState.none) {
+                      return dataMaterials.modulsEnrolled.assignment != null
+                          ? AssignmentExpansionTile(
+                              dataMaterials: dataMaterials.modulsEnrolled,
+                            )
+                          : Container();
+                    }
+                    return Container();
+                  })
                 ],
               ),
             ),
@@ -262,6 +299,55 @@ class _ModulCourseScreenState extends State<ModulCourseScreen> {
             ),
           ],
         ),
+      ),
+      bottomNavigationBar: Consumer<MaterialsViewModel>(
+        builder: (context, value, _) {
+          if (value.courseMaterialsState == CourseMaterialsState.loading) {
+            return Shimmer.fromColors(
+                baseColor: Colors.grey.shade300,
+                highlightColor: Colors.grey.shade500,
+                loop: 3,
+                child: const Skeleton(height: 50, width: 50));
+          }
+          if (value.courseMaterialsState == CourseMaterialsState.error) {
+            return const Text('Error');
+          }
+          if (value.courseMaterialsState == CourseMaterialsState.none) {
+            if (value.modulsEnrolled.progress == null) {
+              return const CircularProgressIndicator();
+            } else {
+              final percent = (value.modulsEnrolled.progress! /
+                  value.modulsEnrolled.totalMaterials!);
+              final status = widget.courseModel.status ?? "completed";
+              print(status);
+              if (percent == 1.0 && status == "ongoing") {
+                return Container(
+                  height: 96,
+                  color: Colors.transparent,
+                  child: Center(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        showAlertDialogFunction();
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: MyColor.primaryLogo,
+                      ),
+                      child: Text('Selesaikan Kursus',
+                          style: GoogleFonts.roboto(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700,
+                              color: MyColor.primary)),
+                    ),
+                  ),
+                );
+              } else {
+                return const SizedBox();
+              }
+            }
+          }
+
+          return Container();
+        },
       ),
     );
   }
@@ -359,5 +445,117 @@ class _ModulCourseScreenState extends State<ModulCourseScreen> {
                 ))
               : Container()
         ]);
+  }
+
+  void showAlertDialogFunction() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          contentPadding: EdgeInsets.zero,
+          titlePadding:
+              const EdgeInsets.symmetric(horizontal: 59, vertical: 20),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(17)),
+          title: const Text(
+            'Ingin menyelesaikan kursus?',
+            textAlign: TextAlign.center,
+            style: TextStyle(color: MyColor.primary, fontSize: 17),
+          ),
+          content: SizedBox(
+            height: 50,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Expanded(
+                  child: SizedBox(
+                    height: double.maxFinite,
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        Provider.of<CourseViewModel>(context, listen: false)
+                            .submitCompleteCourse(
+                                widget.mentee, widget.courseModel.id!);
+                        await showSuccessAddCourse();
+                      },
+                      style: ElevatedButton.styleFrom(
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(16),
+                            ),
+                          ),
+                          backgroundColor: MyColor.primaryLogo),
+                      child: const Text('Iya'),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: SizedBox(
+                    height: double.maxFinite,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                              bottomRight: Radius.circular(16)),
+                        ),
+                      ),
+                      child: const Text(
+                        'Tidak',
+                        style: TextStyle(color: MyColor.primaryLogo),
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> showSuccessAddCourse() async {
+    Navigator.pop(context);
+    // Provider.of<EnrollViewModel>(context, listen: false)
+    //     .enrollCourse(widget.courseModel.id!, widget.mentee);
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          title: const Icon(
+            Icons.check_circle,
+            color: MyColor.primaryLogo,
+            size: 56,
+          ),
+          content: const Text(
+            'Kursus Selesai',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
+          ),
+        );
+      },
+    );
+    await Future.delayed(const Duration(seconds: 1));
+    // Navigator.pop(context);
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const MainScreen(),
+        ),
+        (route) => false);
+    Provider.of<MainViewModel>(context, listen: false).selectedDestination(2);
+    // Navigator.of(context).pushReplacement(
+    //   MaterialPageRoute(
+    //     builder: (context) => ModulCourseScreen(
+    //         mentee: widget.mentee, courseModel: widget.courseModel),
+    //   ),
+    // );
   }
 }

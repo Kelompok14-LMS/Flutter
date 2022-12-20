@@ -21,12 +21,12 @@ class MaterialDioService {
         },
       ),
     );
-    _dio.interceptors.add(
-      LogInterceptor(
-        responseBody: true,
-        requestBody: true,
-      ),
-    );
+    // _dio.interceptors.add(
+    //   LogInterceptor(
+    //     responseBody: true,
+    //     requestBody: true,
+    //   ),
+    // );
   }
 
   Future<Data> getPreviewModulesMaterials(String courseId) async {

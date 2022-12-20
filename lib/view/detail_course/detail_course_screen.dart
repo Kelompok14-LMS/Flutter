@@ -198,8 +198,10 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
                                   child: Theme(
                                     data: Theme.of(context).copyWith(
                                         dividerColor: Colors.transparent),
-                                    child: buildExpansionTile( dataMaterials
-                                              .modulsPreview.modules![index],index),
+                                    child: buildExpansionTile(
+                                        dataMaterials
+                                            .modulsPreview.modules![index],
+                                        index),
                                   ),
                                 );
                               },
@@ -318,34 +320,31 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(
                 a.description!,
-              style: MyColor().reviewCourseSubTextStyle,
-            )
-          ),
+                style: MyColor().reviewCourseSubTextStyle,
+              )),
           a.materials != null
-            ? Column(
-              children: List.generate(
-                a.materials!.length,
-                (index) => ListTile(
-                  dense: true,
-                  leading: const Icon(
-                    Icons.video_collection,
-                  size: 25,
-                  color: MyColor.primaryLogo,
-                ),
-                title: Text(
-                  a.materials![index].title!,
-                    style: GoogleFonts.roboto(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w500,
-                      color: const Color(0xff112D4E),
+              ? Column(
+                  children: List.generate(
+                  a.materials!.length,
+                  (index) => ListTile(
+                    dense: true,
+                    leading: const Icon(
+                      Icons.video_collection,
+                      size: 25,
+                      color: MyColor.primaryLogo,
+                    ),
+                    title: Text(
+                      a.materials![index].title!,
+                      style: GoogleFonts.roboto(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w500,
+                        color: const Color(0xff112D4E),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            )
-          )
-        : Container()
-      ]
-    );
+                ))
+              : Container()
+        ]);
   }
 
   void showAlertDialogFunction() {
