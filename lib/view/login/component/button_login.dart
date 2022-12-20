@@ -52,7 +52,7 @@ class _ButtonLoginState extends State<ButtonLogin> {
                   email: widget._emailController.text,
                   password: widget._passwordController.text,
                 ));
-                if (result == 'Login successful') {
+                if (result == 'Login berhasil') {
                   if (mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
@@ -66,7 +66,7 @@ class _ButtonLoginState extends State<ButtonLogin> {
                         ),
                         (route) => false);
                   }
-                } else if (result != 'Login successful') {
+                } else if (result != 'Login berhasil') {
                   if (mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(

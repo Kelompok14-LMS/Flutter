@@ -158,7 +158,7 @@ class _OtpRegistrasiScreenState extends State<OtpRegistrasiScreen> {
                                         phone: widget.phone,
                                       ));
 
-                              if (result == 'Register success') {
+                              if (result == 'Register berhasil') {
                                 if (mounted) {
                                   Navigator.pushAndRemoveUntil(
                                       context,
@@ -173,7 +173,7 @@ class _OtpRegistrasiScreenState extends State<OtpRegistrasiScreen> {
                                     ),
                                   );
                                 }
-                              } else if (result != 'Register success') {
+                              } else if (result != 'Register berhasil') {
                                 if (mounted) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
