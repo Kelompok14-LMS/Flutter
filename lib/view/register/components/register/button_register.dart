@@ -66,7 +66,7 @@ class _ButtonRegisterState extends State<ButtonRegister> {
                   ),
                 );
 
-                if (result == 'Success send OTP to email') {
+                if (result == 'Sukses mengirim OTP ke email') {
                   if (widget.mounted) {
                     Navigator.of(context).push(
                       MaterialPageRoute(
@@ -83,7 +83,7 @@ class _ButtonRegisterState extends State<ButtonRegister> {
                       ),
                     );
                   }
-                } else if (result != 'Success send OTP to email') {
+                } else if (result != 'Sukses mengirim OTP ke email') {
                   if (widget.mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(

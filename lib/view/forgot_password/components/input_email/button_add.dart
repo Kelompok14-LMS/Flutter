@@ -46,7 +46,7 @@ class _ButtonAddState extends State<ButtonAdd> {
                 final result = await context
                     .read<AuthViewModel>()
                     .sendOtp(widget._emailController.text);
-                if (result == 'Success send OTP to email') {
+                if (result == 'Sukses kirim OTP ke email') {
                   if (mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
@@ -61,7 +61,7 @@ class _ButtonAddState extends State<ButtonAdd> {
                       ),
                     );
                   }
-                } else if (result != 'Success send OTP to email') {
+                } else if (result != 'Sukses kirim OTP ke email') {
                   if (mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(

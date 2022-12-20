@@ -57,7 +57,7 @@ class _ButtonResetState extends State<ButtonReset> {
                             widget._confirmController.text,
                             widget.widget.otp,
                           );
-                  if (result == 'Success reset password') {
+                  if (result == 'Sukses ganti kata sandi') {
                     if (mounted) {
                       print(widget.widget.email);
                       print(widget.widget.otp);
@@ -76,7 +76,7 @@ class _ButtonResetState extends State<ButtonReset> {
                         (route) => false,
                       );
                     }
-                  } else if (result != 'Success reset password') {
+                  } else if (result != 'Sukses ganti kata sandi') {
                     if (mounted) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
