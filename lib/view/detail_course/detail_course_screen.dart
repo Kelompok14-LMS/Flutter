@@ -42,7 +42,7 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
   Widget build(BuildContext context) {
     final dataMaterials =
         Provider.of<MaterialsViewModel>(context, listen: false);
-    final dataReview = context.read<ReviewCourseViewModel>().reviewCourse;
+    final dataReview = context.watch<ReviewCourseViewModel>().reviewCourse;
     return Scaffold(
         appBar: AppBar(
           centerTitle: false,
