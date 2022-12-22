@@ -1,14 +1,12 @@
 import 'package:edu_world/utils/constant.dart';
 import 'package:edu_world/view/components/skeleton.dart';
 import 'package:edu_world/view/detail_course/detail_course_screen.dart';
-import 'package:edu_world/view/detail_course/modul_course_screen.dart';
 import 'package:edu_world/view/list_course/list_course.dart';
 import 'package:edu_world/view/list_course/widget/course/kelas_course_home.dart';
 import 'package:edu_world/view/list_course/widget/rekomendasi/design.dart';
 import 'package:edu_world/view/recommendation/recommendation_view.dart';
 import 'package:edu_world/view_models/couse_view_model.dart';
 import 'package:edu_world/view_models/enroll_view_model.dart';
-import 'package:edu_world/view_models/list_course_view_model.dart';
 import 'package:edu_world/view_models/popular_view_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -19,34 +17,15 @@ class HomeCourse extends StatefulWidget {
   const HomeCourse({
     Key? key,
     required this.courseClassViewModel,
-    required this.listCourseViewModel,
   }) : super(key: key);
 
   final CourseViewModel courseClassViewModel;
-  final ListCourseViewModel listCourseViewModel;
 
   @override
   State<HomeCourse> createState() => _HomeCourseState();
 }
 
 class _HomeCourseState extends State<HomeCourse> {
-  // String? mentee;
-  // @override
-  // void initState() {
-  //   checkLogin();
-
-  //   super.initState();
-  // }
-
-  // void checkLogin() async {
-  //   final share = await SharedPreferences.getInstance();
-  //   final token = share.getString('token');
-  //   Map<String, dynamic> payload = Jwt.parseJwt(token!);
-  //   mentee = (payload['mentee_id']);
-  //   if (!mounted) return;
-  //   Provider.of<EnrollViewModel>(context, listen: false).saveMenteeId(mentee!);
-  // }
-
   @override
   Widget build(BuildContext context) {
     final popularCourse = Provider.of<PopularViewModel>(context);
@@ -214,16 +193,11 @@ class _HomeCourseState extends State<HomeCourse> {
                             if (!mounted) return;
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (context) => !dataProvider.isEnrolled!
-                                    ? DetailCourseScreen(
-                                        mentee: dataProvider.mentee!,
+                                  builder: (context) => DetailCourseScreen(
                                         courseModel:
-                                            popularCourse.popularCourse[index])
-                                    : ModulCourseScreen(
+                                            popularCourse.popularCourse[index],
                                         mentee: dataProvider.mentee!,
-                                        courseModel:
-                                            popularCourse.popularCourse[index]),
-                              ),
+                                      )),
                             );
                           },
                         ),

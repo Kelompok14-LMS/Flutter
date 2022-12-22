@@ -29,26 +29,29 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  cached_network_image: ^3.2.3
   cupertino_icons: ^1.0.2
   dio: ^4.0.6
   email_validator: ^2.1.17
   file_picker: ^5.2.3
+  flick_video_player: ^0.5.0
+  flutter:
+    sdk: flutter
   flutter_rating_bar: ^4.0.1
   flutter_svg: ^1.1.6
   google_fonts: ^3.0.1
+  intl: ^0.17.0
   jwt_decode: ^0.3.1
+  open_filex: ^4.3.2
+  path_provider: ^2.0.11
   percent_indicator: ^4.2.2
+  permission_handler: ^10.2.0
   provider: ^6.0.4
   shared_preferences: ^2.0.15
   shimmer: ^2.0.0
+  syncfusion_flutter_pdfviewer: ^20.4.38
   video_player: ^2.4.8
-  intl: ^0.18.0
-  cached_network_image: ^3.2.3
-  flick_video_player: ^0.5.0
 
-  flutter:
-    sdk: flutter
-  
 dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:
@@ -85,7 +88,5 @@ flutter:
         - asset: assets/font/Roboto-Regular.ttf
         - asset: assets/font/Roboto-Medium.ttf
         - asset: assets/font/Roboto-Bold.ttf
- 
-  
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

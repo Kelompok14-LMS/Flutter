@@ -43,13 +43,19 @@ class _CourseScreenState extends State<CourseScreen>
                 // physics: const NeverScrollableScrollPhysics(),
                 controller: tabController,
                 children: const [
-                  UserListCourse(
-                    status: 'ongoing',
-                    isOngoing: true,
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 24),
+                    child: UserListCourse(
+                      status: 'ongoing',
+                      isOngoing: true,
+                    ),
                   ),
-                  UserListCourse(
-                    status: 'completed',
-                    isOngoing: false,
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 24),
+                    child: UserListCourse(
+                      status: 'completed',
+                      isOngoing: false,
+                    ),
                   ),
                 ],
               ),

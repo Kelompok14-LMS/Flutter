@@ -29,7 +29,7 @@ class SearchBarUserCourse extends StatelessWidget {
           Map<String, dynamic> payload = Jwt.parseJwt(token!);
           String mentee = (payload['mentee_id']);
           Provider.of<CourseViewModel>(context, listen: false)
-              .getEnrolledCourseMentee(mentee, searchKeyword.text, 'ongoing');
+              .getEnrolledCourseMentee(mentee, searchKeyword.text, '');
         },
         decoration: InputDecoration(
           filled: true,

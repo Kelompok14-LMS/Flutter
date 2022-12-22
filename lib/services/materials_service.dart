@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:edu_world/models/materials_model.dart';
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final _dio = Dio(
@@ -21,12 +22,12 @@ class MaterialDioService {
         },
       ),
     );
-    // _dio.interceptors.add(
-    //   LogInterceptor(
-    //     responseBody: true,
-    //     requestBody: true,
-    //   ),
-    // );
+    _dio.interceptors.add(
+      LogInterceptor(
+        responseBody: true,
+        requestBody: true,
+      ),
+    );
   }
 
   Future<Data> getPreviewModulesMaterials(String courseId) async {
@@ -95,11 +96,13 @@ class MaterialDioService {
         "mentee_id": menteeId,
         "material_id": materialId
       });
-      // print('dijalankan');
-      return response.data["message"];
-    } catch (e) {
-      // print('errror');
-      rethrow;
+      if (response.statusCode == 201) {
+        return "Sukses menambahkan data";
+      }
+      return "Data bermasalah";
+    } on DioError catch (e) {
+      debugPrint(e.toString());
+      return "Data bermasalah Dio Error";
     }
   }
 }

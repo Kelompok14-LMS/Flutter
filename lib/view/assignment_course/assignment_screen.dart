@@ -20,6 +20,8 @@ class TugasScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final assignmentViewModel =
         Provider.of<AssignmentViewModel>(context, listen: false);
+    final dataMaterialsProv =
+        Provider.of<MaterialsViewModel>(context, listen: false);
     final dataEnrolled = Provider.of<EnrollViewModel>(context, listen: false);
     final media = MediaQuery.of(context).size;
     return Scaffold(
@@ -52,7 +54,7 @@ class TugasScreen extends StatelessWidget {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.only(left: 25, right: 25),
+        padding: const EdgeInsets.only(left: 22, right: 22),
         child: Column(
           children: <Widget>[
             Container(
@@ -80,7 +82,7 @@ class TugasScreen extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.only(
                   left: media.width * 0.06,
-                  right: media.width * 0.65,
+                  right: media.width * 0.62,
                 ),
                 child: Text(
                   'Resume',
@@ -278,6 +280,11 @@ class TugasScreen extends StatelessWidget {
                                 await assignmentViewModel.uploadTugasPDF(
                                     context,
                                     assignmentId: assignmentId);
+                                Provider.of<MaterialsViewModel>(context,
+                                        listen: false)
+                                    .getEnrolledMaterialsModules(
+                                        dataEnrolled.mentee!,
+                                        dataMaterials.courseId!);
                               },
                             ),
                           ),
@@ -323,6 +330,8 @@ class TugasScreen extends StatelessWidget {
                         Provider.of<MaterialsViewModel>(context, listen: false)
                             .getEnrolledMaterialsModules(
                                 dataEnrolled.mentee!, dataMaterials.courseId!);
+                        Provider.of<AssignmentViewModel>(context, listen: false)
+                            .changeStateAfterSendFile();
                         Navigator.of(context).pop();
                       },
                     )

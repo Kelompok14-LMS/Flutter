@@ -2,7 +2,6 @@ import 'package:edu_world/utils/constant.dart';
 import 'package:edu_world/view/home/components/category_card.dart';
 import 'package:edu_world/view/home/components/home_course.dart';
 import 'package:edu_world/view_models/couse_view_model.dart';
-import 'package:edu_world/view_models/list_course_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -31,13 +30,11 @@ class _CustomTabBarButtonState extends State<CustomTabBarButton> {
 
   @override
   Widget build(BuildContext context) {
-    final listCourseViewModel = Provider.of<ListCourseViewModel>(context);
     final courseClassViewModel = Provider.of<CourseViewModel>(context);
 
     List<Widget> icons = [
       HomeCourse(
         courseClassViewModel: courseClassViewModel,
-        listCourseViewModel: listCourseViewModel,
       ),
       const CategoryCard(category: "UI/UX"),
       const CategoryCard(category: "Front End"),
