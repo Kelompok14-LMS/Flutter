@@ -56,9 +56,6 @@ class _AssignmentExpansionTileState extends State<AssignmentExpansionTile> {
               visible: !widget.isPreview,
               child: Consumer<AssignmentViewModel>(
                   builder: (context, value, child) =>
-                      // Provider.of<AssignmentViewModel>(context, listen: false)
-                      //         .percent
-                      //         .isNotEmpty
                       widget.dataMaterials.assignment!.completed!
                           ? const Icon(Icons.check_circle,
                               color: MyColor.primaryLogo)

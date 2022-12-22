@@ -67,11 +67,9 @@ class CourseDioService {
         '/api/v1/courses/categories/$category',
         queryParameters: {"keyword": ""},
       );
-      print("data ataaaa ${response.data["data"]}");
       List<dynamic> data = response.data['data'];
       List<CourseModel> result =
           data.map((e) => CourseModel.fromJson(e)).toList();
-      print('dikembalikan');
       return result;
     } catch (e) {
       rethrow;
@@ -110,7 +108,6 @@ class CourseDioService {
       List<dynamic> data = response.data['data'];
       List<CourseModel> result =
           data.map((e) => CourseModel.fromJson(e)).toList();
-      // print(result);
       return result;
     } catch (e) {
       rethrow;

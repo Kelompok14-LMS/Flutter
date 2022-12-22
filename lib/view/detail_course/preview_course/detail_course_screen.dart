@@ -8,16 +8,16 @@ import 'package:edu_world/models/course_model.dart';
 import 'package:edu_world/models/materials_model.dart';
 import 'package:edu_world/utils/constant.dart';
 import 'package:edu_world/view/detail_course/components/review_card.dart';
-import 'package:edu_world/view/detail_course/modul_course_screen.dart';
+import 'package:edu_world/view/detail_course/enrolled_course/enrolled_course_screen.dart';
 import 'package:edu_world/view_models/materials_view_model.dart';
 import 'package:edu_world/view_models/review_view_model.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../components/skeleton.dart';
-import 'components/list_course_shimmer.dart';
+import '../../components/skeleton.dart';
+import '../components/list_course_shimmer.dart';
 
-class DetailCourseScreen extends StatefulWidget {
-  const DetailCourseScreen({
+class PreviewCourseScreen extends StatefulWidget {
+  const PreviewCourseScreen({
     Key? key,
     required this.courseModel,
     required this.mentee,
@@ -26,10 +26,10 @@ class DetailCourseScreen extends StatefulWidget {
   final String mentee;
 
   @override
-  State<DetailCourseScreen> createState() => _DetailCourseScreenState();
+  State<PreviewCourseScreen> createState() => _PreviewCourseScreenState();
 }
 
-class _DetailCourseScreenState extends State<DetailCourseScreen> {
+class _PreviewCourseScreenState extends State<PreviewCourseScreen> {
   @override
   void initState() {
     context.read<ReviewCourseViewModel>().reviewCourse.clear();
@@ -293,7 +293,7 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
                 if (dataEnroll.isEnrolled!) {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => ModulCourseScreen(
+                      builder: (context) => EnrolledCourseScreen(
                           isHaveData: true,
                           mentee: widget.mentee,
                           courseModel: widget.courseModel),
@@ -489,7 +489,7 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
     if (!mounted) return;
     final data = await Navigator.of(context).pushReplacement(
       MaterialPageRoute(
-        builder: (context) => ModulCourseScreen(
+        builder: (context) => EnrolledCourseScreen(
             isHaveData: false,
             mentee: widget.mentee,
             courseModel: widget.courseModel),

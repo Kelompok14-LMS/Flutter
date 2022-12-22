@@ -1,6 +1,6 @@
 import 'package:edu_world/utils/constant.dart';
-import 'package:edu_world/view/detail_course/detail_course_screen.dart';
-import 'package:edu_world/view/list_course/widget/rekomendasi/design.dart';
+import 'package:edu_world/view/detail_course/preview_course/detail_course_screen.dart';
+import 'package:edu_world/view/list_course/components/rekomendasi/design.dart';
 import 'package:edu_world/view_models/couse_view_model.dart';
 import 'package:edu_world/view_models/enroll_view_model.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +19,7 @@ class HomeSearchScreen extends StatelessWidget {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
               child: Row(
                 children: [
                   InkWell(
@@ -53,11 +53,6 @@ class HomeSearchScreen extends StatelessWidget {
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(16),
                           ),
-                          // prefixIcon: const Icon(
-                          //   Icons.search,
-                          //   color: MyColor.primary,
-                          // ),
-                          // prefixIconColor: MyColor.primary,
                           hintText: 'Cari Kursus',
                           hintStyle: const TextStyle(
                             color: MyColor.primary,
@@ -136,7 +131,7 @@ class HomeSearchScreen extends StatelessWidget {
                                                 Navigator.of(context).push(
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                          DetailCourseScreen(
+                                                          PreviewCourseScreen(
                                                             mentee: dataProv
                                                                 .mentee!,
                                                             courseModel: value

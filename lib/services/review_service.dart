@@ -36,12 +36,9 @@ class ReviewService {
         '/api/v1/courses/$courseId/reviews',
       );
       List<dynamic> data = response.data['data'];
-      var data2 = response.data;
-      print('data2: $data2');
-      print('ini get review : $data');
+
       List<ReviewModel> result =
           data.map((e) => ReviewModel.fromJson(e)).toList();
-      print('ini result : $result');
       return result;
     } catch (e) {
       rethrow;
@@ -72,8 +69,6 @@ class ReviewService {
       );
       final data = response.data;
       final result = ReviewCardModel.fromJson(data);
-      // List<ReviewCardModel> result =
-      //     data.map((e) => ReviewCardModel.fromJson(e)).toList();
       return result;
     } catch (e) {
       rethrow;

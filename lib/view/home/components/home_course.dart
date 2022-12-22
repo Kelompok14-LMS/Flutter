@@ -1,9 +1,9 @@
 import 'package:edu_world/utils/constant.dart';
 import 'package:edu_world/view/components/skeleton.dart';
-import 'package:edu_world/view/detail_course/detail_course_screen.dart';
+import 'package:edu_world/view/detail_course/preview_course/detail_course_screen.dart';
 import 'package:edu_world/view/list_course/list_course.dart';
-import 'package:edu_world/view/list_course/widget/course/kelas_course_home.dart';
-import 'package:edu_world/view/list_course/widget/rekomendasi/design.dart';
+import 'package:edu_world/view/list_course/components/course/kelas_course_home.dart';
+import 'package:edu_world/view/list_course/components/rekomendasi/design.dart';
 import 'package:edu_world/view/recommendation/recommendation_view.dart';
 import 'package:edu_world/view_models/couse_view_model.dart';
 import 'package:edu_world/view_models/enroll_view_model.dart';
@@ -193,7 +193,7 @@ class _HomeCourseState extends State<HomeCourse> {
                             if (!mounted) return;
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                  builder: (context) => DetailCourseScreen(
+                                  builder: (context) => PreviewCourseScreen(
                                         courseModel:
                                             popularCourse.popularCourse[index],
                                         mentee: dataProvider.mentee!,

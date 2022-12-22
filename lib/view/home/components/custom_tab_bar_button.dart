@@ -97,8 +97,6 @@ class _CustomTabBarButtonState extends State<CustomTabBarButton> {
                         child: AnimatedContainer(
                           duration: const Duration(milliseconds: 300),
                           margin: const EdgeInsets.all(5),
-                          // width: 80,
-                          // height: 45,
                           decoration: BoxDecoration(
                             color: current == index
                                 ? MyColor.primaryLogo

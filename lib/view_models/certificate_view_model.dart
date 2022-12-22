@@ -20,12 +20,10 @@ class CertificateViewModel extends ChangeNotifier {
       final result = await _dioService.getCertificate(
           menteeId, courseId, menteeName, courseName);
       fileCertificate = result;
-      print(result);
       certificateDownloadState = CertificateDownloadState.none;
       isLoading = false;
     } catch (e) {
       fileCertificate = File('');
-      print('test');
       certificateDownloadState = CertificateDownloadState.error;
       isLoading = false;
     }

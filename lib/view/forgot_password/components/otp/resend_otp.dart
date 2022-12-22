@@ -37,7 +37,6 @@ class _ResendOtpScreenState extends State<ResendOtpScreen> {
         ),
         InkWell(
           onTap: () async {
-            print(widget.widget.email);
             final result = await context
                 .read<AuthViewModel>()
                 .sendOtp(widget.widget.email);

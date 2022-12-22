@@ -34,20 +34,11 @@ class CertificateDioService {
   }
   double progress = 0;
 
-  void showDownloadProgress(received, total) {
-    if (total != -1) {
-      print((received / total * 100).toStringAsFixed(0) + "%");
-    } else {
-      print((received / total * 100).toStringAsFixed(0) + "%");
-    }
-  }
-
   Future<File?> getCertificate(String menteeId, String courseId,
       String menteeName, String courseName) async {
     try {
       dynamic response = await _dio.get(
           '/api/v1/mentees/$menteeId/courses/$courseId/certificate',
-          onReceiveProgress: showDownloadProgress,
           options: Options(responseType: ResponseType.bytes));
       if (response != null) {
         var status = await Permission.storage.request();
@@ -60,15 +51,15 @@ class CertificateDioService {
               "$menteeName-${courseName.replaceAll('/', '')}.pdf";
           File file = File('$tempPath/$fileName');
           if (!await file.exists()) {
-            print('file tidak ada');
             await file.create();
           }
           await file.writeAsBytes(response.data);
-          print('berhasil menambahkan');
           return file;
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      return null;
+    }
     return null;
   }
 }

@@ -1,5 +1,5 @@
 import 'package:edu_world/utils/constant.dart';
-import 'package:edu_world/view/profile/widget/body_profile.dart';
+import 'package:edu_world/view/profile/components/body_profile.dart';
 import 'package:edu_world/view_models/profile_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 
 import '../../view_models/auth_view_model.dart';
 import '../login/login_screen.dart';
-import 'widget/empty_widget.dart';
+import 'components/empty_widget.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({

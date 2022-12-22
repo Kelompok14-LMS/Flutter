@@ -92,7 +92,6 @@ class CourseViewModel with ChangeNotifier {
       if (status == "ongoing") {
         courseCardModel.clear();
         courseCardModel = result;
-        print('berhasil mengambil data');
       } else {
         endCourseCardModel = result;
       }
@@ -116,14 +115,11 @@ class CourseViewModel with ChangeNotifier {
   Future<String> submitCompleteCourse(String menteeId, String courseId) async {
     try {
       final result = await _dioService.submitCompleteCourse(menteeId, courseId);
-      print(result);
 
       notifyListeners();
       return result;
     } catch (e) {
-      if (e is DioError) {
-        print('error dio');
-      }
+      if (e is DioError) {}
       notifyListeners();
       return '';
     }

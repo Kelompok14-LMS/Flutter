@@ -24,9 +24,7 @@ class ReviewCourseViewModel with ChangeNotifier {
       notifyListeners();
       return result;
     } catch (e) {
-      if (e is DioError) {
-        print('error dio');
-      }
+      if (e is DioError) {}
       return [];
     }
   }
@@ -34,19 +32,15 @@ class ReviewCourseViewModel with ChangeNotifier {
   Future<ReviewCardModel> getReviewCourseByCompletedCourse(
       String courseModel) async {
     reviewCourseState = ReviewCourseState.loading;
-    print('masih loading');
     try {
       final result =
           await _dioService.getReviewCourseWhenCompletedCourse(courseModel);
       _reviewCardCourseModel = result;
-      print('ini jalan bro');
       reviewCourseState = ReviewCourseState.none;
       notifyListeners();
       return result;
     } catch (e) {
-      if (e is DioError) {
-        print('error dio');
-      }
+      if (e is DioError) {}
       reviewCourseState = ReviewCourseState.error;
       notifyListeners();
       return ReviewCardModel();
@@ -58,16 +52,10 @@ class ReviewCourseViewModel with ChangeNotifier {
     try {
       final result = await _dioService.submitReview(
           courseId, menteeId, description, rating);
-      // _reviewCourse.clear();
-      // _reviewCourse = result;
-
-      print(result);
       notifyListeners();
       return result;
     } catch (e) {
-      if (e is DioError) {
-        print('error dio');
-      }
+      if (e is DioError) {}
       rethrow;
     }
   }

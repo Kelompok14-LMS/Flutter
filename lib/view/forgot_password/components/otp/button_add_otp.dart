@@ -64,8 +64,6 @@ class _ButtonAddOtpState extends State<ButtonAddOtp> {
                     .checkOtp(widget.widget.email, otp);
                 if (result == 'OTP matched') {
                   if (mounted) {
-                    print(otp);
-                    print(widget.widget.email);
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text(result!),
