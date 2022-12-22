@@ -41,7 +41,6 @@ class SearchBarUserCourse extends StatelessWidget {
             Icons.search,
             color: MyColor.primary,
           ),
-          // prefixIconColor: MyColor.primary,
           hintText: titleSearch,
           hintStyle: const TextStyle(
             color: MyColor.primary,

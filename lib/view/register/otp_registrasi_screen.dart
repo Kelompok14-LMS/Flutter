@@ -138,11 +138,6 @@ class _OtpRegistrasiScreenState extends State<OtpRegistrasiScreen> {
                                 _twoController.text +
                                 _threeController.text +
                                 _fourController.text;
-                            print(otp);
-                            print(widget.fullName);
-                            print(widget.phone);
-                            print(widget.email);
-                            print(widget.password);
                             if (formKey.currentState!.validate()) {
                               formKey.currentState!.save();
                               final result = await context

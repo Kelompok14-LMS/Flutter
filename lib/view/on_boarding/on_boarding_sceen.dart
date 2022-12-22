@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../../view_models/onboarding_view_model.dart';
 import '../components/roboto_text.dart';
 import '../login/login_screen.dart';
-import 'component/slider_page.dart';
+import 'components/slider_page.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -79,7 +79,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   }),
                 ),
                 Container(
-                  margin: const EdgeInsets.only(left: 16, right: 16, top: 36, bottom: 50),
+                  margin: const EdgeInsets.only(
+                      left: 16, right: 16, top: 36, bottom: 50),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

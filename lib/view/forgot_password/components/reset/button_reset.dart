@@ -59,10 +59,6 @@ class _ButtonResetState extends State<ButtonReset> {
                           );
                   if (result == 'Sukses ganti kata sandi') {
                     if (mounted) {
-                      print(widget.widget.email);
-                      print(widget.widget.otp);
-                      print(widget._passController.text);
-                      print(widget._confirmController.text);
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text(result!),

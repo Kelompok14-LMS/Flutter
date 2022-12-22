@@ -1,4 +1,4 @@
-import 'package:edu_world/view/detail_course/detail_course_screen.dart';
+import 'package:edu_world/view/detail_course/preview_course/detail_course_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -41,7 +41,7 @@ class _KelasCourseState extends State<KelasCourse> {
                 .checkEnrollmentCourse(widget.courseModel.id!, widget.mentee);
             Navigator.of(context).push(
               MaterialPageRoute(
-                  builder: (context) => DetailCourseScreen(
+                  builder: (context) => PreviewCourseScreen(
                         mentee: widget.mentee,
                         courseModel: widget.courseModel,
                       )),
@@ -56,9 +56,6 @@ class _KelasCourseState extends State<KelasCourse> {
                 image: NetworkImage(widget.courseModel.thumbnail!),
                 fit: BoxFit.fill,
               ),
-              // const SizedBox(
-              //   height: 8,
-              // ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(

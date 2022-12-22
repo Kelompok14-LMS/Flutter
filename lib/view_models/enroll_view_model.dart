@@ -18,13 +18,10 @@ class EnrollViewModel extends ChangeNotifier {
     addCourseSucces = false;
     try {
       final result = await _dioService.enrollCourse(courseId, menteeId);
-      print(result);
       if (result == 'Succes add Course') {
         addCourseSucces = true;
       }
-      print('salah');
     } catch (e) {}
-    print('salah 2');
     notifyListeners();
   }
 
@@ -37,7 +34,6 @@ class EnrollViewModel extends ChangeNotifier {
       isEnrolled = result;
       enrollState = EnrollState.none;
     } catch (e) {
-      // print('error');
       enrollState = EnrollState.error;
     }
     notifyListeners();

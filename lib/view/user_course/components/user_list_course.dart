@@ -1,5 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:edu_world/view/detail_course/modul_course_screen.dart';
+import 'package:edu_world/view/detail_course/enrolled_course/enrolled_course_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:jwt_decode/jwt_decode.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
@@ -76,7 +76,7 @@ class _UserListCourseState extends State<UserListCourse> {
                     onTap: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => ModulCourseScreen(
+                          builder: (context) => EnrolledCourseScreen(
                               isHaveData: true,
                               mentee: mentee,
                               courseModel: widget.isOngoing

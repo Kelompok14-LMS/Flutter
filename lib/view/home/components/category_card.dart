@@ -4,7 +4,7 @@ import 'package:edu_world/view_models/enroll_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:edu_world/view/list_course/widget/course/kelas_course_home.dart';
+import 'package:edu_world/view/list_course/components/course/kelas_course_home.dart';
 import 'package:edu_world/view_models/couse_view_model.dart';
 
 class CategoryCard extends StatefulWidget {
@@ -21,7 +21,6 @@ class CategoryCard extends StatefulWidget {
 class _CategoryCardState extends State<CategoryCard> {
   @override
   Widget build(BuildContext context) {
-    // print('data $mentee');
     final courseClassViewModel = Provider.of<CourseViewModel>(context);
     final dataMentee = Provider.of<EnrollViewModel>(context);
     final courseState = courseClassViewModel.courseState;

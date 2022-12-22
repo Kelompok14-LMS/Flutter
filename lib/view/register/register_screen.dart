@@ -1,5 +1,4 @@
 import 'package:edu_world/utils/constant.dart';
-import 'package:edu_world/view/login/component/header_login.dart';
 import 'package:edu_world/view/register/components/register/form_register.dart';
 import 'package:edu_world/view/register/components/register/header_register.dart';
 import 'package:edu_world/view_models/auth_view_model.dart';
@@ -7,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../utils/finite_state.dart';
-import '../login/login_screen.dart';
 import 'components/register/button_register.dart';
 import 'components/register/move_login.dart';
 

@@ -51,7 +51,6 @@ class _VideoMateriScreenState extends State<VideoMateriScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // debugPrint('datanya komplit ${dataMaterials.isCompleted}');
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,

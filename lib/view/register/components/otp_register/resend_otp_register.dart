@@ -33,8 +33,6 @@ class ResendOtpRegister extends StatelessWidget {
         ),
         InkWell(
           onTap: () async {
-            print('email : ${widget.email}');
-            print('password : ${widget.password}');
             final result = await context.read<AuthViewModel>().register(
                   Users(
                     email: widget.email,

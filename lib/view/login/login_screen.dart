@@ -1,9 +1,9 @@
 import 'package:edu_world/utils/finite_state.dart';
-import 'package:edu_world/view/login/component/button_login.dart';
-import 'package:edu_world/view/login/component/forgot_password.dart';
-import 'package:edu_world/view/login/component/form_login.dart';
-import 'package:edu_world/view/login/component/header_login.dart';
-import 'package:edu_world/view/login/component/move_register.dart';
+import 'package:edu_world/view/login/components/button_login.dart';
+import 'package:edu_world/view/login/components/forgot_password.dart';
+import 'package:edu_world/view/login/components/form_login.dart';
+import 'package:edu_world/view/login/components/header_login.dart';
+import 'package:edu_world/view/login/components/move_register.dart';
 import 'package:edu_world/view_models/auth_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:jwt_decode/jwt_decode.dart';

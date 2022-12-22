@@ -19,11 +19,9 @@ class MaterialsViewModel with ChangeNotifier {
 
   Future<void> getPreviewMaterialsModules(String courseId) async {
     courseMaterialsState = CourseMaterialsState.loading;
-    // await Future.delayed(const Duration(seconds: 1)); //TODO Hapus
     try {
       final result = await _dioService.getPreviewModulesMaterials(courseId);
       modulsPreview = result;
-      // print(moduls[0].materials!);
       courseMaterialsState = CourseMaterialsState.none;
     } catch (e) {
       courseMaterialsState = CourseMaterialsState.error;
@@ -37,7 +35,6 @@ class MaterialsViewModel with ChangeNotifier {
       String menteeId, String courseId) async {
     courseMaterialsState = CourseMaterialsState.loading;
     modulsEnrolled = Data();
-    // await Future.delayed(const Duration(seconds: 4)); //TODO Hapus
     try {
       final result =
           await _dioService.getEnrolledModulesMaterials(menteeId, courseId);
@@ -72,9 +69,7 @@ class MaterialsViewModel with ChangeNotifier {
   }
 
   void changeIsCompleted(bool isCourseCompleted) async {
-    // courseMaterialsState = CourseMaterialsState.loading;
     isCompleted = isCourseCompleted;
-    // courseMaterialsState = CourseMaterialsState.none;
     notifyListeners();
   }
 }

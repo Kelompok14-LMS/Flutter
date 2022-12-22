@@ -42,8 +42,7 @@ class EnrollDioService {
       } else {
         return response.data['error'];
       }
-    } on DioError catch (e) {
-      print(e);
+    } on DioError {
       return 'error Dio';
     }
   }

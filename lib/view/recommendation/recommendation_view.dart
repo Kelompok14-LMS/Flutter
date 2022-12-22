@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:edu_world/utils/constant.dart';
-import 'package:edu_world/view/list_course/widget/course/kelas_course_home.dart';
+import 'package:edu_world/view/list_course/components/course/kelas_course_home.dart';
 import 'package:edu_world/view_models/popular_view_modal.dart';
 
 class Rekomendasi extends StatefulWidget {
