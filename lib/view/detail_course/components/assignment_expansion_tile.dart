@@ -11,9 +11,11 @@ import 'package:provider/provider.dart';
 import '../../../utils/constant.dart';
 
 class AssignmentExpansionTile extends StatefulWidget {
-  const AssignmentExpansionTile({Key? key, required this.dataMaterials})
+  const AssignmentExpansionTile(
+      {Key? key, required this.dataMaterials, required this.isPreview})
       : super(key: key);
   final Data dataMaterials;
+  final bool isPreview;
 
   @override
   State<AssignmentExpansionTile> createState() =>
@@ -26,7 +28,9 @@ class _AssignmentExpansionTileState extends State<AssignmentExpansionTile> {
     final dataMaterials =
         Provider.of<MaterialsViewModel>(context, listen: false);
     return Visibility(
-      visible: dataMaterials.modulsEnrolled.assignment!.assignmentId != "",
+      visible: widget.isPreview
+          ? dataMaterials.modulsPreview.assignment!.assignmentId != ""
+          : dataMaterials.modulsEnrolled.assignment!.assignmentId != "",
       child: Card(
         clipBehavior: Clip.antiAliasWithSaveLayer,
         elevation: 2,
@@ -38,26 +42,31 @@ class _AssignmentExpansionTileState extends State<AssignmentExpansionTile> {
           child: ExpansionTile(
             expandedCrossAxisAlignment: CrossAxisAlignment.start,
             onExpansionChanged: (value) {
-              Navigator.of(context).push(CupertinoPageRoute(
-                builder: (context) => TugasScreen(
-                  dataMaterials: widget.dataMaterials,
-                  assignmentId:
-                      dataMaterials.modulsEnrolled.assignment!.assignmentId!,
-                ),
-              ));
+              !widget.isPreview
+                  ? Navigator.of(context).push(CupertinoPageRoute(
+                      builder: (context) => TugasScreen(
+                        dataMaterials: widget.dataMaterials,
+                        assignmentId: dataMaterials
+                            .modulsEnrolled.assignment!.assignmentId!,
+                      ),
+                    ))
+                  : null;
             },
-            trailing: Consumer<AssignmentViewModel>(
-                builder: (context, value, child) =>
-                    // Provider.of<AssignmentViewModel>(context, listen: false)
-                    //         .percent
-                    //         .isNotEmpty
-                    widget.dataMaterials.assignment!.completed!
-                        ? const Icon(Icons.check_circle,
-                            color: MyColor.primaryLogo)
-                        : const Icon(
-                            Icons.check_circle,
-                            color: Color(0xFFB0B9C4),
-                          )),
+            trailing: Visibility(
+              visible: !widget.isPreview,
+              child: Consumer<AssignmentViewModel>(
+                  builder: (context, value, child) =>
+                      // Provider.of<AssignmentViewModel>(context, listen: false)
+                      //         .percent
+                      //         .isNotEmpty
+                      widget.dataMaterials.assignment!.completed!
+                          ? const Icon(Icons.check_circle,
+                              color: MyColor.primaryLogo)
+                          : const Icon(
+                              Icons.check_circle,
+                              color: Color(0xFFB0B9C4),
+                            )),
+            ),
             title: Row(
               children: [
                 Container(
@@ -85,7 +94,9 @@ class _AssignmentExpansionTileState extends State<AssignmentExpansionTile> {
                 ),
                 Expanded(
                   child: Text(
-                    dataMaterials.modulsEnrolled.assignment!.title!,
+                    widget.isPreview
+                        ? dataMaterials.modulsPreview.assignment!.title!
+                        : dataMaterials.modulsEnrolled.assignment!.title!,
                     maxLines: 2,
                     style: GoogleFonts.roboto(
                       fontSize: 13,

@@ -1,6 +1,5 @@
 import 'package:edu_world/utils/constant.dart';
 import 'package:edu_world/view/detail_course/detail_course_screen.dart';
-import 'package:edu_world/view/detail_course/modul_course_screen.dart';
 import 'package:edu_world/view/list_course/widget/rekomendasi/design.dart';
 import 'package:edu_world/view_models/couse_view_model.dart';
 import 'package:edu_world/view_models/enroll_view_model.dart';
@@ -136,21 +135,14 @@ class HomeSearchScreen extends StatelessWidget {
                                                         dataProv.mentee!);
                                                 Navigator.of(context).push(
                                                   MaterialPageRoute(
-                                                    builder: (context) => !dataProv
-                                                            .isEnrolled!
-                                                        ? DetailCourseScreen(
+                                                      builder: (context) =>
+                                                          DetailCourseScreen(
                                                             mentee: dataProv
                                                                 .mentee!,
                                                             courseModel: value
                                                                     .keywordCourse[
-                                                                index])
-                                                        : ModulCourseScreen(
-                                                            mentee: dataProv
-                                                                .mentee!,
-                                                            courseModel: value
-                                                                    .keywordCourse[
-                                                                index]),
-                                                  ),
+                                                                index],
+                                                          )),
                                                 );
                                               },
                                             ),

@@ -37,10 +37,14 @@ class EnrollDioService {
           "mentee_id": menteeId,
         },
       );
-
-      return response.data['message'];
-    } catch (e) {
-      rethrow;
+      if (response.statusCode == 201) {
+        return 'Succes add Course';
+      } else {
+        return response.data['error'];
+      }
+    } on DioError catch (e) {
+      print(e);
+      return 'error Dio';
     }
   }
 

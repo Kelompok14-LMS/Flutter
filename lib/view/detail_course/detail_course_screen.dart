@@ -1,16 +1,19 @@
-import 'package:edu_world/models/materials_model.dart';
-import 'package:edu_world/view/detail_course/modul_course_screen.dart';
+import 'package:edu_world/view/detail_course/components/assignment_expansion_tile.dart';
 import 'package:edu_world/view_models/enroll_view_model.dart';
-import 'package:edu_world/view_models/materials_view_model.dart';
-import 'package:edu_world/view_models/review_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import 'package:edu_world/models/course_model.dart';
+import 'package:edu_world/models/materials_model.dart';
 import 'package:edu_world/utils/constant.dart';
 import 'package:edu_world/view/detail_course/components/review_card.dart';
+import 'package:edu_world/view/detail_course/modul_course_screen.dart';
+import 'package:edu_world/view_models/materials_view_model.dart';
+import 'package:edu_world/view_models/review_view_model.dart';
+import 'package:shimmer/shimmer.dart';
 
+import '../components/skeleton.dart';
 import 'components/list_course_shimmer.dart';
 
 class DetailCourseScreen extends StatefulWidget {
@@ -43,6 +46,7 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
     final dataMaterials =
         Provider.of<MaterialsViewModel>(context, listen: false);
     final dataReview = context.watch<ReviewCourseViewModel>().reviewCourse;
+    final dataEnroll = Provider.of<EnrollViewModel>(context);
     return Scaffold(
         appBar: AppBar(
           centerTitle: false,
@@ -213,6 +217,35 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
                         return const Center(child: Text('Tidak ada kursus'));
                       }
                     }),
+                    Consumer<MaterialsViewModel>(
+                        builder: (context, data, child) {
+                      if (data.courseMaterialsState ==
+                          CourseMaterialsState.loading) {
+                        return Shimmer.fromColors(
+                          baseColor: Colors.grey.shade300,
+                          highlightColor: Colors.grey.shade500,
+                          loop: 3,
+                          child: Column(
+                            children: const [
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Skeleton(height: 50, width: double.maxFinite),
+                            ],
+                          ),
+                        );
+                      }
+                      if (data.courseMaterialsState ==
+                          CourseMaterialsState.none) {
+                        return dataMaterials.modulsPreview.assignment != null
+                            ? AssignmentExpansionTile(
+                                isPreview: true,
+                                dataMaterials: dataMaterials.modulsEnrolled,
+                              )
+                            : Container();
+                      }
+                      return Container();
+                    })
                   ],
                 ),
               ),
@@ -257,12 +290,24 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
           child: Center(
             child: ElevatedButton(
               onPressed: () {
-                showAlertDialogFunction();
+                if (dataEnroll.isEnrolled!) {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => ModulCourseScreen(
+                          isHaveData: true,
+                          mentee: widget.mentee,
+                          courseModel: widget.courseModel),
+                    ),
+                  );
+                } else {
+                  showAlertDialogFunction();
+                }
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: MyColor.primaryLogo,
               ),
-              child: Text('Ambil Kursus',
+              child: Text(
+                  dataEnroll.isEnrolled! ? 'Lanjutkan Belajar' : 'Ambil Kursus',
                   style: GoogleFonts.roboto(
                       fontSize: 16,
                       fontWeight: FontWeight.w700,
@@ -440,11 +485,17 @@ class _DetailCourseScreenState extends State<DetailCourseScreen> {
       },
     );
     await Future.delayed(const Duration(seconds: 2));
-    Navigator.of(context).pushReplacement(
+    // Navigator.pop(context);
+    if (!mounted) return;
+    final data = await Navigator.of(context).pushReplacement(
       MaterialPageRoute(
         builder: (context) => ModulCourseScreen(
-            mentee: widget.mentee, courseModel: widget.courseModel),
+            isHaveData: false,
+            mentee: widget.mentee,
+            courseModel: widget.courseModel),
       ),
     );
+    if (!mounted) return;
+    Provider.of<EnrollViewModel>(context, listen: false).changeIsEnrolled(data);
   }
 }

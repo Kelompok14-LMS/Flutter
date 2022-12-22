@@ -1,7 +1,10 @@
 import 'package:edu_world/models/review_card_model.dart' as Review;
 import 'package:edu_world/utils/constant.dart';
+import 'package:edu_world/view/review/review_pdf_certificate.dart';
 import 'package:edu_world/view/user_course/components/search_bar.dart';
+import 'package:edu_world/view_models/certificate_view_model.dart';
 import 'package:edu_world/view_models/enroll_view_model.dart';
+import 'package:edu_world/view_models/profile_view_model.dart';
 import 'package:edu_world/view_models/review_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -19,6 +22,7 @@ class ReviewScreen extends StatefulWidget {
 
 class _ReviewScreenState extends State<ReviewScreen> {
   String mentee = '';
+  String menteeName = '';
   int rating = 5;
   final formKey = GlobalKey<FormState>();
 
@@ -34,150 +38,202 @@ class _ReviewScreenState extends State<ReviewScreen> {
       //     .getEnrolledCourseMentee(mentee, "", "completed");
       Provider.of<ReviewCourseViewModel>(context, listen: false)
           .getReviewCourseByCompletedCourse(mentee);
+      Provider.of<ProfileViewModel>(context, listen: false).getProfile(context);
     });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    final menteeData = Provider.of<ProfileViewModel>(context).mentees;
+    final certificateDataProv = Provider.of<CertificateViewModel>(context);
     // final size = MediaQuery.of(context).size;
     return Scaffold(
       body: SafeArea(
         child: Column(
           children: [
             const SearchBarUserCourse(titleSearch: 'Cari di Ulasan'),
-            Consumer<ReviewCourseViewModel>(builder: (context, data, _) {
-              final loading =
-                  data.reviewCourseState == ReviewCourseState.loading;
-              final none = data.reviewCourseState == ReviewCourseState.none;
-              if (loading) {
-                return const CircularProgressIndicator();
-              }
-              if (none) {
-                return Column(
-                    children: List.generate(
-                  data.reviewCardCourseModel.data?.length ?? 0,
-                  (index) {
-                    return Card(
-                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      child: SizedBox(
-                        width: 380,
-                        height: 120,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Image.network(
-                              data.reviewCardCourseModel.data![index]
-                                  .thumbnail!,
-                              height: 120,
-                              width: 120,
-                              fit: BoxFit.cover,
+            Expanded(
+              child:
+                  Consumer<ReviewCourseViewModel>(builder: (context, data, _) {
+                final loading =
+                    data.reviewCourseState == ReviewCourseState.loading;
+                final none = data.reviewCourseState == ReviewCourseState.none;
+                if (loading) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                if (none) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    child: Column(
+                        children: List.generate(
+                      data.reviewCardCourseModel.data?.length ?? 0,
+                      (index) {
+                        final courseData =
+                            data.reviewCardCourseModel.data![index];
+                        return SizedBox(
+                          height: 130,
+                          width: double.maxFinite,
+                          child: Card(
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16),
                             ),
-                            // Container(
-                            //   height: 120,
-                            //   width: 120,
-                            //   decoration: BoxDecoration(border: Border.all()),
-                            // ),
-                            const SizedBox(
-                              width: 16,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 8),
-                              child: SizedBox(
-                                height: double.maxFinite,
-                                width: 228,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                        data.reviewCardCourseModel.data![index]
-                                            .title!,
-                                        style: MyColor().reviewCourseTextStyle),
-                                    const SizedBox(
-                                      height: 4,
-                                    ),
-                                    Text(
-                                        data.reviewCardCourseModel.data![index]
-                                            .mentor!,
-                                        style:
-                                            MyColor().reviewCourseSubTextStyle),
-                                    const Expanded(
-                                      child: SizedBox(
-                                        height: 12,
-                                      ),
-                                    ),
-                                    Row(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Image.network(
+                                  courseData.thumbnail!,
+                                  height: double.maxFinite,
+                                  width: 120,
+                                  fit: BoxFit.cover,
+                                ),
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 8, horizontal: 16),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.start,
                                       children: [
-                                        const SizedBox(),
-                                        data.reviewCardCourseModel.data![index]
-                                                .reviewed!
-                                            ? Row(
-                                                children: [
-                                                  Text(
-                                                    'Selesai',
-                                                    style: MyColor()
-                                                        .reviewCourseTextStyle,
-                                                  ),
-                                                  const Icon(
-                                                    Icons.check_circle,
-                                                    color: MyColor.primaryLogo,
-                                                  )
-                                                ],
-                                              )
-                                            : SizedBox(
-                                                width: 120,
-                                                height: 32,
-                                                child: ElevatedButton(
-                                                  onPressed: () {
-                                                    showBottomRating(
-                                                        context,
-                                                        data.reviewCardCourseModel
-                                                            .data![index]);
-                                                  },
-                                                  style:
-                                                      ElevatedButton.styleFrom(
-                                                    backgroundColor:
-                                                        MyColor.primaryLogo,
-                                                    shape:
-                                                        RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              16),
+                                        Text(
+                                          courseData.title!,
+                                          style:
+                                              MyColor().reviewCourseTextStyle,
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 2,
+                                        ),
+                                        const SizedBox(
+                                          height: 4,
+                                        ),
+                                        Text(courseData.mentor!,
+                                            style: MyColor()
+                                                .reviewCourseSubTextStyle),
+                                        const Expanded(
+                                          child: SizedBox(),
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            const Expanded(child: SizedBox()),
+                                            courseData.reviewed!
+                                                ? certificateDataProv.isLoading
+                                                    ? const CircularProgressIndicator()
+                                                    : SizedBox(
+                                                        height: 30,
+                                                        child: ElevatedButton(
+                                                            style:
+                                                                ElevatedButton
+                                                                    .styleFrom(
+                                                              backgroundColor:
+                                                                  MyColor
+                                                                      .primaryLogo,
+                                                              shape:
+                                                                  RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            16),
+                                                              ),
+                                                            ),
+                                                            onPressed: () {
+                                                              Provider.of<CertificateViewModel>(
+                                                                      context,
+                                                                      listen:
+                                                                          false)
+                                                                  .getCertificate(
+                                                                      mentee,
+                                                                      courseData
+                                                                          .courseId!,
+                                                                      menteeData!
+                                                                          .data!
+                                                                          .fullname!,
+                                                                      courseData
+                                                                          .title!);
+                                                              if (!mounted) {
+                                                                return;
+                                                              }
+
+                                                              Navigator.push(
+                                                                  context,
+                                                                  MaterialPageRoute(
+                                                                    builder:
+                                                                        (context) =>
+                                                                            const ReviewPDFCertificate(),
+                                                                  ));
+                                                            },
+                                                            child: Row(
+                                                              children: const [
+                                                                Icon(
+                                                                  Icons
+                                                                      .download_rounded,
+                                                                  color: MyColor
+                                                                      .primary,
+                                                                  size: 18,
+                                                                ),
+                                                                Text(
+                                                                  'Sertifikat',
+                                                                  style: TextStyle(
+                                                                      color: MyColor
+                                                                          .primary,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500),
+                                                                )
+                                                              ],
+                                                            )),
+                                                      )
+                                                : SizedBox(
+                                                    width: 110,
+                                                    height: 32,
+                                                    child: ElevatedButton(
+                                                      onPressed: () {
+                                                        showBottomRating(
+                                                            context,
+                                                            data.reviewCardCourseModel
+                                                                .data![index]);
+                                                      },
+                                                      style: ElevatedButton
+                                                          .styleFrom(
+                                                        backgroundColor:
+                                                            MyColor.primaryLogo,
+                                                        shape:
+                                                            RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(16),
+                                                        ),
+                                                      ),
+                                                      child: Text(
+                                                        'Beri Ulasan',
+                                                        style: MyColor()
+                                                            .judulCourse,
+                                                      ),
                                                     ),
                                                   ),
-                                                  child: Text(
-                                                    'Beri Ulasan',
-                                                    style:
-                                                        MyColor().judulCourse,
-                                                  ),
-                                                ),
-                                              ),
+                                          ],
+                                        ),
+                                        const SizedBox(
+                                          height: 8,
+                                        ),
                                       ],
                                     ),
-                                    const Expanded(
-                                      child: SizedBox(
-                                        height: 8,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                ));
-              }
-              return const Text('Gagal memuat data');
-            })
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    )),
+                  );
+                }
+                return const Text('Gagal memuat data');
+              }),
+            )
           ],
         ),
       ),
@@ -268,6 +324,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                     Form(
                       key: formKey,
                       child: TextFormField(
+                        autocorrect: false,
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'Tidak boleh kosong';
@@ -325,7 +382,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                                         listen: false)
                                     .getReviewCourseByCompletedCourse(mentee);
                                 Navigator.pop(context);
-                                setState(() {});
+                                // setState(() {});
                               }
                             },
                             style: ElevatedButton.styleFrom(

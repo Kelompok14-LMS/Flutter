@@ -19,6 +19,7 @@ class CourseViewModel with ChangeNotifier {
   List<CourseModel> frontEnd = [];
   List<CourseModel> backEnd = [];
   List<CourseModel> keywordCourse = [];
+  String errorMessage = '';
   final String _token = '';
   String get tokenUser => _token;
   bool _isOngoing = true;
@@ -84,11 +85,19 @@ class CourseViewModel with ChangeNotifier {
     try {
       final result =
           await _dioService.getEnrolledCourseMentee(menteeId, keyword, status);
+      errorMessage = '';
+      if (result == '502') {
+        errorMessage = result;
+      }
       if (status == "ongoing") {
         courseCardModel.clear();
         courseCardModel = result;
+        print('berhasil mengambil data');
       } else {
         endCourseCardModel = result;
+      }
+      if (status == '') {
+        courseCardModel = result;
       }
       courseState = CourseState.none;
 

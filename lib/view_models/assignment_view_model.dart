@@ -42,6 +42,11 @@ class AssignmentViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  void changeStateAfterSendFile() {
+    viewState = ViewState.none;
+    notifyListeners();
+  }
+
   Future<void> uploadTugasPDF(context, {required String assignmentId}) async {
     final share = await SharedPreferences.getInstance();
     final token = share.getString('token');

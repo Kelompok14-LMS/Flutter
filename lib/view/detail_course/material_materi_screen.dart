@@ -149,8 +149,6 @@ class _VideoMateriScreenState extends State<VideoMateriScreen> {
                               if (!mounted) return;
                               value.getEnrolledMaterialsModules(
                                   widget.mentee, widget.courseModel.id!);
-                              // Provider.of<MaterialsViewModel>(context)
-                              //     .changeIsCompleted(true);
                             } else {
                               debugPrint('gagal menambahkan data');
                             }

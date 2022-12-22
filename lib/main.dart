@@ -1,8 +1,8 @@
 import 'package:edu_world/utils/constant.dart';
 import 'package:edu_world/view/splash/splash_screen.dart';
 import 'package:edu_world/view_models/auth_view_model.dart';
+import 'package:edu_world/view_models/certificate_view_model.dart';
 import 'package:edu_world/view_models/enroll_view_model.dart';
-import 'package:edu_world/view_models/list_course_view_model.dart';
 import 'package:edu_world/view_models/main_view_model.dart';
 import 'package:edu_world/view_models/materials_view_model.dart';
 import 'package:edu_world/view_models/onboarding_view_model.dart';
@@ -33,9 +33,6 @@ void main() {
       create: (context) => OnBoardingViewModel(),
     ),
     ChangeNotifierProvider(
-      create: (context) => ListCourseViewModel(),
-    ),
-    ChangeNotifierProvider(
       create: (context) => PopularViewModel(),
     ),
     ChangeNotifierProvider(
@@ -49,6 +46,9 @@ void main() {
     ),
     ChangeNotifierProvider(
       create: (context) => ReviewCourseViewModel(),
+    ),
+    ChangeNotifierProvider(
+      create: (context) => CertificateViewModel(),
     ),
   ], child: const MyApp()));
 }

@@ -21,12 +21,12 @@ class CourseDioService {
         },
       ),
     );
-    // _dio.interceptors.add(
-    //   LogInterceptor(
-    //     responseBody: true,
-    //     requestBody: true,
-    //   ),
-    // );
+    _dio.interceptors.add(
+      LogInterceptor(
+        responseBody: true,
+        requestBody: true,
+      ),
+    );
   }
 
   Future<List<CourseModel>> getAllCourse() async {
@@ -93,8 +93,11 @@ class CourseDioService {
       } else {
         return null;
       }
-    } catch (e) {
-      rethrow;
+    } on DioError catch (e) {
+      if (e.response!.statusCode == 502) {
+        return "502";
+      }
+      return [];
     }
   }
 

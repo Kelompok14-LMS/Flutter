@@ -21,16 +21,6 @@ class MyColor {
   static const Color info = Color(0xff0848AF);
   static const Color primaryLogo = Color(0xFFE4B548);
   static const Color review = Color(0xFFB0B9C4);
-// Color secondary = const Color.fromARGB(255, 1, 145, 193);
-// Color transparent = Colors.transparent;
-// Color black = Colors.black;
-// Color grey = Colors.grey;
-// Color red = Colors.red;
-// Color green = Colors.green;
-// Color shadow = Colors.grey.shade400;
-// Color textGrey1 = Colors.grey.shade500;
-// Color star = Colors.yellow.shade600;
-
   static const Color blackBase = Color(0xff222222);
   static const Color whiteColor = Colors.white;
   static const Color blackColor = Colors.black;

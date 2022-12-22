@@ -1,5 +1,4 @@
 import 'package:edu_world/view/detail_course/detail_course_screen.dart';
-import 'package:edu_world/view/detail_course/modul_course_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -42,12 +41,10 @@ class _KelasCourseState extends State<KelasCourse> {
                 .checkEnrollmentCourse(widget.courseModel.id!, widget.mentee);
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => !dataProvider.isEnrolled!
-                    ? DetailCourseScreen(
-                        mentee: widget.mentee, courseModel: widget.courseModel)
-                    : ModulCourseScreen(
-                        mentee: widget.mentee, courseModel: widget.courseModel),
-              ),
+                  builder: (context) => DetailCourseScreen(
+                        mentee: widget.mentee,
+                        courseModel: widget.courseModel,
+                      )),
             );
           },
           child: Column(

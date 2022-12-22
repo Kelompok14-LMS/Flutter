@@ -27,6 +27,8 @@ class UserListCourse extends StatefulWidget {
 
 class _UserListCourseState extends State<UserListCourse> {
   String mentee = '';
+  double percentCourse = 0;
+  double percentEndCourse = 0;
 
   @override
   void initState() {
@@ -46,6 +48,9 @@ class _UserListCourseState extends State<UserListCourse> {
   Widget build(BuildContext context) {
     return Consumer<CourseViewModel>(
       builder: (context, value, child) {
+        if (value.errorMessage == '502') {
+          return const Center(child: Text('error 502, gagal memuat data'));
+        }
         if (widget.isOngoing
             ? value.courseCardModel.isNotEmpty
             : value.endCourseCardModel.isNotEmpty) {
@@ -55,6 +60,13 @@ class _UserListCourseState extends State<UserListCourse> {
                   widget.isOngoing
                       ? value.courseCardModel.length
                       : value.endCourseCardModel.length, (index) {
+                if (widget.isOngoing) {
+                  percentCourse = value.courseCardModel[index].progress! /
+                      value.courseCardModel[index].totalMaterials!;
+                } else {
+                  percentEndCourse = value.endCourseCardModel[index].progress! /
+                      value.endCourseCardModel[index].totalMaterials!;
+                }
                 return Card(
                   clipBehavior: Clip.antiAliasWithSaveLayer,
                   shape: RoundedRectangleBorder(
@@ -65,6 +77,7 @@ class _UserListCourseState extends State<UserListCourse> {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) => ModulCourseScreen(
+                              isHaveData: true,
                               mentee: mentee,
                               courseModel: widget.isOngoing
                                   ? value.courseCardModel[index]
@@ -144,36 +157,19 @@ class _UserListCourseState extends State<UserListCourse> {
                               padding: EdgeInsets.zero,
                               barRadius: const Radius.circular(16),
                               percent: widget.isOngoing
-                                  ? (value.courseCardModel[index].progress! /
-                                                  value.courseCardModel[index]
-                                                      .totalMaterials!)
-                                              .toDouble() <=
-                                          1.0
-                                      ? (value.courseCardModel[index]
-                                                  .progress! /
-                                              value.courseCardModel[index]
-                                                  .totalMaterials!)
-                                          .toDouble()
+                                  ? percentCourse.toDouble() <= 1.0
+                                      ? percentCourse.toDouble()
                                       : 1
-                                  : (value.endCourseCardModel[index].progress! /
-                                                  value
-                                                      .endCourseCardModel[index]
-                                                      .totalMaterials!)
-                                              .toDouble() <=
-                                          1.0
-                                      ? (value.endCourseCardModel[index]
-                                                  .progress! /
-                                              value.endCourseCardModel[index]
-                                                  .totalMaterials!)
-                                          .toDouble()
+                                  : percentEndCourse.toDouble() <= 1.0
+                                      ? percentEndCourse.toDouble()
                                       : 1,
                               lineHeight: 23,
                               progressColor: MyColor.primaryLogo,
                               backgroundColor: Colors.white,
                               center: RobotoText(
                                 text: widget.isOngoing
-                                    ? "${(value.courseCardModel[index].progress! / value.courseCardModel[index].totalMaterials! * 100).isNaN ? 0 : (value.courseCardModel[index].progress! / value.courseCardModel[index].totalMaterials! * 100).toInt()}%"
-                                    : "${(value.endCourseCardModel[index].progress! / value.endCourseCardModel[index].totalMaterials! * 100).isNaN ? 0 : (value.endCourseCardModel[index].progress! / value.endCourseCardModel[index].totalMaterials! * 100).toInt()}%",
+                                    ? "${(percentCourse * 100).isNaN ? 0 : (percentCourse * 100).toInt()}%"
+                                    : "${(percentEndCourse * 100).isNaN ? 0 : (percentEndCourse * 100).toInt()}%",
                                 fontSize: 12,
                                 fontWeight: FontWeight.w700,
                               ),

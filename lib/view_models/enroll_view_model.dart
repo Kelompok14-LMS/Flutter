@@ -8,16 +8,23 @@ class EnrollViewModel extends ChangeNotifier {
   EnrollState enrollState = EnrollState.none;
   String? mentee;
   final _dioService = EnrollDioService();
+  bool addCourseSucces = false;
 
   void saveMenteeId(String menteeId) {
     mentee = menteeId;
   }
 
   Future<void> enrollCourse(String courseId, String menteeId) async {
+    addCourseSucces = false;
     try {
       final result = await _dioService.enrollCourse(courseId, menteeId);
       print(result);
+      if (result == 'Succes add Course') {
+        addCourseSucces = true;
+      }
+      print('salah');
     } catch (e) {}
+    print('salah 2');
     notifyListeners();
   }
 
@@ -33,6 +40,11 @@ class EnrollViewModel extends ChangeNotifier {
       // print('error');
       enrollState = EnrollState.error;
     }
+    notifyListeners();
+  }
+
+  void changeIsEnrolled(bool b) {
+    isEnrolled = b;
     notifyListeners();
   }
 }

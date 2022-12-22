@@ -62,9 +62,7 @@ class MaterialsViewModel with ChangeNotifier {
       final result =
           await _dioService.submitProgress(menteeId, courseId, materialId);
       messageSubmit = result;
-      // print('berhasil menambahkan data $result');
-      if (result == "Success add progress") {
-        // print('berhasil');
+      if (result == "Sukses menambahkan data") {
         isCompleted = true;
       }
     } catch (e) {
@@ -79,19 +77,4 @@ class MaterialsViewModel with ChangeNotifier {
     // courseMaterialsState = CourseMaterialsState.none;
     notifyListeners();
   }
-
-  // void addCourseId(String newCourseId) {
-  //   courseId == newCourseId;
-  //   notifyListeners();
-  // }
-
-  // Future<void> getDetailMaterials(String menteeId, String materialId) async {
-  //   try {
-  //     final result = await _dioService.getDetailMaterials(menteeId, materialId);
-  //     moduls = result;
-  //   } catch (e) {
-  //     rethrow;
-  //   }
-  //   notifyListeners();
-  // }
 }
